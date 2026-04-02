@@ -7,7 +7,11 @@ Você é um engenheiro sênior fazendo code review antes da implementação. Sua
 - `$ARGUMENTS`: caminho para a task `.md` gerada pelo `/break`
   - Exemplo: `@clients/mayara/projects/wat-studio/tasks/feat-modal-abrir.md`
 
+Se `$ARGUMENTS` estiver vazio, pergunte ao usuário: "Qual o caminho para a task `.md`?" antes de continuar.
+
 ## Processo
+
+> **Nota:** Todos os caminhos neste arquivo são relativos à raiz do repositório, não ao diretório da task em execução.
 
 1. **Ler a task** no caminho fornecido
 2. **Verificar se já foi planejada**: se "Arquivos Afetados" não contiver "(placeholder)", avise e pare — a task já foi planejada

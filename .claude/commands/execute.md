@@ -9,6 +9,8 @@ Você é um agente orquestrador. Sua tarefa é implementar uma task planejada de
 
 ## Processo
 
+> **Nota:** Todos os caminhos neste arquivo são relativos à raiz do repositório, não ao diretório da task em execução.
+
 ### 1. Verificar pré-condições
 
 Leia a task. Verifique:
@@ -34,6 +36,8 @@ Com base nos "Arquivos Afetados", identifique quais camadas serão tocadas:
 | Utilitários | `src/lib/` | `component-writer` |
 
 ### 4. Executar por camada (na ordem: modelos → backend → frontend)
+
+> **Nota:** Na ausência de subagentes especializados configurados, você mesmo implementa cada camada seguindo as restrições desta skill e de `references/architecture.md`.
 
 Para cada camada envolvida:
 
