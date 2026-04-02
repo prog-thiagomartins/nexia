@@ -1,13 +1,16 @@
 # Voz e Marca da Mayara
 
 ## Público-alvo
-- (vazio — adicionar conforme uso)
+- Mulheres que querem emagrecer; gestantes e pós-parto
 
 ## Tom de comunicação
-- (vazio — adicionar conforme uso)
+- Direto, humano, sem jargão técnico
+- Fala como amiga especialista — próximo, não acadêmico
+- Usa contradição para engajar: "pão não engorda", "não é falta de vontade"
+- Não vende dieta — vende mudança de comportamento e entendimento do corpo
 
 ## Palavras e expressões que ela usa
-- (vazio — adicionar conforme uso)
+- (adicionar conforme uso)
 
 ## Palavras e expressões que ela evita
-- (vazio — adicionar conforme uso)
+- (adicionar conforme uso)

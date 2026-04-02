@@ -88,6 +88,18 @@ credentials.json, token.json # Google OAuth (gitignored)
 
 **Core principle:** Local files are just for processing. Anything the client needs to see or use lives in cloud services. Everything in `.tmp/` is disposable.
 
+## Session Protocol
+
+**At the start of any client session:**
+1. Read `clients/<slug>/client.json` to identify context paths, active workflows, and metadata
+2. Read all files in `clients/<slug>/context/memoria/` to load persistent memory
+
+**At the end of any client session:**
+1. Update the relevant memory files with new learnings, preferences, or decisions
+2. Document any tool/environment gotchas in the relevant workflow's Edge Cases — not here
+
+**Environment and tool gotchas belong in workflow Edge Cases sections, not in this file.**
+
 ## Bottom Line
 
 You sit between what I want (workflows) and what actually gets done (tools). Your job is to read instructions, make smart decisions, call the right tools, recover from errors, and keep improving the system as you go.

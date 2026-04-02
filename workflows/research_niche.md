@@ -1,192 +1,192 @@
-# Workflow: Pesquisa de Nicho — Mayara Farias (Nutrição)
+# Workflow: Niche Research — Mayara Farias (Nutrition)
 
-## Objetivo
+## Objective
 
-Realizar pesquisa multi-fonte sobre um tema do nicho de nutrição para mulheres.
-Gera um relatório consolidado em `.tmp/` com insights de YouTube, web, notícias e estudos científicos.
+Conduct multi-source research on a topic in the women's nutrition niche.
+Generates a consolidated report in `.tmp/` with insights from YouTube, web, news, and scientific studies.
 
-## Inputs Necessários
+## Required Inputs
 
-- `tema`: O que pesquisar (ex: "jejum intermitente para mulheres", "protocolo low carb 2025")
-- `profundidade`: **Rápido** (só metadados) ou **Profundo** (inclui transcrições de vídeos)
-- `formato_output`: Formato do relatório final (ver opções abaixo)
+- `topic`: What to research (e.g., "intermittent fasting for women", "low carb protocol 2025")
+- `depth`: **Quick** (metadata only) or **Deep** (includes video transcripts)
+- `output_format`: Format of the final report (see options below)
 
 ---
 
-## PASSO 0 — Perguntas obrigatórias antes de iniciar
+## STEP 0 — Mandatory questions before starting
 
-**SEMPRE pergunte antes de executar qualquer tool:**
+**ALWAYS ask before running any tool:**
 
-> **1. Profundidade da pesquisa:**
-> - **Rápido**: busca títulos, snippets e links — resultado em ~30 segundos
-> - **Profundo**: extrai transcrições dos top vídeos do YouTube — resultado em ~2-3 minutos, muito mais conteúdo
+> **1. Research depth:**
+> - **Quick**: fetches titles, snippets, and links — result in ~30 seconds
+> - **Deep**: extracts transcripts from top YouTube videos — result in ~2-3 minutes, much more content
 >
-> **2. Formato do material gerado:**
-> - **Resumo executivo**: síntese dos principais insights, pronto para usar
-> - **Relatório completo**: raw data + análise — útil para consultar fontes depois
-> - **Briefing de conteúdo**: focado em ideias para posts, vídeos ou materiais da Mayara
-> - **Benchmarking**: análise focada em concorrentes e posicionamento
+> **2. Format of the generated material:**
+> - **Executive summary**: synthesis of the main insights, ready to use
+> - **Full report**: raw data + analysis — useful for consulting sources later
+> - **Content briefing**: focused on ideas for posts, videos, or materials for Mayara
+> - **Benchmarking**: analysis focused on competitors and positioning
 
-Aguarde a resposta antes de continuar.
+Wait for the response before continuing.
 
 ---
 
-## PASSO 1 — Execução das buscas (em paralelo)
+## STEP 1 — Execute searches (in parallel)
 
-Execute as 4 buscas **simultaneamente**:
+Run all 4 searches **simultaneously**:
 
 ### 1a. YouTube
 ```bash
-# Modo Rápido
-python tools/search_youtube.py "<tema>" --max 8
+# Quick mode
+python tools/search_youtube.py "<topic>" --max 8
 
-# Modo Profundo
-python tools/search_youtube.py "<tema>" --max 5 --transcripts
+# Deep mode
+python tools/search_youtube.py "<topic>" --max 5 --transcripts
 ```
 
-### 1b. Web Geral (artigos, blogs, sites de nutrição)
+### 1b. General Web (articles, blogs, nutrition sites)
 ```bash
-python tools/search_web.py "<tema> nutrição" --max 10 --region br-pt
+python tools/search_web.py "<topic> nutrition" --max 10 --region br-pt
 ```
 
-### 1c. Notícias recentes
+### 1c. Recent news
 ```bash
-python tools/search_web.py "<tema>" --max 8 --type news --region br-pt
+python tools/search_web.py "<topic>" --max 8 --type news --region br-pt
 ```
 
-### 1d. Estudos científicos (PubMed)
+### 1d. Scientific studies (PubMed)
 ```bash
-# Use termos em inglês para melhores resultados
-python tools/search_pubmed.py "<tema em inglês>" --max 6 --years 3
+# Use English terms for best results
+python tools/search_pubmed.py "<topic in English>" --max 6 --years 3
 ```
 
-### Buscas adicionais por tipo de pesquisa
+### Additional searches by research type
 
-**Se for benchmarking de concorrentes:**
+**If competitor benchmarking:**
 ```bash
-python tools/search_youtube.py "nutricionista <tema>" --max 10
-python tools/search_web.py "nutricionista <tema> programa" --max 10
+python tools/search_youtube.py "nutritionist <topic>" --max 10
+python tools/search_web.py "nutritionist <topic> program" --max 10
 ```
 
-**Se for tendências:**
+**If trends:**
 ```bash
-python tools/search_web.py "<tema> tendência 2025" --max 10 --type news
-python tools/search_youtube.py "<tema> 2025" --max 8
+python tools/search_web.py "<topic> trend 2025" --max 10 --type news
+python tools/search_youtube.py "<topic> 2025" --max 8
 ```
 
-**Se for busca em sites específicos:**
+**If searching specific sites:**
 ```bash
-# Exemplos de sites especializados:
-python tools/search_web.py "<tema>" --site sbcbm.org.br --max 5
-python tools/search_web.py "<tema>" --site cfn.org.br --max 5
-python tools/search_web.py "<tema>" --site examine.com --max 5
-python tools/search_web.py "<tema>" --site healthline.com --max 5
+# Examples of specialized sites:
+python tools/search_web.py "<topic>" --site sbcbm.org.br --max 5
+python tools/search_web.py "<topic>" --site cfn.org.br --max 5
+python tools/search_web.py "<topic>" --site examine.com --max 5
+python tools/search_web.py "<topic>" --site healthline.com --max 5
 ```
 
 ---
 
-## PASSO 2 — Consolidação e análise
+## STEP 2 — Consolidation and analysis
 
-Com os resultados das 4 fontes, analise e sintetize:
+With results from all 4 sources, analyze and synthesize:
 
-### Para todos os formatos, identifique:
-1. **Principais subtemas**: O que está sendo mais discutido sobre esse tema?
-2. **Ângulos de conteúdo**: Quais abordagens diferentes os criadores usam?
-3. **Dados e números**: Estatísticas, percentuais, resultados mencionados
-4. **Dúvidas frequentes**: O que as pessoas querem saber?
-5. **Gaps de conteúdo**: O que não está sendo coberto bem?
+### For all formats, identify:
+1. **Main subtopics**: What is being most discussed about this topic?
+2. **Content angles**: What different approaches do creators use?
+3. **Data and numbers**: Statistics, percentages, results mentioned
+4. **Frequently asked questions**: What do people want to know?
+5. **Content gaps**: What is not being covered well?
 
-### Se for Benchmarking, adicione:
-6. **Concorrentes identificados**: Nome, canal, posicionamento
-7. **O que eles fazem bem**: Pontos fortes observados
-8. **Diferenciação possível**: Onde a Mayara pode se destacar
+### If Benchmarking, add:
+6. **Identified competitors**: Name, channel, positioning
+7. **What they do well**: Observed strengths
+8. **Possible differentiation**: Where Mayara can stand out
 
-### Se for Estudos Científicos, adicione:
-9. **Evidências encontradas**: Nível de evidência (revisão sistemática > RCT > estudos observacionais)
-10. **Consenso atual**: O que a ciência diz de forma consolidada?
-11. **Controvérsias**: Onde há debate científico?
+### If Scientific Studies, add:
+9. **Evidence found**: Level of evidence (systematic review > RCT > observational studies)
+10. **Current consensus**: What does science say in a consolidated way?
+11. **Controversies**: Where is there scientific debate?
 
 ---
 
-## PASSO 3 — Geração do relatório
+## STEP 3 — Report generation
 
-Salve o relatório em `.tmp/research_[tema-slug]_[data].md`.
+Save the report to `.tmp/research_[topic-slug]_[date].md`.
 
-**Exemplo de nome:** `.tmp/research_jejum-intermitente_2025-04-01.md`
+**Name example:** `.tmp/research_intermittent-fasting_2025-04-01.md`
 
-### Template do relatório
+### Report template
 
 ```markdown
-# Pesquisa: [Tema]
-**Data:** [data]  
-**Profundidade:** [Rápido/Profundo]  
-**Fontes consultadas:** YouTube ([N] vídeos) · Web ([N] resultados) · Notícias ([N]) · PubMed ([N] estudos)
+# Research: [Topic]
+**Date:** [date]
+**Depth:** [Quick/Deep]
+**Sources consulted:** YouTube ([N] videos) · Web ([N] results) · News ([N]) · PubMed ([N] studies)
 
 ---
 
-## Resumo Executivo
-[3-5 bullets com os insights mais importantes]
+## Executive Summary
+[3-5 bullets with the most important insights]
 
 ---
 
-## YouTube — O que está sendo dito
+## YouTube — What is being said
 
-### Top Vídeos Encontrados
-| Título | Canal | Views | Link |
+### Top Videos Found
+| Title | Channel | Views | Link |
 |--------|-------|-------|------|
 
-### Principais Mensagens
-[Síntese do que os criadores estão dizendo — extraída das transcrições se modo Profundo]
+### Main Messages
+[Synthesis of what creators are saying — extracted from transcripts if Deep mode]
 
 ---
 
-## Web & Notícias — Tendências e Contexto
+## Web & News — Trends and Context
 
-### Artigos Relevantes
-[Lista com título + snippet + link dos mais relevantes]
+### Relevant Articles
+[List with title + snippet + link of the most relevant ones]
 
-### O que está em alta
-[Tendências identificadas]
+### What is trending
+[Identified trends]
 
 ---
 
-## Ciência — O que os estudos dizem
+## Science — What studies say
 
-### Artigos do PubMed
-| Título | Autores | Ano | Journal | Link |
+### PubMed Articles
+| Title | Authors | Year | Journal | Link |
 |--------|---------|-----|---------|------|
 
-### Consenso Científico
-[Síntese do que a evidência aponta]
+### Scientific Consensus
+[Synthesis of what the evidence points to]
 
 ---
 
-## Ideias de Conteúdo para a Mayara
-[5-10 ideias de posts, vídeos, ou materiais baseadas na pesquisa]
+## Content Ideas for Mayara
+[5-10 ideas for posts, videos, or materials based on the research]
 
 ---
 
-## Fontes Completas
-[Links de tudo que foi encontrado, organizados por categoria]
+## Complete Sources
+[Links to everything found, organized by category]
 ```
 
 ---
 
-## Tratamento de Erros
+## Error Handling
 
-| Erro | Ação |
+| Error | Action |
 |------|------|
-| `yt-dlp não encontrado` | `pip install yt-dlp` e tentar novamente |
-| `duckduckgo-search não instalado` | `pip install duckduckgo-search` e tentar novamente |
-| `Nenhum resultado no PubMed` | Traduzir query para inglês e tentar termos mais gerais |
-| `Transcript indisponível` | Registrar no relatório e usar apenas título/descrição |
-| `Timeout` | Tentar com `--max` menor ou dividir a pesquisa em subtemas |
+| `yt-dlp not found` | `pip install yt-dlp` and try again |
+| `duckduckgo-search not installed` | `pip install duckduckgo-search` and try again |
+| `No results in PubMed` | Translate query to English and try more general terms |
+| `Transcript unavailable` | Record in the report and use title/description only |
+| `Timeout` | Try with a smaller `--max` or split the research into subtopics |
 
 ---
 
-## Notas e Aprendizados
+## Notes and Learnings
 
-- PubMed retorna melhores resultados com termos em inglês (ex: "intermittent fasting women" em vez de "jejum intermitente mulheres")
-- `yt-dlp` pode demorar 10-20s por vídeo ao buscar transcrições no modo Profundo
-- DuckDuckGo pode ser bloqueado temporariamente após muitas buscas — aguardar 1-2 minutos se ocorrer
-- Para benchmarking, adicionar o nome da especialidade ao termo ajuda (ex: "nutricionista jejum intermitente")
+- PubMed returns better results with English terms (e.g., "intermittent fasting women" instead of "jejum intermitente mulheres")
+- `yt-dlp` can take 10-20s per video when fetching transcripts in Deep mode
+- DuckDuckGo may be temporarily blocked after many searches — wait 1-2 minutes if this occurs
+- For benchmarking, adding the specialty name to the term helps (e.g., "nutritionist intermittent fasting")

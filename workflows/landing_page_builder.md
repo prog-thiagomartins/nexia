@@ -1,39 +1,39 @@
 # Workflow: Landing Page Builder
 
-## Objetivo
+## Objective
 
-Criar landing pages animadas e de alto valor comercial usando Claude Code como orquestrador, com Anime.js e GSAP para animações, seguindo um processo estruturado e reproduzível.
+Create animated, high-commercial-value landing pages using Claude Code as orchestrator, with Anime.js and GSAP for animations, following a structured and reproducible process.
 
-## Inputs Necessários
+## Required Inputs
 
-- `project_name`: Nome do projeto/produto
-- `goal`: Objetivo da página (captura de leads, venda direta, evento, etc.)
-- `sections`: Lista de seções desejadas (hero, benefícios, depoimentos, CTA, etc.)
-- `style_reference`: URL ou descrição visual de referência (opcional)
-- `images`: Imagens prontas ou instrução para gerar via `image_generation_pipeline.md`
+- `project_name`: Project/product name
+- `goal`: Page objective (lead capture, direct sale, event, etc.)
+- `sections`: List of desired sections (hero, benefits, testimonials, CTA, etc.)
+- `style_reference`: Reference URL or visual description (optional)
+- `images`: Ready images or instruction to generate via `image_generation_pipeline.md`
 
-## Ferramentas
+## Tools
 
-- Claude Code (orquestrador principal)
-- Anime.js — animações de entrada, contadores, efeitos de texto
-- GSAP — scroll horizontal, efeitos magnéticos de mouse, parallax
+- Claude Code (main orchestrator)
+- Anime.js — entrance animations, counters, text effects
+- GSAP — horizontal scroll, magnetic mouse effects, parallax
 
-## Processo
+## Process
 
-### Passo 1 — Definir estrutura da página
+### Step 1 — Define page structure
 
-Antes de escrever qualquer código, defina com o usuário:
+Before writing any code, define with the user:
 
-1. Quais seções a página terá e em que ordem
-2. Qual o CTA principal (botão, formulário, link)
-3. Paleta de cores e tipografia (ou extrair de referência)
-4. Se haverá scroll horizontal (efeito favorito do criador — funciona bem para features/pilares)
+1. Which sections the page will have and in what order
+2. What the main CTA is (button, form, link)
+3. Color palette and typography (or extract from reference)
+4. Whether there will be horizontal scroll (creator's favorite effect — works well for features/pillars)
 
-Documente isso em `.tmp/lp_brief_<project_name>.md` antes de prosseguir.
+Document this in `.tmp/lp_brief_<project_name>.md` before proceeding.
 
-### Passo 2 — Scaffolding do projeto
+### Step 2 — Project scaffolding
 
-Crie a estrutura de arquivos:
+Create the file structure:
 
 ```
 <project_name>/
@@ -41,16 +41,16 @@ Crie a estrutura de arquivos:
 ├── css/
 │   └── styles.css
 ├── js/
-│   ├── animations.js    # Anime.js — animações de entrada
-│   ├── scroll.js        # GSAP — scroll horizontal e parallax
-│   └── magnetic.js      # Efeito magnético do mouse
+│   ├── animations.js    # Anime.js — entrance animations
+│   ├── scroll.js        # GSAP — horizontal scroll and parallax
+│   └── magnetic.js      # Magnetic mouse effect
 ├── images/
-│   └── (geradas via image_generation_pipeline.md)
+│   └── (generated via image_generation_pipeline.md)
 └── assets/
-    └── (fontes, ícones)
+    └── (fonts, icons)
 ```
 
-Inclua Anime.js e GSAP via CDN no `<head>` do HTML:
+Include Anime.js and GSAP via CDN in the HTML `<head>`:
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
@@ -58,21 +58,21 @@ Inclua Anime.js e GSAP via CDN no `<head>` do HTML:
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 ```
 
-### Passo 3 — Construir HTML e CSS
+### Step 3 — Build HTML and CSS
 
-1. Construa o HTML semântico de cada seção
-2. Aplique CSS base: layout, cores, tipografia, responsividade mobile
-3. Adicione classes de animação (`data-animate`, `data-scroll`) nos elementos que serão animados — deixe os efeitos para o próximo passo
+1. Build semantic HTML for each section
+2. Apply base CSS: layout, colors, typography, mobile responsiveness
+3. Add animation classes (`data-animate`, `data-scroll`) to elements that will be animated — leave the effects for the next step
 
-**Regra:** Mobile-first. A página deve funcionar bem no celular antes de qualquer animação.
+**Rule:** Mobile-first. The page must work well on mobile before any animation.
 
-### Passo 4 — Implementar animações
+### Step 4 — Implement animations
 
-Implemente em camadas, testando cada uma antes de avançar:
+Implement in layers, testing each one before moving on:
 
-**Camada 1 — Entrada (Anime.js)**
+**Layer 1 — Entrance (Anime.js)**
 ```js
-// Exemplo: fade + slide up nos elementos com data-animate
+// Example: fade + slide up on elements with data-animate
 anime({
   targets: '[data-animate]',
   opacity: [0, 1],
@@ -83,9 +83,9 @@ anime({
 });
 ```
 
-**Camada 2 — Scroll horizontal (GSAP)**
+**Layer 2 — Horizontal scroll (GSAP)**
 ```js
-// Para seções de features/pilares
+// For features/pillars sections
 gsap.registerPlugin(ScrollTrigger);
 gsap.to(".horizontal-track", {
   x: () => -(document.querySelector(".horizontal-track").scrollWidth - window.innerWidth),
@@ -99,9 +99,9 @@ gsap.to(".horizontal-track", {
 });
 ```
 
-**Camada 3 — Efeito magnético do mouse**
+**Layer 3 — Magnetic mouse effect**
 ```js
-// Botões e elementos interativos seguem o cursor
+// Buttons and interactive elements follow the cursor
 document.querySelectorAll('.magnetic').forEach(el => {
   el.addEventListener('mousemove', (e) => {
     const rect = el.getBoundingClientRect();
@@ -115,38 +115,38 @@ document.querySelectorAll('.magnetic').forEach(el => {
 });
 ```
 
-### Passo 5 — Imagens
+### Step 5 — Images
 
-Se as imagens ainda não estiverem prontas, execute `image_generation_pipeline.md` agora e aplique os arquivos gerados na pasta `images/`.
+If images are not yet ready, execute `image_generation_pipeline.md` now and apply the generated files to the `images/` folder.
 
-### Passo 6 — Revisão final
+### Step 6 — Final review
 
-Checklist antes de considerar a página pronta:
+Checklist before considering the page done:
 
-- [ ] Abre corretamente no mobile e no desktop
-- [ ] Animações não travam em dispositivos mais lentos
-- [ ] CTA está visível acima da dobra (sem scroll)
-- [ ] Scroll horizontal funciona com trackpad e touch
-- [ ] Imagens têm fundo removido onde necessário
-- [ ] Nenhum erro no console do navegador
+- [ ] Opens correctly on mobile and desktop
+- [ ] Animations do not stutter on slower devices
+- [ ] CTA is visible above the fold (without scrolling)
+- [ ] Horizontal scroll works with trackpad and touch
+- [ ] Images have background removed where necessary
+- [ ] No errors in the browser console
 
 ## Outputs
 
-- Pasta `<project_name>/` com todos os arquivos da landing page
-- Página funcional, animada e responsiva
-- Pronta para deploy via `deploy_site.md`
+- `<project_name>/` folder with all landing page files
+- Functional, animated, and responsive page
+- Ready for deployment via `deploy_site.md`
 
 ## Edge Cases
 
-| Situação | Como lidar |
+| Situation | How to handle |
 |---|---|
-| GSAP ScrollTrigger não funciona | Verificar se o plugin foi registrado com `gsap.registerPlugin(ScrollTrigger)` |
-| Animações lentas no mobile | Reduzir `duration` e desativar efeito magnético em touch devices (`'ontouchstart' in window`) |
-| Imagens sem fundo disponíveis | Executar `image_generation_pipeline.md` antes de continuar |
-| Cliente quer CMS | Escopo diferente — esse workflow é para páginas estáticas de alta performance |
+| GSAP ScrollTrigger not working | Verify that the plugin was registered with `gsap.registerPlugin(ScrollTrigger)` |
+| Slow animations on mobile | Reduce `duration` and disable magnetic effect on touch devices (`'ontouchstart' in window`) |
+| Images without background available | Run `image_generation_pipeline.md` before continuing |
+| Client wants CMS | Different scope — this workflow is for high-performance static pages |
 
-## Referências do Vídeo
+## Video References
 
-- Canal: Mateus Dias — "CLAUDE CODE + NANO BANANA PRO = Sites de R$10.000"
-- Bibliotecas usadas em produção: Anime.js + GSAP
-- Efeito scroll horizontal validado em páginas reais com boa taxa de conversão
+- Channel: Mateus Dias — "CLAUDE CODE + NANO BANANA PRO = Sites de R$10.000"
+- Libraries used in production: Anime.js + GSAP
+- Horizontal scroll effect validated on real pages with good conversion rates

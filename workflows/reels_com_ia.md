@@ -12,9 +12,11 @@ Transformar um vídeo horizontal (YouTube, gravação própria) em reel vertical
 
 | Input | Descrição | Exemplo |
 |---|---|---|
-| `video_url` | URL do YouTube ou caminho local | `https://youtube.com/watch?v=...` |
+| `video` | URL do YouTube **ou** caminho local em `.tmp/` | `https://youtube.com/watch?v=...` ou `.tmp/video.mp4` |
 | `tema` | O que o reel vai comunicar | `"alimentos que causam azia na gestação"` |
 | `trecho` | Qual parte do vídeo usar (texto livre) | `"a parte onde ela lista os alimentos"` |
+
+> **Vídeo local:** jogue o arquivo em `.tmp/` e informe o nome. Não precisa de URL nem download.
 
 ---
 
@@ -30,23 +32,30 @@ Transformar um vídeo horizontal (YouTube, gravação própria) em reel vertical
 
 ## Processo
 
-### Passo 1 — Analisar o vídeo
+### Passo 1 — Obter o vídeo
 
-```bash
-python tools/fetch_youtube_info.py <youtube_url>
-```
-
-Leia a transcrição com timestamps e identifique:
-- Qual trecho é mais valioso (dica prática, lista, contradição)
-- O timestamp exato de início e fim do conteúdo útil
-- As frases de impacto para virar texto na tela
-
-### Passo 2 — Baixar o vídeo
-
+**Opção A — YouTube:**
 ```bash
 mkdir -p .tmp
 yt-dlp -o ".tmp/%(title)s.%(ext)s" <youtube_url>
 ```
+
+**Opção B — Vídeo local (celular, gravação, etc.):**
+Usuário joga o arquivo direto em `.tmp/`. Nenhum comando necessário.
+
+### Passo 2 — Analisar o conteúdo
+
+**Se veio do YouTube** — extrair transcrição com timestamps:
+```bash
+python tools/fetch_youtube_info.py <youtube_url>
+```
+
+**Se veio de arquivo local** — usar ffprobe para ver duração e pedir ao usuário que descreva o trecho:
+```bash
+ffprobe -v quiet -show_entries format=duration -of csv=p=0 .tmp/video.mp4
+```
+
+Com base na descrição do usuário + duração, estimar os timestamps do trecho desejado.
 
 ### Passo 3 — Montar o config JSON
 
