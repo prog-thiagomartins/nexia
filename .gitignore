@@ -1,7 +1,16 @@
+# Client context — privado, vive em nexia-<slug>
+clients/*/context/
+clients/*/.env
+
+# Gemini sandbox — gerado, não precisa de versioning
+gemini/
+
+# Runtime / temp
 .tmp/
 __pycache__/
 *.pyc
+
+# Credentials
 .env
 credentials.json
 token.json
-clients/*/.env

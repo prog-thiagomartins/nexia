@@ -1,8 +1,8 @@
-# Workflow: Niche Research — Mayara Farias (Nutrition)
+# Workflow: Niche Research — [CLIENT_NAME] ([CLIENT_NICHE])
 
 ## Objective
 
-Conduct multi-source research on a topic in the women's nutrition niche.
+Conduct multi-source research on a topic in the women's [CLIENT_NICHE] niche.
 Generates a consolidated report in `.tmp/` with insights from YouTube, web, news, and scientific studies.
 
 ## Required Inputs
@@ -24,7 +24,7 @@ Generates a consolidated report in `.tmp/` with insights from YouTube, web, news
 > **2. Format of the generated material:**
 > - **Executive summary**: synthesis of the main insights, ready to use
 > - **Full report**: raw data + analysis — useful for consulting sources later
-> - **Content briefing**: focused on ideas for posts, videos, or materials for Mayara
+> - **Content briefing**: focused on ideas for posts, videos, or materials for [CLIENT_NAME]
 > - **Benchmarking**: analysis focused on competitors and positioning
 
 Wait for the response before continuing.
@@ -44,14 +44,14 @@ python tools/search_youtube.py "<topic>" --max 8
 python tools/search_youtube.py "<topic>" --max 5 --transcripts
 ```
 
-### 1b. General Web (articles, blogs, nutrition sites)
+### 1b. General Web (articles, blogs, [CLIENT_NICHE] sites)
 ```bash
-python tools/search_web.py "<topic> nutrition" --max 10 --region br-pt
+python tools/search_web.py "<topic> [CLIENT_NICHE]" --max 10 --region ${CLIENT_REGION:-br-pt}
 ```
 
 ### 1c. Recent news
 ```bash
-python tools/search_web.py "<topic>" --max 8 --type news --region br-pt
+python tools/search_web.py "<topic>" --max 8 --type news --region ${CLIENT_REGION:-br-pt}
 ```
 
 ### 1d. Scientific studies (PubMed)
@@ -64,8 +64,8 @@ python tools/search_pubmed.py "<topic in English>" --max 6 --years 3
 
 **If competitor benchmarking:**
 ```bash
-python tools/search_youtube.py "nutritionist <topic>" --max 10
-python tools/search_web.py "nutritionist <topic> program" --max 10
+python tools/search_youtube.py "[CLIENT_ROLE] <topic>" --max 10
+python tools/search_web.py "[CLIENT_ROLE] <topic> program" --max 10
 ```
 
 **If trends:**
@@ -99,7 +99,7 @@ With results from all 4 sources, analyze and synthesize:
 ### If Benchmarking, add:
 6. **Identified competitors**: Name, channel, positioning
 7. **What they do well**: Observed strengths
-8. **Possible differentiation**: Where Mayara can stand out
+8. **Possible differentiation**: Where [CLIENT_NAME] can stand out
 
 ### If Scientific Studies, add:
 9. **Evidence found**: Level of evidence (systematic review > RCT > observational studies)
@@ -161,7 +161,7 @@ Save the report to `.tmp/research_[topic-slug]_[date].md`.
 
 ---
 
-## Content Ideas for Mayara
+## Content Ideas for [CLIENT_NAME]
 [5-10 ideas for posts, videos, or materials based on the research]
 
 ---
@@ -189,4 +189,4 @@ Save the report to `.tmp/research_[topic-slug]_[date].md`.
 - PubMed returns better results with English terms (e.g., "intermittent fasting women" instead of "jejum intermitente mulheres")
 - `yt-dlp` can take 10-20s per video when fetching transcripts in Deep mode
 - DuckDuckGo may be temporarily blocked after many searches — wait 1-2 minutes if this occurs
-- For benchmarking, adding the specialty name to the term helps (e.g., "nutritionist intermittent fasting")
+- For benchmarking, adding the specialty name to the term helps (e.g., "[CLIENT_ROLE] intermittent fasting")

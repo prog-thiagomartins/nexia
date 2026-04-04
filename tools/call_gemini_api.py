@@ -128,7 +128,7 @@ def main():
     parser.add_argument("--task", required=True, help="O que o Gemini deve fazer")
     parser.add_argument("--files", nargs="*", default=[], help="Arquivos ou pastas a incluir")
     parser.add_argument("--output-dir", default="gemini/briefs/", help="Pasta de destino do resultado")
-    parser.add_argument("--model", default="gemini-2.5-flash", choices=["gemini-2.5-flash", "gemini-2.5-flash-lite"],
+    parser.add_argument("--model", default=os.getenv("GEMINI_MODEL", "gemini-2.5-flash"), choices=[os.getenv("GEMINI_MODEL", "gemini-2.5-flash"), os.getenv("GEMINI_MODEL_LITE", "gemini-2.5-flash-lite")],
                         help="Modelo a usar (flash=qualidade, flash-lite=volume)")
     args = parser.parse_args()
 

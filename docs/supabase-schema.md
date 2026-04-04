@@ -1,4 +1,4 @@
-# WAT Studio — Supabase Schema
+# nexia — Supabase Schema
 
 **Padrão:** Shared Database, Shared Schema com `tenant_id` discriminator  
 **Auth:** Magic Link (passwordless) — recomendado para usuários não-tech  
@@ -35,7 +35,7 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- ============================================================
--- 1. TENANTS (clientes do WAT Studio)
+-- 1. TENANTS (clientes do nexia)
 -- ============================================================
 CREATE TABLE public.tenants (
     id          UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -154,7 +154,7 @@ CREATE TABLE public.files (
     id          UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     tenant_id   UUID REFERENCES public.tenants(id) NOT NULL,
     project_id  UUID REFERENCES public.projects(id),
-    bucket      TEXT NOT NULL DEFAULT 'wat-studio',
+    bucket      TEXT NOT NULL DEFAULT 'nexia', -- env: SUPABASE_BUCKET
     path        TEXT NOT NULL UNIQUE,           -- 'mayara/reels/azia/v5.mp4'
     filename    TEXT NOT NULL,
     mime_type   TEXT,
@@ -242,12 +242,12 @@ CREATE POLICY "files_tenant" ON public.files
     WITH CHECK (tenant_id = public.my_tenant_id());
 
 -- ============================================================
--- 14. RLS — STORAGE (bucket: wat-studio)
+-- 14. RLS — STORAGE (bucket: nexia / env: SUPABASE_BUCKET)
 -- ============================================================
 CREATE POLICY "storage_read_tenant" ON storage.objects
     FOR SELECT TO authenticated
     USING (
-        bucket_id = 'wat-studio' AND EXISTS (
+        bucket_id = 'nexia' AND EXISTS (  -- bucket: env SUPABASE_BUCKET
             SELECT 1 FROM public.files
             WHERE path = name
             AND tenant_id = public.my_tenant_id()
@@ -257,7 +257,7 @@ CREATE POLICY "storage_read_tenant" ON storage.objects
 CREATE POLICY "storage_insert_tenant" ON storage.objects
     FOR INSERT TO authenticated
     WITH CHECK (
-        bucket_id = 'wat-studio' AND EXISTS (
+        bucket_id = 'nexia' AND EXISTS (  -- bucket: env SUPABASE_BUCKET
             SELECT 1 FROM public.files
             WHERE path = name
             AND tenant_id = public.my_tenant_id()
@@ -281,7 +281,7 @@ CREATE INDEX idx_topic_history_tenant_date ON public.topic_history(tenant_id, pr
 ## Auth Flow
 
 ```
-1. Usuário informa email no WAT Studio
+1. Usuário informa email no nexia
 2. Supabase envia Magic Link para o email
 3. Usuário clica no link → autenticado
 4. Frontend chama profiles para obter tenant_id
@@ -291,7 +291,7 @@ CREATE INDEX idx_topic_history_tenant_date ON public.topic_history(tenant_id, pr
 ## Storage — Convenção de Paths
 
 ```
-wat-studio/
+nexia/
   <tenant_slug>/
     reels/<project_id>/<filename>
     prototipos/<project_id>/<filename>

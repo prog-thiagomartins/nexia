@@ -12,11 +12,11 @@ Primeiro workflow a ser lido em qualquer sessão. Define quem executa o quê —
 
 ## Passo 1 — Carregar contexto do cliente
 
-1. Leia `clients/mayara/client.json`
+1. Leia `clients/<active_client>/client.json`
 2. Verifique se existe brief recente em `gemini/briefs/` (mesmo dia)
    - **Se existir:** use como contexto — não releia os arquivos originais
    - **Se não existir:** delegue leitura ao Gemini (Passo 3)
-3. Leia `clients/mayara/context/memoria/` apenas se não houver brief do dia
+3. Leia `clients/<active_client>/context/memoria/` apenas se não houver brief do dia
 
 ---
 
@@ -45,7 +45,7 @@ python tools/call_gemini_api.py \
   --task "descrição da tarefa" \
   --files caminho/dos/arquivos/ \
   --output-dir gemini/[briefs|research|drafts|audits]/ \
-  --model gemini-2.5-flash
+  --model ${GEMINI_MODEL:-gemini-2.5-flash}
 ```
 
 Use `gemini-2.5-flash-lite` para volume alto (mais de 10 variações, listas longas).
@@ -87,7 +87,7 @@ Aguarde os arquivos PNG antes de prosseguir. Siga para o Passo 6.
 
 1. Leia o output do passo anterior em `gemini/` ou `images/` (se aplicável)
 2. Execute a tarefa com o contexto compacto disponível
-3. Salve entregáveis finais em `clients/mayara/projects/`
+3. Salve entregáveis finais em `clients/<active_client>/projects/`
 4. Nunca delegue escrita fora de `gemini/` ao Gemini
 
 ---
@@ -96,7 +96,7 @@ Aguarde os arquivos PNG antes de prosseguir. Siga para o Passo 6.
 
 - Gemini escreve **apenas** em `gemini/`
 - Claude lê de `gemini/` mas nunca delega escrita fora dessa pasta
-- Entregáveis finais aprovados: Claude move de `gemini/drafts/` para `clients/mayara/projects/`
+- Entregáveis finais aprovados: Claude move de `gemini/drafts/` para `clients/<active_client>/projects/`
 
 ---
 
