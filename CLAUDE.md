@@ -1,118 +1,92 @@
-# Agent Instructions
+# nexia — Instruções de Desenvolvimento
 
-You're working inside the **WAT framework** (Workflows, Agents, Tools). This architecture separates concerns so that probabilistic AI handles reasoning while deterministic code handles execution. That separation is what makes this system reliable.
+Você está desenvolvendo o **nexia**: uma plataforma de produção de conteúdo com IA que usa a arquitetura WAT (Workflows, Agents, Tools) como camada de operação interna.
 
-## The WAT Architecture
+## O que é o nexia
 
-**Layer 1: Workflows (The Instructions)**
+nexia é o produto. WAT é como ele opera por dentro.
 
-- Markdown SOPs stored in `workflows/`
-- Each workflow defines the objective, required inputs, which tools to use, expected outputs, and how to handle edge cases
-- Written in plain language, the same way you'd brief someone on your team
+- **nexia** → o que o cliente vê e usa
+- **WAT** → a arquitetura interna (Workflows + Agents + Tools)
+- **Claude Code** → o runtime que executa tudo
 
-**Layer 2: Agents (The Decision-Maker)**
+O cliente não precisa saber que existe WAT. Assim como usuário de Gmail não precisa saber que existe MVC.
 
-- This is your role. You're responsible for intelligent coordination.
-- Read the relevant workflow, run tools in the correct sequence, handle failures gracefully, and ask clarifying questions when needed
-- You connect intent to execution without trying to do everything yourself
-- Example: If you need to pull data from a website, don't attempt it directly. Read `workflows/scrape_website.md`, figure out the required inputs, then execute `tools/scrape_single_site.py`
+## Modelo multi-AI
 
-**Layer 3: Tools (The Execution)**
+O nexia usa dois agentes com papéis distintos:
 
-- Python scripts in `tools/` that do the actual work
-- API calls, data transformations, file operations, database queries
-- Credentials and API keys are stored in `.env`
-- These scripts are consistent, testable, and fast
+| Agente | Papel | Quando usar |
+|--------|-------|-------------|
+| **Claude** | Orquestrador + entregáveis finais | Decisões, código, escrita final, coordenação |
+| **Gemini** | Pesquisa + volume + briefs | Leitura de docs densos, 10+ variações de copy, audits de voz, tendências |
 
-**Why this matters:** When AI tries to handle every step directly, accuracy drops fast. If each step is 90% accurate, you're down to 59% success after just five steps. By offloading execution to deterministic scripts, you stay focused on orchestration and decision-making where you excel.
+**Regra:** Claude nunca lê arquivos de contexto de cliente diretamente — chama `tools/call_gemini_api.py` e lê o `<brief>` resultante. Isso economiza tokens e mantém o contexto limpo.
 
-## How to Operate
+## Arquitetura WAT
 
-**1. Look for existing tools first**
-Before building anything new, check `tools/` based on what your workflow requires. Only create new scripts when nothing exists for that task.
+**Workflows** (`workflows/`) — SOPs em Markdown. Definem o quê fazer, quais tools usar, como tratar erros. Não crie nem sobrescreva sem pedir.
 
-**2. Learn and adapt when things fail**
-When you hit an error:
+**Tools** (`tools/`) — Scripts Python determinísticos. Fazem o trabalho real: chamadas de API, transformações, operações de arquivo. Sempre procure uma tool existente antes de criar nova.
 
-- Read the full error message and trace
-- Fix the script and retest (if it uses paid API calls or credits, check with me before running again)
-- Document what you learned in the workflow (rate limits, timing quirks, unexpected behavior)
-- Example: You get rate-limited on an API, so you dig into the docs, discover a batch endpoint, refactor the tool to use it, verify it works, then update the workflow so this never happens again
+**Agent (você)** — Lê o workflow relevante, executa tools na sequência correta, recupera de erros, melhora o sistema quando algo quebra.
 
-**3. Keep workflows current**
-Workflows should evolve as you learn. When you find better methods, discover constraints, or encounter recurring issues, update the workflow. That said, don't create or overwrite workflows without asking unless I explicitly tell you to. These are your instructions and need to be preserved and refined, not tossed after one use.
-
-## The Self-Improvement Loop
-
-Every failure is a chance to make the system stronger:
-
-1. Identify what broke
-2. Fix the tool
-3. Verify the fix works
-4. Update the workflow with the new approach
-5. Move on with a more robust system
-
-This loop is how the framework improves over time.
-
-## File Structure
-
-**What goes where:**
-
-- **Deliverables**: Final outputs go to cloud services (Google Sheets, Slides, etc.) where I can access them directly
-- **Intermediates**: Temporary processing files that can be regenerated
-
-**Directory layout:**
+## Estrutura de arquivos
 
 ```
-.tmp/                        # Temporary files (scraped data, intermediate exports). Regenerated as needed.
-tools/                       # Python scripts for deterministic execution
-workflows/                   # Markdown SOPs defining what to do and how
-frontend/                    # Web interface (FastAPI + HTML/JS)
-  server.py                  # FastAPI backend
-  static/                    # index.html, style.css, app.js
-clients/                     # One folder per client — isolated context and projects
+tools/                  # Scripts Python — execução determinística
+workflows/              # SOPs Markdown — instruções de operação
+frontend/               # FastAPI + HTML/JS
+  server.py
+  static/               # index.html, style.css, app.js
+clients/                # Um folder por cliente — contexto isolado
   <slug>/
-    context/                 # Knowledge and business rules for this client
-      negocio/               # Business context
-      conteudo/              # Content style and tone
-      pesquisas/             # Research notes
-      memoria/               # Persistent memory across sessions (preferencias, historico, voz_marca)
-    projects/                # Client deliverables and active projects
-    client.json              # Client metadata: name, slug, active workflows, paths
-    .env                     # Client-specific API keys (NEVER store secrets anywhere else)
-docs/                        # Design specs and documentation (flat — no subfolders by tool or plugin)
-gemini/                      # Gemini sandbox — read/write only by call_gemini_api.py
-credentials.json, token.json # Google OAuth (gitignored)
+    context/
+      negocio/          # Contexto do negócio
+      conteudo/         # Tom e estilo de conteúdo
+      pesquisas/        # Pesquisas de mercado
+      memoria/          # Memória persistente entre sessões
+    projects/           # Entregáveis do cliente
+    client.json         # Metadados: nome, slug, workflows ativos
+    .env                # API keys do cliente (NUNCA em outro lugar)
+docs/                   # Specs e referências (flat — sem subpastas)
+gemini/                 # Sandbox do Gemini (só call_gemini_api.py escreve aqui)
+  briefs/
+  drafts/
+  research/
+  audits/
+.tmp/                   # Arquivos temporários — descartáveis
 ```
 
-**Folder hygiene rules (non-negotiable):**
-- NEVER create folders named after tools, plugins, or frameworks inside this project (`superpowers/`, `gsd/`, `claude/`, etc.)
-- `docs/` is flat — specs and references go directly in `docs/`, no nested tool folders
-- Plugin and skill infrastructure lives in `~/.claude/` — never bleeds into project directories
-- If a skill or workflow tries to create a tool-specific subfolder, override it and use the correct project path instead
+## Regras de folder hygiene
 
-**Active client:** When operating via the WAT Studio frontend, read `client.json` from the active client folder to know which context to load, which workflows are available, and where to persist memory.
+- NUNCA criar pastas com nomes de tools, plugins ou frameworks (`superpowers/`, `gsd/`, `claude/`)
+- `docs/` é flat — nada de subpastas por ferramenta
+- Infraestrutura de plugins vive em `~/.claude/` — nunca sangra pro projeto
+- `.tmp/` é descartável — nada importante vai aqui
 
-**Core principle:** Local files are just for processing. Anything the client needs to see or use lives in cloud services. Everything in `.tmp/` is disposable.
+## Como desenvolver
 
-## Session Protocol
+**Ao adicionar uma nova tool:**
+1. Verifique se já existe algo em `tools/` que resolve
+2. Siga o padrão de `call_gemini_api.py`: argparse, dotenv, stderr para logs, stdout para output
+3. Docstring no topo com uso, exemplo de comando e o que a tool faz
+4. Teste antes de referenciar em qualquer workflow
 
-**At the start of any client session:**
-1. Read `workflows/session_router.md` — always first, before anything else
-2. Read `clients/<slug>/client.json` to identify context paths, active workflows, and metadata
-3. Check `gemini/briefs/` for a recent brief (same day) before reading raw context files
-4. Read all files in `clients/<slug>/context/memoria/` only if no current Gemini brief exists
+**Ao adicionar ou atualizar um workflow:**
+1. Peça confirmação antes de criar ou sobrescrever
+2. Formato: objetivo → inputs → steps → outputs → edge cases
+3. Documente rate limits, quirks de API e aprendizados na seção Edge Cases
+4. Workflows evoluem com o sistema — mantenha atualizados
 
-**At the end of any client session:**
-1. Update the relevant memory files with new learnings, preferences, or decisions
-2. Document any tool/environment gotchas in the relevant workflow's Edge Cases — not here
+**Ao encontrar um erro:**
+1. Leia o trace completo
+2. Corrija a tool e reteste
+3. Se usar API paga: confirme antes de rodar de novo
+4. Atualize o workflow com o que aprendeu
 
-**Environment and tool gotchas belong in workflow Edge Cases sections, not in this file.**
+## Princípios
 
-## Bottom Line
-
-You sit between what I want (workflows) and what actually gets done (tools). Your job is to read instructions, make smart decisions, call the right tools, recover from errors, and keep improving the system as you go.
-
-Stay pragmatic. Stay reliable. Keep learning.
-
----
+- Arquivos locais são para processamento. Entregáveis finais vão para serviços cloud (Google Sheets, Slides, etc.)
+- Gemini escreve apenas em `gemini/` — Claude lê de lá mas não delega escrita fora dessa pasta
+- Entregáveis aprovados: Claude move de `gemini/drafts/` para `clients/<slug>/projects/`

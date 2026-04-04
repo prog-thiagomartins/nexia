@@ -66,12 +66,12 @@ var cy = cytoscape({
 
     // ── LAYER 1: Frontend + Auth ──────────────────────────────────
     { data: { id: 'app-frontend',  label: 'nexia\nFastAPI + HTML/JS', layer: 1, type: 'entry' } },
-    { data: { id: 'app-auth',      label: 'Supabase Auth\nMagic Link', layer: 1, type: 'entry' } },
+    { data: { id: 'app-auth',      label: 'Supabase Auth\nMagic Link\n◌ planejado', layer: 1, type: 'planned' } },
 
     // ── LAYER 2: Git Repos ────────────────────────────────────────
     { data: { id: 'repo-framework', label: 'nexia\ntools/ · workflows/\nfrontend/ · docs/', layer: 2, type: 'router-crud' } },
     { data: { id: 'repo-client',    label: 'nexia-<slug>\ncontext/ · projects/\nCLAUDE.md', layer: 2, type: 'router-crud' } },
-    { data: { id: 'repo-template',  label: 'CLAUDE.template.md\nonboarding\nnovo cliente', layer: 2, type: 'core-config' } },
+    { data: { id: 'repo-template',  label: 'CLAUDE.template.md\nonboarding · novo cliente\n◌ não criado', layer: 2, type: 'planned-git' } },
 
     // ── LAYER 3: Agentes IA ───────────────────────────────────────
     { data: { id: 'agent-claude',  label: '★ Claude\nOrquestrador\nEntregáveis finais', layer: 3, type: 'core-ai' } },
@@ -79,12 +79,13 @@ var cy = cytoscape({
 
     // ── LAYER 4: Tools ────────────────────────────────────────────
     { data: { id: 'tools-gemini', label: 'call_gemini_api.py\ndispatch → gemini/', layer: 4, type: 'core-rag' } },
-    { data: { id: 'tools-media',  label: 'create_reel.py\nffmpeg · yt-dlp', layer: 4, type: 'core-rag' } },
+    { data: { id: 'tools-media',  label: 'create_reel.py\nffmpeg · yt-dlp\nfetch_youtube_info.py', layer: 4, type: 'core-rag' } },
     { data: { id: 'tools-search', label: 'search_web.py\nsearch_youtube.py\nsearch_pubmed.py', layer: 4, type: 'core-rag' } },
+    { data: { id: 'tools-images', label: 'generate_images_api.py\ngenerate_images_manus.py\n◌ não criados', layer: 4, type: 'planned-tool' } },
 
     // ── LAYER 5: Data ─────────────────────────────────────────────
-    { data: { id: 'db-postgres',  label: 'Supabase PostgreSQL\nRLS por tenant_id\ntenants · profiles\nai_outputs · projects', layer: 5, type: 'data' } },
-    { data: { id: 'db-storage',   label: 'Supabase Storage\nnexia/\n<slug>/reels/\n<slug>/projects/', layer: 5, type: 'data' } },
+    { data: { id: 'db-postgres',  label: 'Supabase PostgreSQL\nRLS por tenant_id\ntenants · profiles\nai_outputs · projects\n◌ planejado', layer: 5, type: 'planned-data' } },
+    { data: { id: 'db-storage',   label: 'Supabase Storage\nnexia/<slug>/reels/\nnexia/<slug>/projects/\n◌ planejado', layer: 5, type: 'planned-data' } },
     { data: { id: 'gemini-out',   label: 'gemini/\nbriefs/ · drafts/\nresearch/ · audits/', layer: 5, type: 'core-storage' } },
 
     // ── EDGES ─────────────────────────────────────────────────────
@@ -112,6 +113,7 @@ var cy = cytoscape({
     // Claude usa outras tools
     { data: { source: 'agent-claude', target: 'tools-media',  type: 'ai' } },
     { data: { source: 'agent-claude', target: 'tools-search', type: 'ai' } },
+    { data: { source: 'agent-claude', target: 'tools-images', type: 'ai', label: 'imagens (planejado)' } },
 
     // Claude → Supabase (entregáveis)
     { data: { source: 'agent-claude', target: 'db-postgres', type: 'storage', label: 'salva projetos / ai_outputs' } },
@@ -144,35 +146,54 @@ var cy = cytoscape({
     { selector: 'node[type="core-rag"]',     style: { 'background-color': '#1a2a3a', 'border-color': '#29B6D4', 'border-width': 1 } },
     { selector: 'node[type="core-storage"]', style: { 'background-color': '#2a2000', 'border-color': '#F5C542', 'border-width': 1 } },
     { selector: 'node[type="data"]',         style: { 'background-color': '#1f1a0a', 'border-color': '#F5C542', 'border-width': 2 } },
+    { selector: 'node[type="planned"]',      style: { 'background-color': '#1a1a1a', 'border-color': '#34C759', 'border-width': 1, 'border-style': 'dashed', 'color': '#5a6070', 'opacity': 0.65 } },
+    { selector: 'node[type="planned-git"]',  style: { 'background-color': '#131a13', 'border-color': '#34C759', 'border-width': 1, 'border-style': 'dashed', 'color': '#5a6070', 'opacity': 0.65 } },
+    { selector: 'node[type="planned-tool"]', style: { 'background-color': '#111a20', 'border-color': '#29B6D4', 'border-width': 1, 'border-style': 'dashed', 'color': '#5a6070', 'opacity': 0.65 } },
+    { selector: 'node[type="planned-data"]', style: { 'background-color': '#15120a', 'border-color': '#F5C542', 'border-width': 1, 'border-style': 'dashed', 'color': '#5a6070', 'opacity': 0.65 } },
 
     {
       selector: 'edge',
       style: {
-        'curve-style': 'bezier', 'target-arrow-shape': 'triangle',
-        'width': 1.5, 'line-color': '#3a3f5a', 'target-arrow-color': '#3a3f5a',
-        'font-size': '9px', 'color': '#8b90a8',
-        'text-background-color': '#0f1117', 'text-background-opacity': 1,
-        'text-background-padding': '2px',
+        'curve-style': 'taxi',
+        'taxi-direction': 'vertical',
+        'taxi-turn': '50%',
+        'taxi-turn-min-distance': 20,
+        'target-arrow-shape': 'triangle',
+        'width': 1.5,
+        'line-color': '#3a3f5a',
+        'target-arrow-color': '#3a3f5a',
+        'font-size': '9px',
+        'color': '#8b90a8',
+        'text-background-color': '#0f1117',
+        'text-background-opacity': 1,
+        'text-background-padding': '3px',
+        'text-margin-y': -8,
+        'source-endpoint': 'outside-to-node',
+        'target-endpoint': 'outside-to-node',
       }
     },
-    { selector: 'edge[label]',            style: { 'label': 'data(label)' } },
-    { selector: 'edge[type="http"]',      style: { 'line-color': '#5B8DEF', 'target-arrow-color': '#5B8DEF', 'width': 2 } },
-    { selector: 'edge[type="ai"]',        style: { 'line-color': '#C084FC', 'target-arrow-color': '#C084FC', 'width': 2 } },
-    { selector: 'edge[type="storage"]',   style: { 'line-color': '#F5C542', 'target-arrow-color': '#F5C542', 'width': 1.5 } },
-    { selector: 'edge[type="internal"]',  style: { 'line-color': '#34C759', 'target-arrow-color': '#34C759', 'width': 1, 'line-style': 'dashed', 'opacity': 0.6 } },
+    { selector: 'edge[label]',           style: { 'label': 'data(label)' } },
+    { selector: 'edge[type="http"]',     style: { 'line-color': '#5B8DEF', 'target-arrow-color': '#5B8DEF', 'width': 2 } },
+    { selector: 'edge[type="ai"]',       style: { 'line-color': '#C084FC', 'target-arrow-color': '#C084FC', 'width': 2 } },
+    { selector: 'edge[type="storage"]',  style: { 'line-color': '#F5C542', 'target-arrow-color': '#F5C542', 'width': 1.5 } },
+    { selector: 'edge[type="internal"]', style: { 'line-color': '#34C759', 'target-arrow-color': '#34C759', 'width': 1, 'line-style': 'dashed', 'opacity': 0.7 } },
   ],
 
   layout: {
     name: 'elk',
+    nodeDimensionsIncludeLabels: true,
     elk: {
       algorithm: 'layered',
       'elk.direction': 'DOWN',
+      'elk.edgeRouting': 'ORTHOGONAL',
       'elk.layered.crossingMinimization.strategy': 'LAYER_SWEEP',
       'elk.layered.nodePlacement.strategy': 'BRANDES_KOEPF',
-      'elk.spacing.nodeNode': '40',
-      'elk.layered.spacing.nodeNodeBetweenLayers': '90',
+      'elk.spacing.nodeNode': '60',
+      'elk.layered.spacing.nodeNodeBetweenLayers': '100',
+      'elk.spacing.edgeNode': '25',
+      'elk.spacing.edgeEdge': '15',
       'elk.partitioning.activate': 'true',
-      'elk.padding': '[top=40,left=40,bottom=40,right=40]',
+      'elk.padding': '[top=50,left=60,bottom=50,right=60]',
     },
     nodeLayoutOptions: (node) => ({
       'elk.partitioning.partition': String(node.data('layer')),
