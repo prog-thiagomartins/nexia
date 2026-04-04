@@ -9,7 +9,8 @@
       "Read(//c/Users/Thiag/AppData/Roaming/npm/**)",
       "Bash(npx gemini:*)",
       "Read(//c/Users/Thiag/AppData/Local/**)",
-      "Bash(python3 -c \"import json; d=json.load\\(open\\('.claude/settings.local.json'\\)\\); cmd=d['hooks']['SessionStart'][0]['hooks'][0]['command']; print\\('JSON valido. Comando:', cmd[:80]\\)\")"
+      "Bash(python3 -c \"import json; d=json.load\\(open\\('.claude/settings.local.json'\\)\\); cmd=d['hooks']['SessionStart'][0]['hooks'][0]['command']; print\\('JSON valido. Comando:', cmd[:80]\\)\")",
+      "Bash(cat \"c:/Users/Thiag/OneDrive/Área de Trabalho/Mayara/gemini/research/\"*.md)"
     ]
   },
   "hooks": {
