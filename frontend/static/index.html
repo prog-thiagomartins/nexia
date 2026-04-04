@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WAT Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep:#0A1810;--bg-card:#142B1A;--bg-hover:#1A3622;
+      --accent-gold:#C9A96E;--accent-gold-d:#8A7048;--accent-sage:#6FA880;
+      --text-primary:#EDE5D0;--text-secondary:#A0ADA5;--text-muted:#526058;
+      --border:rgba(255,255,255,0.06);--border-gold:rgba(201,169,110,0.25);
+      --sidebar-w:232px;--panel-w:272px;--header-h:54px;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg-deep);color:var(--text-primary);height:100vh;overflow:hidden}
+    body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+    /* HEADER */
+    .header{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--header-h);display:flex;align-items:center;justify-content:space-between;padding:0 20px 0 16px;background:rgba(10,24,16,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand-mark{width:30px;height:30px;background:linear-gradient(135deg,var(--accent-gold),#A07840);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:15px;color:var(--bg-deep)}
+    .brand-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;letter-spacing:.015em}
+    .header-right{display:flex;align-items:center;gap:12px}
+    .client-pill{display:flex;align-items:center;gap:7px;padding:4px 11px;background:var(--bg-card);border:1px solid var(--border);border-radius:999px;font-size:12px;color:var(--text-secondary)}
+    .pulse-dot{width:6px;height:6px;background:var(--accent-sage);border-radius:50%;animation:pulse-anim 2.4s ease-in-out infinite}
+    @keyframes pulse-anim{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.85)}}
+    .hbtn{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:none;background:none;cursor:pointer;color:var(--text-muted);border-radius:6px;transition:background .15s,color .15s}
+    .hbtn:hover{background:var(--bg-card);color:var(--text-secondary)}
+
+    /* LAYOUT */
+    .layout{display:flex;height:100vh;padding-top:var(--header-h)}
+
+    /* SIDEBAR */
+    .sidebar{width:var(--sidebar-w);flex-shrink:0;border-right:1px solid var(--border);display:flex;flex-direction:column;padding:18px 0 12px;overflow-y:auto}
+    .sb-label{font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--text-muted);padding:0 14px;margin-bottom:6px}
+    .sb-nav{list-style:none;padding:0 7px;margin-bottom:20px}
+    .sb-item{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:7px;font-size:13px;color:var(--text-secondary);cursor:pointer;user-select:none;transition:background .12s,color .12s}
+    .sb-item:hover{background:var(--bg-card);color:var(--text-primary)}
+    .sb-item.active{background:var(--bg-hover);color:var(--text-primary)}
+    .sb-item.active .sb-icon{color:var(--accent-gold)}
+    .sb-icon{width:15px;height:15px;flex-shrink:0;color:var(--text-muted);transition:color .12s}
+    .sb-divider{height:1px;background:var(--border);margin:4px 14px 16px}
+    .sb-recents{padding:0 7px;flex:1}
+    .sb-recent{padding:7px 9px;border-radius:7px;cursor:pointer;transition:background .12s}
+    .sb-recent:hover{background:var(--bg-card)}
+    .sb-recent-title{font-size:12px;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .sb-recent-meta{font-size:10px;color:var(--text-muted);margin-top:2px}
+    .sb-chat-btn{margin:12px 8px 0;display:flex;align-items:center;gap:8px;padding:9px 11px;background:none;border:1px solid var(--border-gold);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--accent-gold);cursor:pointer;transition:all .15s}
+    .sb-chat-btn:hover{background:rgba(201,169,110,.08);border-color:var(--accent-gold)}
+
+    /* MAIN */
+    .main{flex:1;min-width:0;overflow-y:auto;padding:32px 36px}
+    .view{animation:fadein .18s ease}
+    @keyframes fadein{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+    /* HOME */
+    .greeting{margin-bottom:36px}
+    .greeting h1{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;line-height:1.15}
+    .greeting h1 em{font-style:italic;color:var(--accent-gold)}
+    .greeting p{font-size:14px;color:var(--text-secondary);margin-top:7px}
+    .wf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+    .wf-card{background:var(--bg-card);border:1px solid var(--border);border-radius:13px;padding:20px 18px 16px;cursor:pointer;transition:transform .18s,border-color .18s,background .18s;position:relative;overflow:hidden}
+    .wf-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--card-color,var(--accent-sage));opacity:0;transition:opacity .18s}
+    .wf-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.1);background:var(--bg-hover)}
+    .wf-card:hover::after{opacity:1}
+    .wf-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:14px}
+    .wf-title{font-size:13.5px;font-weight:500;margin-bottom:6px}
+    .wf-desc{font-size:12px;color:var(--text-secondary);line-height:1.55}
+    .wf-footer{display:flex;align-items:center;justify-content:space-between;margin-top:15px;padding-top:12px;border-top:1px solid var(--border)}
+    .wf-last{font-size:11px;color:var(--text-muted)}
+    .wf-go{width:24px;height:24px;background:var(--bg-deep);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:all .15s}
+    .wf-card:hover .wf-go{background:var(--accent-gold);color:var(--bg-deep)}
+
+    /* WIZARD */
+    .breadcrumb{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text-muted);margin-bottom:24px}
+    .breadcrumb a{color:var(--text-muted);cursor:pointer}
+    .breadcrumb a:hover{color:var(--text-secondary)}
+    .breadcrumb-cur{color:var(--text-secondary)}
+    .wiz-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;margin-bottom:28px}
+    .wiz-steps{display:flex;align-items:center;margin-bottom:32px}
+    .wstep{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text-muted)}
+    .wstep.active{color:var(--text-primary)}.wstep.done{color:var(--accent-sage)}
+    .wstep-num{width:22px;height:22px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .2s}
+    .wstep.active .wstep-num{background:var(--accent-gold);border-color:var(--accent-gold);color:var(--bg-deep);font-weight:500}
+    .wstep.done   .wstep-num{background:var(--accent-sage);border-color:var(--accent-sage);color:var(--bg-deep)}
+    .wconn{flex:1;height:1px;background:var(--border);max-width:36px;margin:0 4px}
+
+    /* FORM */
+    .fgroup{margin-bottom:20px}
+    .flabel{display:block;font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:7px}
+    .finput,.fselect{width:100%;max-width:460px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:9px 13px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-primary);outline:none;transition:border-color .15s}
+    .finput:focus,.fselect:focus{border-color:var(--border-gold)}
+    .fselect{appearance:none;cursor:pointer}
+    .fhint{font-size:11px;color:var(--text-muted);margin-top:5px}
+    .factions{display:flex;gap:9px;margin-top:26px}
+    .btn{padding:9px 19px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;border:none}
+    .btn-primary{background:var(--accent-gold);color:var(--bg-deep)}
+    .btn-primary:hover{background:#D4B575}.btn-primary:disabled{opacity:.5;cursor:not-allowed}
+    .btn-secondary{background:none;color:var(--text-secondary);border:1px solid var(--border)}
+    .btn-secondary:hover{border-color:rgba(255,255,255,.14);color:var(--text-primary)}
+    .confirm-card{max-width:460px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px;font-size:13px;color:var(--text-secondary);line-height:1.72;margin-bottom:24px}
+    .confirm-card strong{color:var(--text-primary)}
+
+    /* STREAM */
+    .stream-label{font-size:12px;color:var(--accent-sage);margin-bottom:10px}
+    .stream-output{max-width:620px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:20px;font-size:13px;color:var(--text-secondary);line-height:1.72;white-space:pre-wrap;word-break:break-word;min-height:60px}
+    .stream-output.done{border-color:var(--border-gold)}
+    .stream-error{color:#E07070}
+
+    /* CHAT */
+    .chat-wrap{display:flex;flex-direction:column;height:calc(100vh - var(--header-h) - 64px)}
+    .chat-head{margin-bottom:22px}
+    .chat-head h2{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300}
+    .chat-head p{font-size:13px;color:var(--text-secondary);margin-top:4px}
+    .chat-msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding-right:6px;margin-bottom:18px}
+    .msg{display:flex;gap:11px;animation:fadein .18s ease}
+    .msg-avatar{width:28px;height:28px;border-radius:7px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:12px}
+    .msg.user  .msg-avatar{background:var(--accent-gold-d,#8A7048);color:var(--text-primary)}
+    .msg.agent .msg-avatar{background:var(--bg-hover);color:var(--accent-sage);font-family:'Cormorant Garamond',serif;font-size:15px}
+    .msg-inner{flex:1;min-width:0}
+    .msg-who{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px}
+    .msg-text{font-size:13px;line-height:1.65;color:var(--text-secondary);white-space:pre-wrap;word-break:break-word}
+    .msg.user .msg-text{color:var(--text-primary)}
+    .typing{color:var(--text-muted);font-style:italic}
+    .chat-input-wrap{display:flex;align-items:flex-end;gap:8px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:11px 11px 11px 15px;transition:border-color .15s}
+    .chat-input-wrap:focus-within{border-color:var(--border-gold)}
+    .chat-ta{flex:1;background:none;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-primary);resize:none;line-height:1.5;max-height:110px;min-height:20px}
+    .chat-ta::placeholder{color:var(--text-muted)}
+    .chat-send{width:32px;height:32px;flex-shrink:0;background:var(--accent-gold);border:none;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--bg-deep);transition:background .15s}
+    .chat-send:hover{background:#D4B575}.chat-send:disabled{opacity:.5;cursor:not-allowed}
+
+    /* JOB PANEL */
+    .job-panel{width:var(--panel-w);flex-shrink:0;border-left:1px solid var(--border);padding:18px 14px;overflow-y:auto;transition:width .2s ease,padding .2s ease}
+    .job-panel.collapsed{width:46px;padding:18px 7px;overflow:hidden}
+    .jp-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .jp-title{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap;overflow:hidden}
+    .job-panel.collapsed .jp-title{opacity:0}
+    .jp-toggle-btn{width:24px;height:24px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:none;background:none;cursor:pointer;color:var(--text-muted);border-radius:5px;transition:all .15s}
+    .jp-toggle-btn:hover{background:var(--bg-card);color:var(--text-secondary)}
+    .jp-empty{padding:30px 0;text-align:center;font-size:12px;color:var(--text-muted)}
+    .job-panel.collapsed .jp-empty{display:none}
+    .job-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:13px;margin-bottom:10px}
+    .job-panel.collapsed .job-card{display:none}
+    .jc-title{font-size:12px;font-weight:500;margin-bottom:3px}
+    .jc-time{font-size:11px;color:var(--text-muted);margin-bottom:11px}
+    .jsteps{display:flex;flex-direction:column;gap:6px}
+    .jstep{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-muted)}
+    .jstep.done{color:var(--accent-sage)}.jstep.active{color:var(--text-primary)}
+    .jdot{width:6px;height:6px;flex-shrink:0;border-radius:50%;background:var(--text-muted);transition:background .3s}
+    .jstep.done .jdot{background:var(--accent-sage)}
+    .jstep.active .jdot{background:var(--accent-gold);animation:pulse-anim 1s infinite}
+    .jprogress-wrap{height:2px;background:var(--border);border-radius:2px;margin-top:12px;overflow:hidden}
+    .jprogress-fill{height:100%;background:linear-gradient(90deg,var(--accent-sage),var(--accent-gold));border-radius:2px;width:0%;transition:width .6s ease}
+
+    ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--bg-hover);border-radius:4px}
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="brand">
+    <div class="brand-mark">W</div>
+    <span class="brand-name">WAT Studio</span>
+  </div>
+  <div class="header-right">
+    <div class="client-pill">
+      <span class="pulse-dot"></span>
+      <span id="client-name">Carregando...</span>
+    </div>
+    <button class="hbtn" title="Configurações">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="sb-label">Workflows</div>
+    <ul class="sb-nav" id="sb-nav">
+      <li class="sb-item active" onclick="showHome(this)">
+        <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+        </svg>
+        Todos
+      </li>
+    </ul>
+    <div class="sb-divider"></div>
+    <div class="sb-label">Recentes</div>
+    <div class="sb-recents" id="sb-recents">
+      <div style="padding:8px 9px;font-size:12px;color:var(--text-muted)">Carregando...</div>
+    </div>
+    <button class="sb-chat-btn" onclick="showChat(null)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      Chat livre
+    </button>
+  </aside>
+
+  <main class="main" id="main">
+
+    <div id="v-home" class="view">
+      <div class="greeting">
+        <h1>Bom dia, <em id="greeting-name">...</em></h1>
+        <p>O que você quer criar hoje?</p>
+      </div>
+      <div class="wf-grid" id="wf-grid">
+        <div style="font-size:13px;color:var(--text-muted)">Carregando...</div>
+      </div>
+    </div>
+
+    <div id="v-workflow" class="view" style="display:none">
+      <div class="breadcrumb">
+        <a onclick="showHome(null)">Início</a>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        <span class="breadcrumb-cur" id="wf-name"></span>
+      </div>
+      <h2 class="wiz-title" id="wf-title"></h2>
+      <div class="wiz-steps">
+        <div class="wstep active" id="ws1"><div class="wstep-num">1</div><span>Configurar</span></div>
+        <div class="wconn"></div>
+        <div class="wstep" id="ws2"><div class="wstep-num">2</div><span>Confirmar</span></div>
+        <div class="wconn"></div>
+        <div class="wstep" id="ws3"><div class="wstep-num">3</div><span>Resultado</span></div>
+      </div>
+      <div id="wstep1"></div>
+      <div id="wstep2" style="display:none">
+        <div class="confirm-card" id="confirm-card"></div>
+        <div class="factions">
+          <button class="btn btn-primary" id="btn-run" onclick="runWorkflow()">Executar agora</button>
+          <button class="btn btn-secondary" onclick="backStep1()">← Voltar</button>
+        </div>
+      </div>
+      <div id="wstep3" style="display:none">
+        <div class="stream-label" id="stream-label"></div>
+        <div class="stream-output" id="stream-output"></div>
+        <div class="factions">
+          <button class="btn btn-secondary" onclick="showHome(null)">Nova tarefa</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="v-chat" class="view chat-wrap" style="display:none">
+      <div class="chat-head">
+        <h2>Chat livre</h2>
+        <p>Converse com o agente. Ele conhece seus workflows e contexto.</p>
+      </div>
+      <div class="chat-msgs" id="chat-msgs"></div>
+      <div>
+        <div class="chat-input-wrap">
+          <textarea class="chat-ta" id="chat-ta" placeholder="Escreva aqui..." rows="1"
+            onkeydown="chatKey(event)" oninput="autoResize(this)"></textarea>
+          <button class="chat-send" id="chat-send" onclick="sendMsg()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <aside class="job-panel" id="job-panel">
+    <div class="jp-head">
+      <span class="jp-title">Em execução</span>
+      <button class="jp-toggle-btn" onclick="togglePanel()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="panel-icon">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+    <div class="jp-empty" id="jp-empty">Nenhuma tarefa em execução</div>
+    <div class="job-card" id="job-card" style="display:none">
+      <div class="jc-title" id="jc-title"></div>
+      <div class="jc-time"  id="jc-time">0s</div>
+      <div class="jsteps"   id="jsteps"></div>
+      <div class="jprogress-wrap"><div class="jprogress-fill" id="jprogress"></div></div>
+    </div>
+  </aside>
+</div>
+
+<script>
+/* ─── State ─── */
+let clientData  = null;
+let activeWF    = null;
+let jobTimer    = null;
+let jobElapsed  = 0;
+let isStreaming  = false;
+
+/* ─── DOM helpers — no innerHTML with dynamic data ─── */
+const el = id => document.getElementById(id);
+
+function mk(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls)  e.className   = cls;
+  if (text) e.textContent = text;
+  return e;
+}
+
+function clearEl(element) { element.replaceChildren(); }
+
+/* ─── Boot ─── */
+async function init() {
+  try {
+    clientData = await fetch('/client').then(r => r.json());
+    el('client-name').textContent   = clientData.name;
+    el('greeting-name').textContent = clientData.name.split(' ')[0];
+    buildSidebar(clientData.workflows || []);
+    buildHomeGrid(clientData.workflows || []);
+  } catch {
+    el('client-name').textContent = 'Offline';
+  }
+  try {
+    const history = await fetch('/history').then(r => r.json());
+    buildRecentsList(history.slice(0, 5));
+  } catch { /* silent */ }
+}
+
+/* ─── Metadata ─── */
+const WF_META = {
+  pesquisa:     { label: 'Pesquisa de Nicho',    icon: '🔍', color: '#6FA880', desc: 'YouTube, web, notícias e estudos científicos sobre qualquer tema.' },
+  youtube:      { label: 'YouTube Recommender',  icon: '▶',  color: '#C48A6A', desc: 'Analisa canais e vídeos do seu nicho para inspiração de conteúdo.' },
+  imagem:       { label: 'Geração de Imagem',    icon: '🎨', color: '#8A6EC4', desc: 'Cria artes para posts, stories e materiais de marketing.' },
+  landing_page: { label: 'Landing Page',         icon: '📄', color: '#C9A96E', desc: 'Gera páginas de vendas completas para programas e consultas.' },
+  reels:        { label: 'Reels com IA',          icon: '🎬', color: '#6AAFC4', desc: 'Monta roteiros e produz reels com IA a partir de um tema.' },
+};
+
+/* ─── Sidebar ─── */
+function buildSidebar(workflows) {
+  const nav     = el('sb-nav');
+  const allItem = nav.firstElementChild;   // "Todos" — keep it
+  clearEl(nav);
+  nav.appendChild(allItem);
+
+  workflows.forEach(wf => {
+    const meta = WF_META[wf] || { label: wf, icon: '⚙' };
+    const li   = mk('li', 'sb-item');
+    li.onclick = () => showWorkflow(wf, li);
+    const iconSpan  = mk('span', 'sb-icon');
+    iconSpan.textContent = meta.icon;
+    iconSpan.style.cssText = 'font-size:13px;color:var(--text-muted)';
+    li.append(iconSpan, mk('span', null, meta.label));
+    nav.appendChild(li);
+  });
+}
+
+function buildRecentsList(history) {
+  const box = el('sb-recents');
+  clearEl(box);
+  if (!history.length) {
+    box.appendChild(mk('div', null, 'Nenhum resultado ainda')).style.cssText = 'padding:8px 9px;font-size:12px;color:var(--text-muted)';
+    return;
+  }
+  history.forEach(item => {
+    const div  = mk('div', 'sb-recent');
+    const name = item.filename.replace(/^research_|\.md$/g, '').replace(/_/g, ' ');
+    div.append(
+      mk('div', 'sb-recent-title', name),
+      mk('div', 'sb-recent-meta', new Date(item.modified).toLocaleDateString('pt-BR')),
+    );
+    box.appendChild(div);
+  });
+}
+
+/* ─── Home grid ─── */
+function buildHomeGrid(workflows) {
+  const grid = el('wf-grid');
+  clearEl(grid);
+  workflows.forEach(wf => {
+    const meta = WF_META[wf] || { label: wf, icon: '⚙', color: '#888', desc: '' };
+    const card = mk('div', 'wf-card');
+    card.style.setProperty('--card-color', meta.color);
+    card.onclick = () => showWorkflow(wf, null);
+
+    const iconDiv = mk('div', 'wf-icon', meta.icon);
+    iconDiv.style.background = meta.color + '22';
+
+    const footer  = mk('div', 'wf-footer');
+    const lastRun = mk('span', 'wf-last', 'Clique para usar');
+    const goBtn   = mk('div',  'wf-go');
+    // Static SVG — safe to use as textContent won't render it; use createElementNS
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svg   = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('width', '9'); svg.setAttribute('height', '9');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'currentColor');
+    const path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('d', 'M5 3l14 9-14 9V3z');
+    svg.appendChild(path);
+    goBtn.appendChild(svg);
+
+    footer.append(lastRun, goBtn);
+    card.append(iconDiv, mk('div','wf-title', meta.label), mk('div','wf-desc', meta.desc), footer);
+    grid.appendChild(card);
+  });
+}
+
+/* ─── Views ─── */
+function setNav(item) {
+  document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
+  if (item) item.classList.add('active');
+}
+
+function showView(key) {
+  ['v-home','v-workflow','v-chat'].forEach(id => { el(id).style.display = 'none'; });
+  const t = el('v-' + key);
+  t.style.display = key === 'chat' ? 'flex' : 'block';
+  t.classList.remove('view'); void t.offsetWidth; t.classList.add('view');
+}
+
+function showHome(navEl) {
+  showView('home');
+  setNav(navEl || el('sb-nav').firstElementChild);
+}
+
+function showChat(navEl) {
+  if (!el('chat-msgs').hasChildNodes()) {
+    const name = clientData ? clientData.name.split(' ')[0] : 'você';
+    appendMsg('agent', `Oi, ${name}! Posso rodar uma pesquisa, analisar YouTube, criar imagens e muito mais. O que você precisa hoje?`);
+  }
+  showView('chat');
+  if (navEl) setNav(navEl);
+  el('chat-ta').focus();
+}
+
+/* ─── Workflow wizard — forms built via DOM (no innerHTML) ─── */
+function addField(parent, labelText, inputEl, hintText) {
+  const g = mk('div', 'fgroup');
+  g.append(mk('label', 'flabel', labelText), inputEl);
+  if (hintText) g.append(mk('div', 'fhint', hintText));
+  parent.appendChild(g);
+}
+
+function textInput(id, placeholder) {
+  const i = mk('input', 'finput');
+  i.id = id; i.type = 'text'; i.placeholder = placeholder;
+  return i;
+}
+
+function selectInput(id, options) {
+  const s = mk('select', 'fselect');
+  s.id = id;
+  options.forEach(([val, label]) => {
+    const o = mk('option', null, label);
+    o.value = val;
+    s.appendChild(o);
+  });
+  return s;
+}
+
+const WF_FORM_BUILDERS = {
+  pesquisa(parent) {
+    addField(parent, 'Tema da pesquisa', textInput('inp-tema','ex: jejum intermitente para mulheres'), 'Seja específico — quanto mais detalhado, melhor.');
+    addField(parent, 'Profundidade', selectInput('inp-depth',[['Rápido','Rápido — títulos e snippets (~30 seg)'],['Profundo','Profundo — inclui transcrições (~2-3 min)']]));
+    addField(parent, 'Formato do resultado', selectInput('inp-format',[['Resumo executivo','Resumo executivo'],['Relatório completo','Relatório completo'],['Briefing de conteúdo','Briefing de conteúdo'],['Benchmarking','Benchmarking de concorrentes']]));
+  },
+  youtube(parent) {
+    addField(parent, 'Tema ou nicho', textInput('inp-tema','ex: nutrição para mulheres 40+'));
+  },
+  imagem(parent) {
+    addField(parent, 'Descrição da imagem', textInput('inp-prompt','ex: mulher sorrindo com salada colorida'));
+    addField(parent, 'Estilo', selectInput('inp-style',[['fotorrealista','Fotorrealista'],['ilustração','Ilustração'],['flat design','Flat design']]));
+    addField(parent, 'Formato', selectInput('inp-format',[['quadrado 1:1','Quadrado (feed)'],['vertical 9:16','Vertical (stories/reels)'],['horizontal 16:9','Horizontal (YouTube)']]));
+  },
+  landing_page(parent) {
+    addField(parent, 'Produto ou serviço', textInput('inp-produto','ex: Programa Detox 21 Dias'));
+    addField(parent, 'Público-alvo',       textInput('inp-publico','ex: mulheres 30-50 que querem emagrecer'));
+    addField(parent, 'Tom',                selectInput('inp-tom',[['acolhedor e motivador','Acolhedor e motivador'],['científico e confiável','Científico e confiável'],['urgente e direto','Urgente e direto']]));
+  },
+  reels(parent) {
+    addField(parent, 'Tema do reel', textInput('inp-tema','ex: 3 erros que sabotam sua dieta'));
+    addField(parent, 'Duração',      selectInput('inp-duracao',[['30s','30 segundos'],['60s','60 segundos'],['90s','90 segundos']]));
+    addField(parent, 'Estilo',       selectInput('inp-estilo',[['educativo','Educativo'],['motivacional','Motivacional'],['storytelling','Storytelling']]));
+  },
+};
+
+function getInputs(wf) {
+  const map = {
+    pesquisa:     [['tema','inp-tema'],['depth','inp-depth'],['format','inp-format']],
+    youtube:      [['tema','inp-tema']],
+    imagem:       [['prompt','inp-prompt'],['style','inp-style'],['format','inp-format']],
+    landing_page: [['produto','inp-produto'],['publico','inp-publico'],['tom','inp-tom']],
+    reels:        [['tema','inp-tema'],['duracao','inp-duracao'],['estilo','inp-estilo']],
+  };
+  const out = {};
+  (map[wf] || []).forEach(([key, id]) => {
+    const input = el(id);
+    if (input) out[key] = input.value;
+  });
+  return out;
+}
+
+function buildConfirmCard(wf, inputs) {
+  const card = el('confirm-card');
+  clearEl(card);
+  const bold = t => Object.assign(mk('strong', null, t), {});
+  const text = t => document.createTextNode(t);
+
+  if (wf === 'pesquisa') {
+    card.append(text('Vou pesquisar '), bold(`"${inputs.tema || 'o tema'}"`), text(' em modo '), bold(inputs.depth || 'Rápido'), text(', consultando YouTube, web, notícias e PubMed. Formato: '), bold(inputs.format || 'Resumo executivo'), text('.'));
+  } else if (wf === 'youtube') {
+    card.append(text('Vou analisar o YouTube para o tema '), bold(`"${inputs.tema || 'o tema'}"`), text('.'));
+  } else if (wf === 'imagem') {
+    card.append(text('Vou gerar uma imagem '), bold(inputs.style || 'fotorrealista'), text(' com a descrição: '), bold(`"${inputs.prompt || ''}"`), text('.'));
+  } else if (wf === 'landing_page') {
+    card.append(text('Vou criar uma landing page para '), bold(inputs.produto || 'o produto'), text(', com tom '), bold(inputs.tom || 'acolhedor'), text('.'));
+  } else if (wf === 'reels') {
+    card.append(text('Vou criar um roteiro de reel de '), bold(inputs.duracao || '30s'), text(' sobre '), bold(`"${inputs.tema || 'o tema'}"`), text('.'));
+  } else {
+    card.textContent = `Executar workflow: ${wf}.`;
+  }
+}
+
+function showWorkflow(wf, navEl) {
+  activeWF = wf;
+  const meta = WF_META[wf] || { label: wf };
+  el('wf-name').textContent  = meta.label;
+  el('wf-title').textContent = meta.label;
+
+  const step1 = el('wstep1');
+  clearEl(step1);
+
+  const builder = WF_FORM_BUILDERS[wf];
+  if (builder) {
+    builder(step1);
+  } else {
+    step1.appendChild(mk('p', null, 'Workflow em construção.')).style.cssText = 'font-size:13px;color:var(--text-muted)';
+  }
+
+  const actions = mk('div', 'factions');
+  const cont    = mk('button', 'btn btn-primary', 'Continuar →');
+  const canc    = mk('button', 'btn btn-secondary', 'Cancelar');
+  cont.onclick  = goStep2;
+  canc.onclick  = () => showHome(null);
+  actions.append(cont, canc);
+  step1.appendChild(actions);
+
+  step1.style.display   = 'block';
+  el('wstep2').style.display = 'none';
+  el('wstep3').style.display = 'none';
+  el('ws1').className = 'wstep active';
+  el('ws2').className = 'wstep';
+  el('ws3').className = 'wstep';
+
+  showView('workflow');
+  if (navEl) setNav(navEl);
+}
+
+function goStep2() {
+  buildConfirmCard(activeWF, getInputs(activeWF));
+  el('wstep1').style.display = 'none';
+  el('wstep2').style.display = 'block';
+  el('ws1').className = 'wstep done';
+  el('ws2').className = 'wstep active';
+}
+
+function backStep1() {
+  el('wstep2').style.display = 'none';
+  el('wstep1').style.display = 'block';
+  el('ws1').className = 'wstep active';
+  el('ws2').className = 'wstep';
+}
+
+async function runWorkflow() {
+  el('btn-run').disabled = true;
+  el('ws2').className = 'wstep done';
+  el('ws3').className = 'wstep active';
+  el('wstep2').style.display = 'none';
+  el('wstep3').style.display = 'block';
+
+  const meta    = WF_META[activeWF] || { label: activeWF };
+  const inputs  = getInputs(activeWF);
+  startJobPanel(meta.label);
+
+  el('stream-label').textContent  = '';
+  el('stream-output').textContent = '';
+  el('stream-output').className   = 'stream-output';
+
+  const t0 = Date.now();
+  await streamRun({ type: 'workflow', workflow: activeWF, inputs }, {
+    onChunk: txt => {
+      el('stream-output').textContent += txt;
+      el('stream-output').scrollTop    = el('stream-output').scrollHeight;
+      advanceJobPanel(el('stream-output').textContent);
+    },
+    onDone: () => {
+      const s = Math.round((Date.now() - t0) / 1000);
+      el('stream-label').textContent = `✓ Concluído em ${s}s`;
+      el('stream-output').className  = 'stream-output done';
+      el('btn-run').disabled = false;
+      finishJobPanel(s);
+    },
+    onError: msg => {
+      const e = mk('span', 'stream-error', msg);
+      el('stream-output').appendChild(e);
+      el('btn-run').disabled = false;
+      stopJobPanel();
+    },
+  });
+}
+
+/* ─── Chat ─── */
+function appendMsg(role, text) {
+  const msgs   = el('chat-msgs');
+  const wrap   = mk('div', 'msg ' + role);
+  const avatar = mk('div', 'msg-avatar', role === 'user' ? 'M' : 'W');
+  const inner  = mk('div', 'msg-inner');
+  const who    = mk('div', 'msg-who', role === 'user' ? 'Você' : 'Agente');
+  const body   = mk('div', 'msg-text', text);
+  inner.append(who, body);
+  wrap.append(avatar, inner);
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+  return body;
+}
+
+async function sendMsg() {
+  if (isStreaming) return;
+  const ta   = el('chat-ta');
+  const text = ta.value.trim();
+  if (!text) return;
+
+  appendMsg('user', text);
+  ta.value = ''; ta.style.height = 'auto';
+
+  const agentBody = appendMsg('agent', 'Pensando...');
+  agentBody.classList.add('typing');
+
+  el('chat-send').disabled = true;
+  isStreaming = true;
+  let first   = true;
+
+  await streamRun({ type: 'chat', message: text }, {
+    onChunk: chunk => {
+      if (first) {
+        agentBody.classList.remove('typing');
+        agentBody.textContent = '';
+        first = false;
+      }
+      agentBody.textContent += chunk;
+      el('chat-msgs').scrollTop = el('chat-msgs').scrollHeight;
+    },
+    onDone: () => {
+      isStreaming = false;
+      el('chat-send').disabled = false;
+      el('chat-ta').focus();
+    },
+    onError: msg => {
+      agentBody.classList.remove('typing');
+      agentBody.classList.add('stream-error');
+      agentBody.textContent = msg;
+      isStreaming = false;
+      el('chat-send').disabled = false;
+    },
+  });
+}
+
+function chatKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); } }
+function autoResize(e) { e.style.height = 'auto'; e.style.height = Math.min(e.scrollHeight, 110) + 'px'; }
+
+/* ─── SSE stream helper ─── */
+async function streamRun(payload, { onChunk, onDone, onError }) {
+  let resp;
+  try {
+    resp = await fetch('/run', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+  } catch {
+    onError('Não foi possível conectar ao servidor. Verifique se o WAT Studio está rodando.');
+    return;
+  }
+  if (!resp.ok) { onError(`Erro do servidor: ${resp.status}`); return; }
+
+  const reader  = resp.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer    = '';
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split('\n');
+    buffer = lines.pop() ?? '';
+    for (const line of lines) {
+      if (!line.startsWith('data: ')) continue;
+      const data = line.slice(6);
+      if (data === '[DONE]')          { onDone();               return; }
+      if (data.startsWith('[ERRO]'))  { onError(data.slice(7)); return; }
+      onChunk(data.replace(/\\n/g, '\n'));
+    }
+  }
+  onDone();
+}
+
+/* ─── Job Panel ─── */
+const JP_STEPS = [
+  ['YouTube', ['youtube', 'vídeo', 'video']],
+  ['Web',     ['web', 'notícias', 'artigo']],
+  ['PubMed',  ['pubmed', 'estudo', 'científico']],
+  ['Resultado',['relatório', 'resultado', 'salvando', 'concluído']],
+];
+
+function startJobPanel(title) {
+  el('jp-empty').style.display = 'none';
+  el('job-card').style.display = 'block';
+  if (el('job-panel').classList.contains('collapsed')) togglePanel();
+
+  el('jc-title').textContent = title;
+  el('jc-time').textContent  = '0s';
+  el('jprogress').style.width = '5%';
+
+  const stepsEl = el('jsteps');
+  clearEl(stepsEl);
+  JP_STEPS.forEach(([label], i) => {
+    const row = mk('div', i === 0 ? 'jstep active' : 'jstep');
+    row.append(mk('div', 'jdot'), mk('span', null, label));
+    stepsEl.appendChild(row);
+  });
+
+  jobElapsed = 0;
+  clearInterval(jobTimer);
+  jobTimer = setInterval(() => { jobElapsed++; el('jc-time').textContent = jobElapsed + 's'; }, 1000);
+}
+
+function advanceJobPanel(fullText) {
+  const lower = fullText.toLowerCase();
+  const steps = el('jsteps').children;
+  JP_STEPS.forEach(([, keywords], i) => {
+    if (keywords.some(k => lower.includes(k)) && steps[i]) {
+      for (let j = 0; j < i; j++) steps[j].className = 'jstep done';
+      steps[i].className = 'jstep active';
+      el('jprogress').style.width = `${10 + (i / JP_STEPS.length) * 85}%`;
+    }
+  });
+}
+
+function finishJobPanel(secs) {
+  clearInterval(jobTimer);
+  el('jc-time').textContent = `✓ ${secs}s`;
+  el('jprogress').style.width = '100%';
+  Array.from(el('jsteps').children).forEach(s => { s.className = 'jstep done'; });
+}
+
+function stopJobPanel() { clearInterval(jobTimer); }
+
+function togglePanel() {
+  el('job-panel').classList.toggle('collapsed');
+  el('panel-icon').style.transform = el('job-panel').classList.contains('collapsed') ? 'rotate(180deg)' : '';
+}
+
+/* ─── Boot ─── */
+init();
+</script>
+</body>
+</html>

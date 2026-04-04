@@ -1,0 +1,14 @@
+{
+  "name": "Mayara Farias",
+  "slug": "mayara",
+  "niche": "nutrição",
+  "workflows": [
+    "pesquisa",
+    "youtube",
+    "imagem",
+    "landing_page",
+    "reels"
+  ],
+  "context_path": "clients/mayara/context",
+  "memory_path": "clients/mayara/context/memoria"
+}

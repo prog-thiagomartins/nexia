@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WAT Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep:       #0A1810;
+      --bg-surface:    #0F2018;
+      --bg-card:       #142B1A;
+      --bg-hover:      #1A3622;
+      --accent-gold:   #C9A96E;
+      --accent-gold-d: #8A7048;
+      --accent-sage:   #6FA880;
+      --accent-sage-d: #3D6B4F;
+      --text-primary:  #EDE5D0;
+      --text-secondary:#A0ADA5;
+      --text-muted:    #526058;
+      --border:        rgba(255,255,255,0.06);
+      --border-gold:   rgba(201,169,110,0.25);
+      --sidebar-w:     232px;
+      --panel-w:       272px;
+      --header-h:      54px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 9999; opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ─── HEADER ─── */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: var(--header-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px 0 16px;
+      background: rgba(10, 24, 16, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-mark {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, var(--accent-gold), #A07840);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600; font-size: 15px; color: var(--bg-deep); flex-shrink: 0;
+    }
+    .brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px; font-weight: 500; letter-spacing: 0.015em;
+    }
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .client-pill {
+      display: flex; align-items: center; gap: 7px;
+      padding: 4px 11px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 999px; font-size: 12px; color: var(--text-secondary);
+    }
+    .pulse-dot {
+      width: 6px; height: 6px; background: var(--accent-sage);
+      border-radius: 50%; animation: pulse-anim 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse-anim {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.35; transform: scale(0.85); }
+    }
+    .hbtn {
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      border: none; background: none; cursor: pointer;
+      color: var(--text-muted); border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .hbtn:hover { background: var(--bg-card); color: var(--text-secondary); }
+
+    /* ─── LAYOUT ─── */
+    .layout { display: flex; height: 100vh; padding-top: var(--header-h); }
+
+    /* ─── SIDEBAR ─── */
+    .sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      padding: 18px 0 12px; overflow-y: auto;
+    }
+    .sb-label {
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--text-muted); padding: 0 14px; margin-bottom: 6px;
+    }
+    .sb-nav { list-style: none; padding: 0 7px; margin-bottom: 20px; }
+    .sb-item {
+      display: flex; align-items: center; gap: 9px;
+      padding: 7px 9px; border-radius: 7px;
+      font-size: 13px; color: var(--text-secondary);
+      cursor: pointer; user-select: none;
+      transition: background 0.12s, color 0.12s;
+    }
+    .sb-item:hover  { background: var(--bg-card); color: var(--text-primary); }
+    .sb-item.active { background: var(--bg-hover); color: var(--text-primary); }
+    .sb-item.active .sb-icon { color: var(--accent-gold); }
+    .sb-icon { width: 15px; height: 15px; flex-shrink: 0; color: var(--text-muted); transition: color 0.12s; }
+    .sb-divider { height: 1px; background: var(--border); margin: 4px 14px 16px; }
+    .sb-recents { padding: 0 7px; flex: 1; }
+    .sb-recent { padding: 7px 9px; border-radius: 7px; cursor: pointer; transition: background 0.12s; }
+    .sb-recent:hover { background: var(--bg-card); }
+    .sb-recent-title { font-size: 12px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sb-recent-meta  { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+    .sb-chat-btn {
+      margin: 12px 8px 0;
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 11px;
+      background: none; border: 1px solid var(--border-gold); border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--accent-gold);
+      cursor: pointer; transition: all 0.15s;
+    }
+    .sb-chat-btn:hover { background: rgba(201,169,110,0.08); border-color: var(--accent-gold); }
+
+    /* ─── MAIN ─── */
+    .main { flex: 1; min-width: 0; overflow-y: auto; padding: 32px 36px; }
+
+    .view { animation: fadein 0.18s ease; }
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(5px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── HOME ─── */
+    .greeting { margin-bottom: 36px; }
+    .greeting h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px; font-weight: 300; line-height: 1.15;
+    }
+    .greeting h1 em { font-style: italic; color: var(--accent-gold); }
+    .greeting p { font-size: 14px; color: var(--text-secondary); margin-top: 7px; }
+    .wf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 14px;
+    }
+    .wf-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 13px; padding: 20px 18px 16px;
+      cursor: pointer; transition: transform 0.18s, border-color 0.18s, background 0.18s;
+      position: relative; overflow: hidden;
+    }
+    .wf-card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--card-color, var(--accent-sage));
+      opacity: 0; transition: opacity 0.18s;
+    }
+    .wf-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.1); background: var(--bg-hover); }
+    .wf-card:hover::after { opacity: 1; }
+    .wf-icon { width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 19px; margin-bottom: 14px; }
+    .wf-title { font-size: 13.5px; font-weight: 500; margin-bottom: 6px; }
+    .wf-desc  { font-size: 12px; color: var(--text-secondary); line-height: 1.55; }
+    .wf-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 15px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .wf-last { font-size: 11px; color: var(--text-muted); }
+    .wf-go { width: 24px; height: 24px; background: var(--bg-deep); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: all 0.15s; }
+    .wf-card:hover .wf-go { background: var(--accent-gold); color: var(--bg-deep); }
+
+    /* ─── WORKFLOW WIZARD ─── */
+    .breadcrumb { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+    .breadcrumb a { color: var(--text-muted); cursor: pointer; }
+    .breadcrumb a:hover { color: var(--text-secondary); }
+    .breadcrumb-cur { color: var(--text-secondary); }
+    .wiz-title { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 300; margin-bottom: 28px; }
+    .wiz-steps { display: flex; align-items: center; margin-bottom: 32px; }
+    .wstep { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--text-muted); }
+    .wstep.active { color: var(--text-primary); }
+    .wstep.done   { color: var(--accent-sage); }
+    .wstep-num { width: 22px; height: 22px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 11px; transition: all 0.2s; }
+    .wstep.active .wstep-num { background: var(--accent-gold); border-color: var(--accent-gold); color: var(--bg-deep); font-weight: 500; }
+    .wstep.done   .wstep-num { background: var(--accent-sage); border-color: var(--accent-sage); color: var(--bg-deep); }
+    .wconn { flex: 1; height: 1px; background: var(--border); max-width: 36px; margin: 0 4px; }
+
+    /* ─── FORM ─── */
+    .fgroup { margin-bottom: 20px; }
+    .flabel { display: block; font-size: 12px; font-weight: 500; color: var(--text-secondary); margin-bottom: 7px; }
+    .finput, .fselect, .ftextarea {
+      width: 100%; max-width: 460px;
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+      padding: 9px 13px; font-family: 'DM Sans', sans-serif; font-size: 13px;
+      color: var(--text-primary); outline: none; transition: border-color 0.15s;
+    }
+    .finput:focus, .fselect:focus, .ftextarea:focus { border-color: var(--border-gold); }
+    .fselect { appearance: none; cursor: pointer; }
+    .ftextarea { resize: vertical; min-height: 80px; }
+    .fhint { font-size: 11px; color: var(--text-muted); margin-top: 5px; }
+    .adv-toggle {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--text-muted); cursor: pointer;
+      margin-bottom: 18px; user-select: none; transition: color 0.12s;
+    }
+    .adv-toggle:hover { color: var(--text-secondary); }
+    .factions { display: flex; gap: 9px; margin-top: 26px; }
+    .btn { padding: 9px 19px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; border: none; }
+    .btn-primary { background: var(--accent-gold); color: var(--bg-deep); }
+    .btn-primary:hover { background: #D4B575; }
+    .btn-secondary { background: none; color: var(--text-secondary); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.14); color: var(--text-primary); }
+
+    .confirm-card { max-width: 460px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; font-size: 13px; color: var(--text-secondary); line-height: 1.72; margin-bottom: 24px; }
+    .confirm-card strong { color: var(--text-primary); }
+    .result-card { max-width: 520px; background: var(--bg-card); border: 1px solid var(--border-gold); border-radius: 12px; padding: 20px; }
+    .result-ok   { font-size: 12px; color: var(--accent-sage); margin-bottom: 10px; }
+    .result-body { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .result-path { display: inline-block; background: var(--bg-deep); padding: 2px 7px; border-radius: 4px; font-size: 12px; font-family: 'Courier New', monospace; }
+
+    /* ─── CHAT ─── */
+    .chat-wrap { display: flex; flex-direction: column; height: calc(100vh - var(--header-h) - 64px); }
+    .chat-head { margin-bottom: 22px; }
+    .chat-head h2 { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; }
+    .chat-head p  { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+    .chat-msgs { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding-right: 6px; margin-bottom: 18px; }
+    .msg { display: flex; gap: 11px; animation: fadein 0.18s ease; }
+    .msg-avatar { width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+    .msg.user  .msg-avatar { background: var(--accent-gold-d); color: var(--text-primary); }
+    .msg.agent .msg-avatar { background: var(--bg-hover); color: var(--accent-sage); font-family: 'Cormorant Garamond', serif; font-size: 15px; }
+    .msg-inner { flex: 1; min-width: 0; }
+    .msg-who  { font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+    .msg-text { font-size: 13px; line-height: 1.65; color: var(--text-secondary); }
+    .msg.user .msg-text { color: var(--text-primary); }
+    .chat-input-wrap { display: flex; align-items: flex-end; gap: 8px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 11px 11px 11px 15px; transition: border-color 0.15s; }
+    .chat-input-wrap:focus-within { border-color: var(--border-gold); }
+    .chat-ta { flex: 1; background: none; border: none; outline: none; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text-primary); resize: none; line-height: 1.5; max-height: 110px; min-height: 20px; }
+    .chat-ta::placeholder { color: var(--text-muted); }
+    .chat-send { width: 32px; height: 32px; flex-shrink: 0; background: var(--accent-gold); border: none; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--bg-deep); transition: background 0.15s; }
+    .chat-send:hover { background: #D4B575; }
+
+    /* ─── JOB PANEL ─── */
+    .job-panel { width: var(--panel-w); flex-shrink: 0; border-left: 1px solid var(--border); padding: 18px 14px; overflow-y: auto; transition: width 0.2s ease, padding 0.2s ease; }
+    .job-panel.collapsed { width: 46px; padding: 18px 7px; overflow: hidden; }
+    .jp-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .jp-title { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; overflow: hidden; }
+    .job-panel.collapsed .jp-title { opacity: 0; }
+    .jp-toggle-btn { width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: none; background: none; cursor: pointer; color: var(--text-muted); border-radius: 5px; transition: all 0.15s; }
+    .jp-toggle-btn:hover { background: var(--bg-card); color: var(--text-secondary); }
+    .jp-empty { padding: 30px 0; text-align: center; font-size: 12px; color: var(--text-muted); }
+    .job-panel.collapsed .jp-empty { display: none; }
+    .job-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 13px; margin-bottom: 10px; }
+    .job-panel.collapsed .job-card { display: none; }
+    .jc-title { font-size: 12px; font-weight: 500; margin-bottom: 3px; }
+    .jc-time  { font-size: 11px; color: var(--text-muted); margin-bottom: 11px; }
+    .jsteps { display: flex; flex-direction: column; gap: 6px; }
+    .jstep  { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); }
+    .jstep.done   { color: var(--accent-sage); }
+    .jstep.active { color: var(--text-primary); }
+    .jdot { width: 6px; height: 6px; flex-shrink: 0; border-radius: 50%; background: var(--text-muted); transition: background 0.3s; }
+    .jstep.done   .jdot { background: var(--accent-sage); }
+    .jstep.active .jdot { background: var(--accent-gold); animation: pulse-anim 1s infinite; }
+    .jprogress-wrap { height: 2px; background: var(--border); border-radius: 2px; margin-top: 12px; overflow: hidden; }
+    .jprogress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-sage), var(--accent-gold)); border-radius: 2px; width: 0%; transition: width 0.6s ease; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--bg-hover); border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="brand">
+    <div class="brand-mark">W</div>
+    <span class="brand-name">WAT Studio</span>
+  </div>
+  <div class="header-right">
+    <div class="client-pill">
+      <span class="pulse-dot"></span>
+      Mayara Farias
+    </div>
+    <button class="hbtn" title="Configurações">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-label">Workflows</div>
+    <ul class="sb-nav">
+      <li class="sb-item active" onclick="showHome(this)">
+        <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+        </svg>
+        Todos
+      </li>
+      <li class="sb-item" onclick="showWorkflow('pesquisa', this)">
+        <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        Pesquisa de Nicho
+      </li>
+      <li class="sb-item" onclick="showWorkflow('youtube', this)">
+        <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42C1 8.14 1 11.71 1 11.71s0 3.57.46 5.29a2.78 2.78 0 0 0 1.95 1.95C5.12 19.42 12 19.42 12 19.42s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95C23 15.28 23 11.71 23 11.71s0-3.57-.46-5.29z"/>
+          <polygon points="9.75 15.02 15.5 11.71 9.75 8.4 9.75 15.02"/>
+        </svg>
+        YouTube
+      </li>
+      <li class="sb-item">
+        <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+        </svg>
+        Geração de Imagem
+      </li>
+      <li class="sb-item">
+        <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
+        Landing Page
+      </li>
+    </ul>
+
+    <div class="sb-divider"></div>
+
+    <div class="sb-label">Recentes</div>
+    <div class="sb-recents">
+      <div class="sb-recent">
+        <div class="sb-recent-title">Jejum intermitente mulheres</div>
+        <div class="sb-recent-meta">Pesquisa · há 2 horas</div>
+      </div>
+      <div class="sb-recent">
+        <div class="sb-recent-title">Low carb 2025 tendências</div>
+        <div class="sb-recent-meta">Pesquisa · ontem</div>
+      </div>
+      <div class="sb-recent">
+        <div class="sb-recent-title">Banner Programa Detox</div>
+        <div class="sb-recent-meta">Imagem · 3 dias atrás</div>
+      </div>
+    </div>
+
+    <button class="sb-chat-btn" onclick="showChat(null)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      Chat livre
+    </button>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main" id="main">
+
+    <!-- HOME -->
+    <div id="v-home" class="view">
+      <div class="greeting">
+        <h1>Bom dia, <em>Mayara.</em></h1>
+        <p>O que você quer criar hoje?</p>
+      </div>
+      <div class="wf-grid">
+        <div class="wf-card" style="--card-color:#6FA880" onclick="showWorkflow('pesquisa', null)">
+          <div class="wf-icon" style="background:rgba(111,168,128,.14)">🔍</div>
+          <div class="wf-title">Pesquisa de Nicho</div>
+          <div class="wf-desc">YouTube, web, notícias e estudos científicos sobre qualquer tema.</div>
+          <div class="wf-footer">
+            <span class="wf-last">Hoje às 10h</span>
+            <div class="wf-go"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          </div>
+        </div>
+        <div class="wf-card" style="--card-color:#C48A6A" onclick="showWorkflow('youtube', null)">
+          <div class="wf-icon" style="background:rgba(196,138,106,.14)">▶</div>
+          <div class="wf-title">YouTube Recommender</div>
+          <div class="wf-desc">Analisa canais e vídeos do seu nicho para inspiração de conteúdo.</div>
+          <div class="wf-footer">
+            <span class="wf-last">Ontem</span>
+            <div class="wf-go"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          </div>
+        </div>
+        <div class="wf-card" style="--card-color:#8A6EC4">
+          <div class="wf-icon" style="background:rgba(138,110,196,.14)">🎨</div>
+          <div class="wf-title">Geração de Imagem</div>
+          <div class="wf-desc">Cria artes para posts, stories e materiais de marketing.</div>
+          <div class="wf-footer">
+            <span class="wf-last">3 dias atrás</span>
+            <div class="wf-go"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          </div>
+        </div>
+        <div class="wf-card" style="--card-color:#C9A96E">
+          <div class="wf-icon" style="background:rgba(201,169,110,.14)">📄</div>
+          <div class="wf-title">Landing Page</div>
+          <div class="wf-desc">Gera páginas de vendas completas para programas e consultas.</div>
+          <div class="wf-footer">
+            <span class="wf-last">Nunca usado</span>
+            <div class="wf-go"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORKFLOW -->
+    <div id="v-workflow" class="view" style="display:none">
+      <div class="breadcrumb">
+        <a onclick="showHome(null)">Início</a>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        <span class="breadcrumb-cur" id="wf-name">Pesquisa de Nicho</span>
+      </div>
+      <h2 class="wiz-title" id="wf-title">Pesquisa de Nicho</h2>
+      <div class="wiz-steps">
+        <div class="wstep active" id="ws1"><div class="wstep-num">1</div><span>Configurar</span></div>
+        <div class="wconn"></div>
+        <div class="wstep" id="ws2"><div class="wstep-num">2</div><span>Confirmar</span></div>
+        <div class="wconn"></div>
+        <div class="wstep" id="ws3"><div class="wstep-num">3</div><span>Resultado</span></div>
+      </div>
+
+      <!-- Step 1 -->
+      <div id="wstep1">
+        <div class="fgroup">
+          <label class="flabel">Tema da pesquisa</label>
+          <input class="finput" id="inp-tema" type="text" placeholder="ex: jejum intermitente para mulheres">
+          <div class="fhint">Seja específico — quanto mais detalhado, melhor o resultado.</div>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Profundidade</label>
+          <select class="fselect" id="inp-depth">
+            <option value="rapido">Rápido — títulos e snippets (~30 seg)</option>
+            <option value="profundo">Profundo — inclui transcrições (~2-3 min)</option>
+          </select>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Formato do resultado</label>
+          <select class="fselect">
+            <option>Resumo executivo</option>
+            <option>Relatório completo</option>
+            <option>Briefing de conteúdo</option>
+            <option>Benchmarking de concorrentes</option>
+          </select>
+        </div>
+        <div class="adv-toggle" onclick="toggleAdv()">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="adv-arrow"><polyline points="6 9 12 15 18 9"/></svg>
+          Opções avançadas
+        </div>
+        <div id="adv-opts" style="display:none">
+          <div class="fgroup">
+            <label class="flabel">Sites específicos (opcional)</label>
+            <input class="finput" type="text" placeholder="ex: examine.com, healthline.com">
+          </div>
+        </div>
+        <div class="factions">
+          <button class="btn btn-primary" onclick="goStep2()">Continuar →</button>
+          <button class="btn btn-secondary" onclick="showHome(null)">Cancelar</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="wstep2" style="display:none">
+        <div class="confirm-card" id="confirm-card"></div>
+        <div class="factions">
+          <button class="btn btn-primary" onclick="goStep3()">Executar agora</button>
+          <button class="btn btn-secondary" onclick="backStep1()">← Voltar</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div id="wstep3" style="display:none">
+        <div class="result-card">
+          <div class="result-ok">✓ Concluído em 24 segundos</div>
+          <div class="result-body">
+            Resultado salvo em <span class="result-path">.tmp/research_jejum_2026-04-02.md</span>.
+            Você pode abrir o arquivo ou continuar aqui.
+          </div>
+          <div class="factions" style="margin-top:16px">
+            <button class="btn btn-primary">Ver resultado</button>
+            <button class="btn btn-secondary" onclick="showHome(null)">Nova tarefa</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHAT -->
+    <div id="v-chat" class="view chat-wrap" style="display:none">
+      <div class="chat-head">
+        <h2>Chat livre</h2>
+        <p>Converse com o agente. Ele conhece seus workflows e contexto.</p>
+      </div>
+      <div class="chat-msgs" id="chat-msgs"></div>
+      <div>
+        <div class="chat-input-wrap">
+          <textarea class="chat-ta" id="chat-ta" placeholder="Escreva aqui..." rows="1"
+            onkeydown="chatKey(event)" oninput="autoResize(this)"></textarea>
+          <button class="chat-send" onclick="sendMsg()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- JOB PANEL -->
+  <aside class="job-panel" id="job-panel">
+    <div class="jp-head">
+      <span class="jp-title">Em execução</span>
+      <button class="jp-toggle-btn" onclick="togglePanel()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="panel-icon">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+    <div class="jp-empty" id="jp-empty">Nenhuma tarefa em execução</div>
+    <div class="job-card" id="job-card" style="display:none">
+      <div class="jc-title">Pesquisa de Nicho</div>
+      <div class="jc-time" id="jc-time">0s decorridos</div>
+      <div class="jsteps">
+        <div class="jstep" id="js1"><div class="jdot"></div>Buscando no YouTube</div>
+        <div class="jstep" id="js2"><div class="jdot"></div>Buscando na web</div>
+        <div class="jstep" id="js3"><div class="jdot"></div>Buscando no PubMed</div>
+        <div class="jstep" id="js4"><div class="jdot"></div>Gerando relatório</div>
+      </div>
+      <div class="jprogress-wrap">
+        <div class="jprogress-fill" id="jprogress"></div>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+  /* ─── DOM helpers (safe, no innerHTML with user data) ─── */
+  function el(id) { return document.getElementById(id); }
+
+  function createMsg(role, text) {
+    const wrap   = document.createElement('div');
+    wrap.className = 'msg ' + role;
+
+    const avatar = document.createElement('div');
+    avatar.className = 'msg-avatar';
+    avatar.textContent = role === 'user' ? 'M' : 'W';
+
+    const inner  = document.createElement('div');
+    inner.className = 'msg-inner';
+
+    const who = document.createElement('div');
+    who.className = 'msg-who';
+    who.textContent = role === 'user' ? 'Você' : 'Agente';
+
+    const body = document.createElement('div');
+    body.className = 'msg-text';
+    body.textContent = text;  // textContent — safe
+
+    inner.append(who, body);
+    wrap.append(avatar, inner);
+    return wrap;
+  }
+
+  /* ─── VIEWS ─── */
+  function showView(key) {
+    ['v-home', 'v-workflow', 'v-chat'].forEach(id => {
+      const e = el(id);
+      e.style.display = 'none';
+    });
+    const target = el('v-' + key);
+    target.style.display = key === 'chat' ? 'flex' : 'block';
+    target.classList.remove('view');
+    void target.offsetWidth;
+    target.classList.add('view');
+  }
+
+  function setNav(item) {
+    document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
+    if (item) item.classList.add('active');
+  }
+
+  function showHome(navEl) {
+    showView('home');
+    setNav(navEl || document.querySelector('.sb-item'));
+  }
+
+  function showWorkflow(type, navEl) {
+    const names = { pesquisa: 'Pesquisa de Nicho', youtube: 'YouTube Recommender' };
+    const name = names[type] || type;
+    el('wf-name').textContent  = name;
+    el('wf-title').textContent = name;
+    resetWizard();
+    showView('workflow');
+    if (navEl) setNav(navEl);
+  }
+
+  function showChat(navEl) {
+    if (!el('chat-msgs').hasChildNodes()) {
+      el('chat-msgs').appendChild(
+        createMsg('agent', 'Oi, Mayara! Posso rodar uma pesquisa, analisar canais do YouTube, criar imagens ou qualquer outra coisa. O que você precisa hoje?')
+      );
+    }
+    showView('chat');
+    if (navEl) setNav(navEl);
+  }
+
+  /* ─── WIZARD ─── */
+  function resetWizard() {
+    el('wstep1').style.display = 'block';
+    el('wstep2').style.display = 'none';
+    el('wstep3').style.display = 'none';
+    el('ws1').className = 'wstep active';
+    el('ws2').className = 'wstep';
+    el('ws3').className = 'wstep';
+  }
+
+  function toggleAdv() {
+    const box  = el('adv-opts');
+    const open = box.style.display !== 'none';
+    box.style.display = open ? 'none' : 'block';
+    el('adv-arrow').style.transform = open ? '' : 'rotate(180deg)';
+  }
+
+  function goStep2() {
+    const tema  = el('inp-tema').value.trim() || 'o tema selecionado';
+    const depth = el('inp-depth').value;
+    const dl    = depth === 'profundo' ? 'Profundo' : 'Rápido';
+    const time  = depth === 'profundo' ? '2–3 minutos' : '30 segundos';
+
+    // Build confirm text safely
+    const card = el('confirm-card');
+    card.textContent = '';
+    card.append(
+      document.createTextNode('Vou pesquisar '),
+      Object.assign(document.createElement('strong'), { textContent: '"' + tema + '"' }),
+      document.createTextNode(' em modo '),
+      Object.assign(document.createElement('strong'), { textContent: dl }),
+      document.createTextNode(', consultando YouTube, web, notícias e PubMed. Você vai receber um resumo executivo em cerca de '),
+      Object.assign(document.createElement('strong'), { textContent: time }),
+      document.createTextNode('.')
+    );
+
+    el('wstep1').style.display = 'none';
+    el('wstep2').style.display = 'block';
+    el('ws1').className = 'wstep done';
+    el('ws2').className = 'wstep active';
+  }
+
+  function backStep1() {
+    el('wstep2').style.display = 'none';
+    el('wstep1').style.display = 'block';
+    el('ws1').className = 'wstep active';
+    el('ws2').className = 'wstep';
+  }
+
+  let timer, elapsed = 0;
+
+  function goStep3() {
+    el('wstep2').style.display = 'none';
+    el('ws2').className = 'wstep done';
+    el('ws3').className = 'wstep active';
+
+    el('jp-empty').style.display = 'none';
+    el('job-card').style.display = 'block';
+    if (el('job-panel').classList.contains('collapsed')) togglePanel();
+
+    elapsed = 0;
+    el('js1').className = 'jstep active';
+    el('jprogress').style.width = '15%';
+
+    clearInterval(timer);
+    timer = setInterval(() => {
+      elapsed++;
+      el('jc-time').textContent = elapsed + 's decorridos';
+      if (elapsed === 5)  { el('js1').className='jstep done'; el('js2').className='jstep active'; el('jprogress').style.width='40%'; }
+      if (elapsed === 10) { el('js2').className='jstep done'; el('js3').className='jstep active'; el('jprogress').style.width='65%'; }
+      if (elapsed === 15) { el('js3').className='jstep done'; el('js4').className='jstep active'; el('jprogress').style.width='85%'; }
+      if (elapsed === 20) {
+        clearInterval(timer);
+        el('js4').className = 'jstep done';
+        el('jprogress').style.width = '100%';
+        el('jc-time').textContent = '✓ Concluído em ' + elapsed + 's';
+        el('wstep3').style.display = 'block';
+      }
+    }, 600);
+  }
+
+  /* ─── CHAT ─── */
+  function sendMsg() {
+    const ta   = el('chat-ta');
+    const text = ta.value.trim();
+    if (!text) return;
+
+    const msgs = el('chat-msgs');
+    msgs.appendChild(createMsg('user', text));
+    ta.value = ''; ta.style.height = 'auto';
+    msgs.scrollTop = msgs.scrollHeight;
+
+    setTimeout(() => {
+      msgs.appendChild(createMsg('agent', 'Entendido! Deixa eu processar isso...'));
+      msgs.scrollTop = msgs.scrollHeight;
+    }, 750);
+  }
+
+  function chatKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); }
+  }
+
+  function autoResize(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 110) + 'px';
+  }
+
+  /* ─── JOB PANEL ─── */
+  function togglePanel() {
+    const panel = el('job-panel');
+    panel.classList.toggle('collapsed');
+    el('panel-icon').style.transform = panel.classList.contains('collapsed') ? 'rotate(180deg)' : '';
+  }
+</script>
+</body>
+</html>
