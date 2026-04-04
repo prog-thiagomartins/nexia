@@ -80,9 +80,16 @@ clients/                     # One folder per client — isolated context and pr
     projects/                # Client deliverables and active projects
     client.json              # Client metadata: name, slug, active workflows, paths
     .env                     # Client-specific API keys (NEVER store secrets anywhere else)
-docs/                        # Design specs and documentation
+docs/                        # Design specs and documentation (flat — no subfolders by tool or plugin)
+gemini/                      # Gemini sandbox — read/write only by call_gemini_api.py
 credentials.json, token.json # Google OAuth (gitignored)
 ```
+
+**Folder hygiene rules (non-negotiable):**
+- NEVER create folders named after tools, plugins, or frameworks inside this project (`superpowers/`, `gsd/`, `claude/`, etc.)
+- `docs/` is flat — specs and references go directly in `docs/`, no nested tool folders
+- Plugin and skill infrastructure lives in `~/.claude/` — never bleeds into project directories
+- If a skill or workflow tries to create a tool-specific subfolder, override it and use the correct project path instead
 
 **Active client:** When operating via the WAT Studio frontend, read `client.json` from the active client folder to know which context to load, which workflows are available, and where to persist memory.
 
@@ -91,8 +98,10 @@ credentials.json, token.json # Google OAuth (gitignored)
 ## Session Protocol
 
 **At the start of any client session:**
-1. Read `clients/<slug>/client.json` to identify context paths, active workflows, and metadata
-2. Read all files in `clients/<slug>/context/memoria/` to load persistent memory
+1. Read `workflows/session_router.md` — always first, before anything else
+2. Read `clients/<slug>/client.json` to identify context paths, active workflows, and metadata
+3. Check `gemini/briefs/` for a recent brief (same day) before reading raw context files
+4. Read all files in `clients/<slug>/context/memoria/` only if no current Gemini brief exists
 
 **At the end of any client session:**
 1. Update the relevant memory files with new learnings, preferences, or decisions

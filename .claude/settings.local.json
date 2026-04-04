@@ -1,7 +1,28 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python tools/search_web.py \"reels virais nutrição emagrecimento Brasil Instagram 2024 2025 roteiro estrutura\")"
+      "Bash(python tools/search_web.py \"reels virais nutrição emagrecimento Brasil Instagram 2024 2025 roteiro estrutura\")",
+      "Bash(gemini --version)",
+      "Bash(gemini -v)",
+      "Bash(where gemini:*)",
+      "Read(//c/Users/Thiag/AppData/Local/Programs/**)",
+      "Read(//c/Users/Thiag/AppData/Roaming/npm/**)",
+      "Bash(npx gemini:*)",
+      "Read(//c/Users/Thiag/AppData/Local/**)",
+      "Bash(python3 -c \"import json; d=json.load\\(open\\('.claude/settings.local.json'\\)\\); cmd=d['hooks']['SessionStart'][0]['hooks'][0]['command']; print\\('JSON valido. Comando:', cmd[:80]\\)\")"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import json; content=open('workflows/session_router.md').read(); print(json.dumps({'hookSpecificOutput':{'hookEventName':'SessionStart','additionalContext':'[SESSION ROUTER - carregado automaticamente]\\n\\n'+content}}))\"",
+            "statusMessage": "Carregando session router..."
+          }
+        ]
+      }
     ]
   }
 }
