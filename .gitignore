@@ -14,3 +14,10 @@ __pycache__/
 .env
 credentials.json
 token.json
+
+# Arquivos de mídia — pertencem ao Supabase Storage, não ao git
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.srt
