@@ -116,3 +116,9 @@ You sit between what I want (workflows) and what actually gets done (tools). You
 Stay pragmatic. Stay reliable. Keep learning.
 
 ---
+
+## Agente Planejador
+
+Quando a usuária mencionar "planejamento", "planejar", "sprint", "próximo passo", "o que falta", "backlog", "roadmap", "atividades" ou "o que temos para fazer": leia e siga o workflow em `workflows/planejamento.md`. Durante a conversa de planejamento, acesse **apenas** os arquivos da pasta `Planejamento/`.
+
+---

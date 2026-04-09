@@ -1,5 +1,5 @@
 # Análise Competitiva — Referências de Mercado
-**Atualizado em:** 2026-04-04
+**Atualizado em:** 2026-04-05
 **Objetivo:** Identificar padrões de sucesso e gaps de posicionamento para a Mayara
 
 ---
@@ -33,6 +33,13 @@
 - **Posicionamento:** Produto próprio forte (Nutrição IN&OUT), ângulo diferenciado (pele = reflexo da nutrição)
 - **Tom:** Mais clínico, expertise em destaque
 
+### 5. @diegofaleirosm — 282k seguidores
+- **Bio:** "A nutrição que é a seu FAVOR e não CONTRA você! O melhor método de EMAGRECIMENTO do BR com + de 8.000 alunos!"
+- **Nicho:** Emagrecimento, nutrição esportiva, método próprio
+- **Destaques:** Treinos, Daily/Caixinha
+- **Posicionamento:** Método escalável com forte prova social (8k+ alunos). Framing de aliança ("FAVOR e não CONTRA") — o mais próximo do anti-culpa entre todos os analisados.
+- **Tom:** Método + humor. Combina autoridade técnica (CRN9, nutricionista esportivo) com conteúdo leve e relatable.
+
 ---
 
 ## O que eles têm em comum (padrões de sucesso)
@@ -65,11 +72,12 @@
 | @thiagobarros | Thiago é masculino e acadêmico. Mayara é feminina e humana — território totalmente diferente |
 | @paulomuzy | Paulo é médico com audiência de performance. Mayara é amiga — o oposto emocional |
 | @draoliviafernandes | Olívia foca em pele e inflamação. Mayara foca em comportamento e relação com comida |
+| @diegofaleirosm | Diego usa framing "FAVOR e não CONTRA" parecido com anti-culpa, mas vende método esportivo com público misto. Mayara é a versão feminina, humana e comportamental desse posicionamento. |
 
 ---
 
 ## Insight estratégico principal
 
-> **Nenhum dos 4 ocupa o território da "amiga especialista que não te culpa".**
+> **Nenhum dos 5 ocupa o território da "amiga especialista que não te culpa".**
 >
-> Todos são mais autoridade do que proximidade. A Mayara tem a chance de ser a nutricionista que as mulheres sentem que as entende — não que as corrige.
+> Diego chega mais perto com o framing "FAVOR e não CONTRA" — mas ainda vende método e performance. A Mayara tem a chance de ser a nutricionista que as mulheres sentem que as entende — não que as corrige. Esse território está vazio e disponível.
