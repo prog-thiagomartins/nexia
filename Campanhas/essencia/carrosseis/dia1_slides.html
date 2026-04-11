@@ -23,51 +23,69 @@
 
     body {
       font-family: 'DM Sans', sans-serif;
-      background: #1a1a1a;
-      padding: 40px 24px 80px;
+      background: #111;
+      padding: 48px 24px 100px;
       color: white;
     }
 
-    h1.page-title {
+    /* ── PAGE HEADER ── */
+    .page-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .page-header .eyebrow {
       font-family: 'Poppins', sans-serif;
-      font-size: 13px; font-weight: 600;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--terra); margin-bottom: 10px; display: block;
+    }
+    .page-header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px; font-weight: 800;
+      color: white; letter-spacing: -0.02em;
+    }
+    .page-header p {
+      font-size: 13px; color: #555; margin-top: 6px;
+    }
+
+    /* ── CARROSSEL BLOCK ── */
+    .carrossel-block { margin-bottom: 80px; }
+
+    .carrossel-meta {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-left: 4px;
+    }
+    .carrossel-meta .slot {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px; font-weight: 700;
       letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--terra); margin-bottom: 48px; text-align: center;
+      color: var(--terra);
     }
-
-    .carrossel-block { margin-bottom: 72px; }
-
-    .carrossel-label {
+    .carrossel-meta .name {
       font-family: 'Poppins', sans-serif;
-      font-size: 11px; font-weight: 700;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: #666; margin-bottom: 6px;
-    }
-
-    .carrossel-title {
-      font-family: 'Poppins', sans-serif;
-      font-size: 22px; font-weight: 800;
-      color: white; margin-bottom: 28px;
+      font-size: 18px; font-weight: 800; color: white;
     }
 
     .slides-row {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       overflow-x: auto;
-      padding-bottom: 12px;
+      padding-bottom: 16px;
       scroll-snap-type: x mandatory;
     }
-
-    .slides-row::-webkit-scrollbar { height: 4px; }
-    .slides-row::-webkit-scrollbar-track { background: #333; border-radius: 2px; }
+    .slides-row::-webkit-scrollbar { height: 3px; }
+    .slides-row::-webkit-scrollbar-track { background: #222; border-radius: 2px; }
     .slides-row::-webkit-scrollbar-thumb { background: var(--terra); border-radius: 2px; }
 
-    /* ── SLIDE BASE ── */
+    /* ══ SLIDE BASE ══ */
     .slide {
       flex-shrink: 0;
       width: 270px;
-      height: 337px; /* 4:5 ratio */
-      border-radius: 12px;
+      height: 337px; /* 4:5 · produção: 1080×1350px */
+      border-radius: 14px;
       overflow: hidden;
       position: relative;
       scroll-snap-align: start;
@@ -75,25 +93,120 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 28px 24px;
+      padding: 26px 22px 52px; /* bottom padding for avatar+dots */
       text-align: center;
     }
 
-    .slide-num {
+    /* Grain overlay nos fundos escuros */
+    .slide.has-grain::before {
+      content: '';
       position: absolute;
-      top: 12px; left: 14px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 10px; font-weight: 700;
-      letter-spacing: 0.1em;
-      opacity: 0.4;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
     }
 
-    .slide-tag {
+    /* Bleeding hint — seta direita em slides não-finais */
+    .slide .bleed {
+      position: absolute;
+      right: -1px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 48px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 8px 0 0 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+    }
+    .slide .bleed::after {
+      content: '›';
+      font-size: 14px;
+      color: rgba(255,255,255,0.35);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+    }
+    /* bleed claro para slides areia/branco */
+    .slide.light-bleed .bleed {
+      background: rgba(0,0,0,0.06);
+    }
+    .slide.light-bleed .bleed::after {
+      color: rgba(0,0,0,0.2);
+    }
+
+    /* ── AVATAR ── */
+    .avatar {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      z-index: 5;
+    }
+    .avatar img {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+    }
+    .avatar .handle {
+      font-family: 'Poppins', sans-serif;
+      font-size: 6.5px; font-weight: 600;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+    /* variante para slides claros */
+    .avatar-dark img  { border: 2px solid rgba(255,255,255,0.8); }
+    .avatar-dark .handle { color: rgba(255,255,255,0.65); }
+    .avatar-light img { border: 2px solid var(--verde); }
+    .avatar-light .handle { color: var(--verde-dark); opacity: 0.6; }
+
+    /* ── PROGRESS DOTS ── */
+    .progress {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 4px;
+      z-index: 5;
+    }
+    .progress span {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      display: block;
+    }
+    .progress .dot-active { background: var(--terra); }
+    .progress .dot-done   { background: rgba(255,255,255,0.5); }
+    .progress .dot-next   { background: rgba(255,255,255,0.2); }
+    /* dots para slides claros */
+    .progress.dots-light .dot-done { background: rgba(0,0,0,0.2); }
+    .progress.dots-light .dot-next { background: rgba(0,0,0,0.1); }
+
+    /* ── CONTEÚDO ── */
+    .slide-num {
+      position: absolute;
+      top: 13px; left: 14px;
       font-family: 'Poppins', sans-serif;
       font-size: 9px; font-weight: 700;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      padding: 4px 10px; border-radius: 100px;
-      margin-bottom: 14px;
+      letter-spacing: 0.1em;
+      opacity: 0.3;
+      z-index: 2;
+    }
+
+    .arc-label {
+      position: absolute;
+      top: 13px; right: 14px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 8px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      opacity: 0.45;
+      z-index: 2;
     }
 
     .slide h2 {
@@ -101,182 +214,207 @@
       font-weight: 800;
       line-height: 1.2;
       letter-spacing: -0.02em;
+      position: relative; z-index: 2;
+    }
+    .slide p, .slide ul {
+      position: relative; z-index: 2;
     }
 
-    .slide p {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      line-height: 1.7;
-      font-size: 13px;
-    }
-
-    .slide .em { color: var(--terra); }
-    .slide .em-white { color: rgba(255,255,255,0.5); }
-
-    .slide-footer {
-      position: absolute;
-      bottom: 12px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 9px; font-weight: 600;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      opacity: 0.55;
-    }
-
-    /* ── FUNDOS ── */
-    .bg-areia    { background: var(--areia); color: var(--text); }
-    .bg-branco   { background: var(--branco); color: var(--text); }
-    .bg-verde    { background: var(--verde); color: white; }
-    .bg-verde-d  { background: var(--verde-dark); color: white; }
-    .bg-verde-l  { background: var(--verde-light); color: white; }
-    .bg-terra    { background: var(--terra); color: white; }
-
-    /* ── DIAGRAMA (slide 4 C1) ── */
-    .ciclo {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      width: 100%;
-      margin-top: 8px;
-    }
-    .ciclo-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: white;
-      border-radius: 8px;
-      padding: 7px 12px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text);
-    }
-    .ciclo-arrow {
-      font-size: 14px;
-      color: var(--terra);
-      font-weight: 900;
-      text-align: center;
-      opacity: 0.7;
-      line-height: 1;
-    }
-    .ciclo-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--terra);
-      flex-shrink: 0;
-    }
-
-    /* ── LISTA (slide 4 C2) ── */
-    .lista {
-      width: 100%;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .lista-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      font-weight: 400;
-      line-height: 1.4;
-      color: var(--text-mid);
-    }
-    .lista-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--terra);
-      flex-shrink: 0;
-      margin-top: 5px;
-    }
-
-    /* ── QUOTE BLOCK ── */
-    .quote-block {
-      background: rgba(255,255,255,0.12);
-      border-left: 3px solid var(--terra);
-      border-radius: 0 8px 8px 0;
-      padding: 12px 14px;
-      text-align: left;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      font-style: italic;
-      font-weight: 300;
-      line-height: 1.6;
-      margin-top: 12px;
-      width: 100%;
-    }
+    .em-terra { color: var(--terra); }
+    .em-white { color: rgba(255,255,255,0.55); }
 
     .divider {
-      width: 32px; height: 2px;
+      width: 30px; height: 2px;
+      background: var(--terra); border-radius: 2px;
+      margin: 11px auto;
+      position: relative; z-index: 2;
+    }
+    .divider.full { width: 60px; }
+
+    /* ── FUNDOS ── */
+    .bg-areia   { background: var(--areia); color: var(--text); }
+    .bg-branco  { background: var(--branco); color: var(--text); }
+    .bg-verde   { background: var(--verde); color: white; }
+    .bg-verde-d { background: var(--verde-dark); color: white; }
+    .bg-verde-l { background: var(--verde-light); color: white; }
+    .bg-terra   { background: var(--terra); color: white; }
+
+    /* ── DIAGRAMA CICLO ── */
+    .ciclo {
+      display: flex; flex-direction: column; gap: 5px;
+      width: 100%; margin-top: 4px;
+      position: relative; z-index: 2;
+    }
+    .ciclo-item {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 7px; padding: 6px 11px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 10.5px; font-weight: 700; color: white;
+    }
+    .ciclo-item.final-item {
       background: var(--terra);
-      border-radius: 2px;
-      margin: 12px auto;
+    }
+    .ciclo-arrow {
+      font-size: 12px; color: var(--terra);
+      text-align: center; opacity: 0.8; line-height: 1;
+    }
+    .ciclo-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--terra); flex-shrink: 0;
+    }
+    .ciclo-item.final-item .ciclo-dot { background: white; }
+
+    /* ── LISTA ── */
+    .lista {
+      width: 100%; text-align: left;
+      display: flex; flex-direction: column; gap: 8px;
+      margin-top: 6px; position: relative; z-index: 2;
+    }
+    .lista-item {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 400;
+      line-height: 1.4; color: var(--text-mid);
+    }
+    .lista-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--terra); flex-shrink: 0; margin-top: 5px;
     }
 
     /* ── BADGE ── */
     .badge {
       font-family: 'Poppins', sans-serif;
-      font-size: 9px; font-weight: 700;
+      font-size: 8.5px; font-weight: 700;
       letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--terra);
-      border: 1px solid rgba(193,127,91,.4);
-      padding: 4px 12px; border-radius: 100px;
-      margin-bottom: 16px;
-      display: inline-block;
+      border: 1px solid rgba(193,127,91,.35);
+      padding: 4px 10px; border-radius: 100px;
+      margin-bottom: 14px; display: inline-block;
+      position: relative; z-index: 2;
     }
+
+    /* ── EYEBROW ── */
+    .eyebrow-slide {
+      font-family: 'Poppins', sans-serif;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      opacity: 0.5; margin-bottom: 10px;
+      position: relative; z-index: 2; display: block;
+    }
+
+    /* ── FOOTER NOTE ── */
+    .spec-note {
+      text-align: center; font-size: 11px; color: #3a3a3a; margin-top: 16px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .spec-note strong { color: #555; }
   </style>
 </head>
 <body>
 
-<h1 class="page-title">Campanha Essência · Dia 1 · 11/04/2026</h1>
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <span class="eyebrow">Campanha Essência · Turma de Abril</span>
+  <h1>Dia 1 — 11 de abril</h1>
+  <p>Produção: 1080 × 1350 px (4:5) · @mayarafarias.nutri</p>
+</div>
 
-<!-- ══════════════ CARROSSEL 1 ══════════════ -->
+
+<!-- ══════════════════════════════════════════
+     CARROSSEL 1 — Manhã
+     Story Arc: Problema → Agitação → Virada → CTA
+════════════════════════════════════════════ -->
 <div class="carrossel-block">
-  <p class="carrossel-label">Carrossel 1 — Manhã</p>
-  <p class="carrossel-title">Você não é o problema</p>
+  <div class="carrossel-meta">
+    <span class="slot">C1 · Manhã</span>
+    <span class="name">Você não é o problema</span>
+  </div>
 
   <div class="slides-row">
 
-    <!-- SLIDE 1 — Hook -->
-    <div class="slide bg-areia">
-      <span class="slide-num">01</span>
-      <div class="divider"></div>
-      <h2 style="font-size:22px; color:var(--verde-dark); margin-bottom:10px;">
+    <!-- 1/7 — Hook · Problema -->
+    <div class="slide bg-areia light-bleed">
+      <span class="slide-num">1/7</span>
+      <span class="arc-label" style="color:var(--terra);">Problema</span>
+
+      <div class="divider full"></div>
+      <h2 style="font-size:21px; color:var(--verde-dark); margin-bottom:10px;">
         Você já tentou de tudo.<br>
-        <span class="em">E ainda não funcionou.</span>
+        <span class="em-terra">E ainda não funcionou.</span>
       </h2>
-      <div class="divider"></div>
-      <span class="slide-footer" style="color:var(--terra);">Mayara Farias · Nutricionista</span>
+      <div class="divider full"></div>
+
+      <div class="bleed"></div>
+      <div class="progress dots-light">
+        <span class="dot-active"></span>
+        <span class="dot-next"></span><span class="dot-next"></span><span class="dot-next"></span>
+        <span class="dot-next"></span><span class="dot-next"></span><span class="dot-next"></span>
+      </div>
+      <div class="avatar avatar-light">
+        <img src="../../../25012025-IMG_0921.jpg" alt="Mayara Farias">
+        <span class="handle" style="color:var(--verde-dark); opacity:0.5;">@mayarafarias.nutri</span>
+      </div>
     </div>
 
-    <!-- SLIDE 2 -->
-    <div class="slide bg-branco">
-      <span class="slide-num">02</span>
-      <h2 style="font-size:19px; color:var(--verde-dark); margin-bottom:12px;">
+    <!-- 2/7 — Problema -->
+    <div class="slide bg-branco light-bleed">
+      <span class="slide-num">2/7</span>
+      <span class="arc-label" style="color:var(--terra);">Problema</span>
+
+      <h2 style="font-size:22px; color:var(--verde-dark); margin-bottom:14px;">
         Você não é fraca.
       </h2>
-      <p style="font-size:14px; color:var(--text-mid);">
-        Você só usou o <strong style="color:var(--terra);">método errado.</strong>
+      <p style="font-size:15px; color:var(--text-mid);">
+        Você só usou o<br>
+        <strong style="color:var(--terra); font-size:17px;">método errado.</strong>
       </p>
+
+      <div class="bleed"></div>
+      <div class="progress dots-light">
+        <span class="dot-done"></span>
+        <span class="dot-active"></span>
+        <span class="dot-next"></span><span class="dot-next"></span>
+        <span class="dot-next"></span><span class="dot-next"></span><span class="dot-next"></span>
+      </div>
+      <div class="avatar avatar-light">
+        <img src="../../../25012025-IMG_0921.jpg" alt="Mayara Farias">
+        <span class="handle" style="color:var(--verde-dark); opacity:0.5;">@mayarafarias.nutri</span>
+      </div>
     </div>
 
-    <!-- SLIDE 3 -->
-    <div class="slide bg-verde">
-      <span class="slide-num">03</span>
-      <h2 style="font-size:16px; margin-bottom:14px; font-weight:700;">
-        Quando a dieta falha, a gente se culpa.
+    <!-- 3/7 — Agitação -->
+    <div class="slide bg-verde has-grain">
+      <span class="slide-num">3/7</span>
+      <span class="arc-label" style="color:rgba(255,255,255,0.4);">Agitação</span>
+
+      <h2 style="font-size:17px; margin-bottom:13px; font-weight:700; line-height:1.35;">
+        Quando a dieta falha,<br>a gente se culpa.
       </h2>
-      <p style="font-size:14px; color:rgba(255,255,255,0.85);">
-        <strong>Mas a dieta foi feita pra falhar.</strong>
+      <div class="divider"></div>
+      <p style="font-size:14px; color:rgba(255,255,255,0.88); margin-top:4px;">
+        <strong>Mas a dieta foi feita<br>pra falhar.</strong>
       </p>
+
+      <div class="bleed"></div>
+      <div class="progress">
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-active"></span>
+        <span class="dot-next"></span><span class="dot-next"></span>
+        <span class="dot-next"></span><span class="dot-next"></span>
+      </div>
+      <div class="avatar avatar-dark">
+        <img src="../../../25012025-IMG_0921.jpg" alt="Mayara Farias">
+        <span class="handle">@mayarafarias.nutri</span>
+      </div>
     </div>
 
-    <!-- SLIDE 4 — Diagrama -->
-    <div class="slide bg-areia" style="justify-content:flex-start; padding-top:36px;">
-      <span class="slide-num">04</span>
-      <p style="font-family:'Poppins',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--terra); margin-bottom:12px;">O ciclo que não para</p>
+    <!-- 4/7 — Agitação · Diagrama -->
+    <div class="slide bg-verde has-grain" style="justify-content:flex-start; padding-top:32px; align-items:flex-start;">
+      <span class="slide-num">4/7</span>
+      <span class="arc-label" style="color:rgba(255,255,255,0.4);">Agitação</span>
+
+      <span class="eyebrow-slide" style="color:rgba(255,255,255,0.45);">O ciclo que não para</span>
       <div class="ciclo">
         <div class="ciclo-item"><div class="ciclo-dot"></div>Restrição</div>
         <div class="ciclo-arrow">↓</div>
@@ -286,139 +424,280 @@
         <div class="ciclo-arrow">↓</div>
         <div class="ciclo-item"><div class="ciclo-dot"></div>Culpa</div>
         <div class="ciclo-arrow">↓</div>
-        <div class="ciclo-item" style="background:var(--terra); color:white;"><div class="ciclo-dot" style="background:white;"></div>Começa tudo de novo</div>
+        <div class="ciclo-item final-item"><div class="ciclo-dot"></div>Começa tudo de novo</div>
+      </div>
+
+      <div class="bleed"></div>
+      <div class="progress">
+        <span class="dot-done"></span><span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-active"></span>
+        <span class="dot-next"></span><span class="dot-next"></span><span class="dot-next"></span>
+      </div>
+      <div class="avatar avatar-dark">
+        <img src="../../../25012025-IMG_0921.jpg" alt="Mayara Farias">
+        <span class="handle">@mayarafarias.nutri</span>
       </div>
     </div>
 
-    <!-- SLIDE 5 -->
-    <div class="slide bg-areia">
-      <span class="slide-num">05</span>
-      <h2 style="font-size:19px; color:var(--verde-dark); line-height:1.3;">
-        O problema nunca foi <span class="em">você.</span>
+    <!-- 5/7 — Virada -->
+    <div class="slide bg-areia light-bleed">
+      <span class="slide-num">5/7</span>
+      <span class="arc-label" style="color:var(--verde);">Virada</span>
+
+      <h2 style="font-size:20px; color:var(--verde-dark); line-height:1.3; margin-bottom:12px;">
+        O problema nunca<br>foi <span class="em-terra">você.</span>
       </h2>
       <div class="divider"></div>
-      <p style="color:var(--text-mid); font-size:13px;">
-        Foi o que te ensinaram sobre comer.
+      <p style="font-size:13px; color:var(--text-mid); line-height:1.6;">
+        Foi o que te ensinaram<br>sobre comer.
       </p>
+
+      <div class="bleed"></div>
+      <div class="progress dots-light">
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-active"></span>
+        <span class="dot-next"></span><span class="dot-next"></span>
+      </div>
+      <div class="avatar avatar-light">
+        <img src="../../../25012025-IMG_0921.jpg" alt="Mayara Farias">
+        <span class="handle" style="color:var(--verde-dark); opacity:0.5;">@mayarafarias.nutri</span>
+      </div>
     </div>
 
-    <!-- SLIDE 6 -->
-    <div class="slide bg-verde-l">
-      <span class="slide-num">06</span>
-      <h2 style="font-size:17px; line-height:1.35; font-weight:700;">
-        Quando você entende o seu corpo,
+    <!-- 6/7 — Virada -->
+    <div class="slide bg-verde-l has-grain">
+      <span class="slide-num">6/7</span>
+      <span class="arc-label" style="color:rgba(255,255,255,0.4);">Virada</span>
+
+      <h2 style="font-size:17px; line-height:1.4; font-weight:700; margin-bottom:12px;">
+        Quando você entende<br>o seu corpo,
       </h2>
       <div class="divider"></div>
       <p style="font-size:14px; color:rgba(255,255,255,0.9); margin-top:4px;">
-        a comida para de ser <strong>inimiga.</strong>
+        a comida para de ser<br>
+        <strong style="font-size:16px;">inimiga.</strong>
       </p>
+
+      <div class="bleed"></div>
+      <div class="progress">
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-done"></span>
+        <span class="dot-active"></span><span class="dot-next"></span>
+      </div>
+      <div class="avatar avatar-dark">
+        <img src="../../../25012025-IMG_0921.jpg" alt="Mayara Farias">
+        <span class="handle">@mayarafarias.nutri</span>
+      </div>
     </div>
 
-    <!-- SLIDE 7 — CTA -->
-    <div class="slide bg-terra">
-      <span class="slide-num">07</span>
-      <h2 style="font-size:18px; line-height:1.3; margin-bottom:16px;">
+    <!-- 7/7 — CTA -->
+    <div class="slide bg-terra has-grain">
+      <span class="slide-num">7/7</span>
+
+      <h2 style="font-size:20px; line-height:1.3; margin-bottom:14px;">
         Salva esse post.
       </h2>
-      <p style="font-size:13px; color:rgba(255,255,255,0.85); line-height:1.6;">
+      <p style="font-size:13px; color:rgba(255,255,255,0.85); line-height:1.7;">
         E manda pra uma amiga<br>que precisa ouvir isso.
       </p>
-      <span class="slide-footer">Mayara Farias · Nutricionista</span>
+
+      <div class="progress">
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-active"></span>
+      </div>
+      <div class="avatar avatar-dark">
+        <img src="../../../25012025-IMG_0921.jpg" alt="Mayara Farias">
+        <span class="handle">@mayarafarias.nutri</span>
+      </div>
     </div>
 
   </div>
 </div>
 
 
-<!-- ══════════════ CARROSSEL 2 ══════════════ -->
+<!-- ══════════════════════════════════════════
+     CARROSSEL 2 — Tarde / Noite
+════════════════════════════════════════════ -->
 <div class="carrossel-block">
-  <p class="carrossel-label">Carrossel 2 — Tarde / Noite</p>
-  <p class="carrossel-title">Apresentação do Programa Essência</p>
+  <div class="carrossel-meta">
+    <span class="slot">C2 · Tarde/Noite</span>
+    <span class="name">Apresentação do Programa Essência</span>
+  </div>
 
   <div class="slides-row">
 
-    <!-- SLIDE 1 — Hook -->
-    <div class="slide bg-verde-d">
-      <span class="slide-num">01</span>
+    <!-- 1/7 — Hook -->
+    <div class="slide bg-verde-d has-grain">
+      <span class="slide-num">1/7</span>
+
       <span class="badge">Programa Essência</span>
-      <h2 style="font-size:26px; line-height:1.15; color:white;">
-        <span style="color:var(--terra);">4</span> meses.<br>
-        <span style="color:var(--terra);">10</span> mulheres.<br>
-        Uma abordagem diferente.
+      <h2 style="font-size:28px; line-height:1.1; color:white;">
+        <span class="em-terra">4</span> meses.<br>
+        <span class="em-terra">10</span> mulheres.<br>
+        <span style="font-size:18px; font-weight:600; color:rgba(255,255,255,0.8);">Uma abordagem diferente.</span>
       </h2>
-      <span class="slide-footer" style="color:rgba(255,255,255,0.4);">Mayara Farias · Nutricionista</span>
+
+      <div class="bleed"></div>
+      <div class="progress">
+        <span class="dot-active"></span>
+        <span class="dot-next"></span><span class="dot-next"></span><span class="dot-next"></span>
+        <span class="dot-next"></span><span class="dot-next"></span><span class="dot-next"></span>
+      </div>
+      <div class="avatar avatar-dark">
+        <img src="../../../25012025-IMG_0921.jpg" alt="Mayara Farias">
+        <span class="handle">@mayarafarias.nutri</span>
+      </div>
     </div>
 
-    <!-- SLIDE 2 -->
-    <div class="slide bg-areia">
-      <span class="slide-num">02</span>
-      <h2 style="font-size:20px; color:var(--verde-dark); line-height:1.3;">
+    <!-- 2/7 -->
+    <div class="slide bg-areia light-bleed">
+      <span class="slide-num">2/7</span>
+
+      <h2 style="font-size:21px; color:var(--verde-dark); line-height:1.3;">
         O Programa Essência<br>
-        <span class="em">não é uma dieta.</span>
+        <span class="em-terra">não é uma dieta.</span>
       </h2>
+
+      <div class="bleed"></div>
+      <div class="progress dots-light">
+        <span class="dot-done"></span>
+        <span class="dot-active"></span>
+        <span class="dot-next"></span><span class="dot-next"></span>
+        <span class="dot-next"></span><span class="dot-next"></span><span class="dot-next"></span>
+      </div>
+      <div class="avatar avatar-light">
+        <img src="../../../25012025-IMG_0921.jpg" alt="Mayara Farias">
+        <span class="handle" style="color:var(--verde-dark); opacity:0.5;">@mayarafarias.nutri</span>
+      </div>
     </div>
 
-    <!-- SLIDE 3 -->
-    <div class="slide bg-branco" style="text-align:left; align-items:flex-start; justify-content:center;">
-      <span class="slide-num">03</span>
-      <p style="font-size:14px; color:var(--text-mid); line-height:1.8;">
-        É um acompanhamento <strong style="color:var(--verde-dark);">individual de 4 meses.</strong>
+    <!-- 3/7 -->
+    <div class="slide bg-branco light-bleed" style="text-align:left; align-items:flex-start; justify-content:center;">
+      <span class="slide-num">3/7</span>
+
+      <p style="font-size:14px; color:var(--text-mid); line-height:1.8; position:relative; z-index:2;">
+        É um acompanhamento<br>
+        <strong style="color:var(--verde-dark); font-size:15px;">individual de 4 meses.</strong>
       </p>
       <div class="divider" style="margin:14px 0;"></div>
-      <p style="font-size:13px; color:var(--text-mid); line-height:1.7; font-style:italic;">
+      <p style="font-size:13px; color:var(--text-mid); line-height:1.7; font-style:italic; position:relative; z-index:2;">
         Focado em entender o seu corpo — e criar uma relação real com a comida.
       </p>
+
+      <div class="bleed"></div>
+      <div class="progress dots-light">
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-active"></span>
+        <span class="dot-next"></span><span class="dot-next"></span>
+        <span class="dot-next"></span><span class="dot-next"></span>
+      </div>
+      <div class="avatar avatar-light">
+        <img src="../../../25012025-IMG_0921.jpg" alt="Mayara Farias">
+        <span class="handle" style="color:var(--verde-dark); opacity:0.5;">@mayarafarias.nutri</span>
+      </div>
     </div>
 
-    <!-- SLIDE 4 — Lista -->
-    <div class="slide bg-areia" style="justify-content:flex-start; padding-top:36px; align-items:flex-start;">
-      <span class="slide-num">04</span>
-      <p style="font-family:'Poppins',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--terra); margin-bottom:14px;">O que está incluído</p>
+    <!-- 4/7 — Lista -->
+    <div class="slide bg-areia light-bleed" style="justify-content:flex-start; padding-top:32px; align-items:flex-start;">
+      <span class="slide-num">4/7</span>
+
+      <span class="eyebrow-slide" style="color:var(--terra);">O que está incluído</span>
       <div class="lista">
         <div class="lista-item"><div class="lista-dot"></div>Consultas mensais individuais</div>
         <div class="lista-item"><div class="lista-dot"></div>Plano alimentar adaptado à sua rotina</div>
         <div class="lista-item"><div class="lista-dot"></div>Avaliação de exames</div>
         <div class="lista-item"><div class="lista-dot"></div>Suporte entre as consultas</div>
       </div>
+
+      <div class="bleed"></div>
+      <div class="progress dots-light">
+        <span class="dot-done"></span><span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-active"></span>
+        <span class="dot-next"></span><span class="dot-next"></span><span class="dot-next"></span>
+      </div>
+      <div class="avatar avatar-light">
+        <img src="../../../25012025-IMG_0921.jpg" alt="Mayara Farias">
+        <span class="handle" style="color:var(--verde-dark); opacity:0.5;">@mayarafarias.nutri</span>
+      </div>
     </div>
 
-    <!-- SLIDE 5 -->
-    <div class="slide bg-verde-l">
-      <span class="slide-num">05</span>
-      <p style="font-family:'Poppins',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:12px;">Para quem é</p>
-      <h2 style="font-size:16px; line-height:1.5; font-weight:600;">
+    <!-- 5/7 -->
+    <div class="slide bg-verde-l has-grain">
+      <span class="slide-num">5/7</span>
+
+      <span class="eyebrow-slide" style="color:rgba(255,255,255,0.45);">Para quem é</span>
+      <h2 style="font-size:16px; line-height:1.55; font-weight:600;">
         Mulheres que já tentaram dieta — e querem algo que respeite sua rotina e seu corpo.
       </h2>
+
+      <div class="bleed"></div>
+      <div class="progress">
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-active"></span>
+        <span class="dot-next"></span><span class="dot-next"></span>
+      </div>
+      <div class="avatar avatar-dark">
+        <img src="../../../25012025-IMG_0921.jpg" alt="Mayara Farias">
+        <span class="handle">@mayarafarias.nutri</span>
+      </div>
     </div>
 
-    <!-- SLIDE 6 -->
-    <div class="slide bg-terra">
-      <span class="slide-num">06</span>
-      <p style="font-family:'Poppins',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:16px;">Turma de Abril</p>
-      <h2 style="font-size:32px; line-height:1.1;">10 vagas.</h2>
-      <div class="divider"></div>
-      <p style="font-size:14px; color:rgba(255,255,255,0.9);">Início dia <strong>20/04</strong></p>
+    <!-- 6/7 — Vagas -->
+    <div class="slide bg-terra has-grain">
+      <span class="slide-num">6/7</span>
+
+      <span class="eyebrow-slide" style="color:rgba(255,255,255,0.5);">Turma de Abril</span>
+      <h2 style="font-size:38px; line-height:1;">10 vagas.</h2>
+      <div class="divider full" style="margin:14px auto;"></div>
+      <p style="font-size:14px; color:rgba(255,255,255,0.88);">
+        Início dia <strong>20/04</strong>
+      </p>
+
+      <div class="bleed"></div>
+      <div class="progress">
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-done"></span>
+        <span class="dot-active"></span><span class="dot-next"></span>
+      </div>
+      <div class="avatar avatar-dark">
+        <img src="../../../25012025-IMG_0921.jpg" alt="Mayara Farias">
+        <span class="handle">@mayarafarias.nutri</span>
+      </div>
     </div>
 
-    <!-- SLIDE 7 — CTA -->
-    <div class="slide bg-verde">
-      <span class="slide-num">07</span>
-      <h2 style="font-size:18px; line-height:1.35; margin-bottom:16px;">
-        Quer saber se é pra você?
+    <!-- 7/7 — CTA -->
+    <div class="slide bg-verde has-grain">
+      <span class="slide-num">7/7</span>
+
+      <h2 style="font-size:19px; line-height:1.35; margin-bottom:16px;">
+        Quer saber se<br>é pra você?
       </h2>
-      <p style="font-size:14px; color:rgba(255,255,255,0.85);">
+      <p style="font-size:15px; color:rgba(255,255,255,0.88);">
         Me chama no <strong>DM.</strong>
       </p>
-      <span class="slide-footer">Mayara Farias · Nutricionista</span>
+
+      <div class="progress">
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-done"></span><span class="dot-done"></span>
+        <span class="dot-active"></span>
+      </div>
+      <div class="avatar avatar-dark">
+        <img src="../../../25012025-IMG_0921.jpg" alt="Mayara Farias">
+        <span class="handle">@mayarafarias.nutri</span>
+      </div>
     </div>
 
   </div>
 </div>
 
-<!-- DIMENSÕES -->
-<p style="text-align:center; font-size:11px; color:#555; margin-top:8px;">
-  Formato de produção: <strong style="color:#888;">1080 × 1350 px</strong> (4:5) · Fontes: Poppins + DM Sans
-</p>
+<p class="spec-note">Produção: <strong>1080 × 1350 px</strong> (4:5) · Fontes: Poppins + DM Sans · @mayarafarias.nutri</p>
 
 </body>
 </html>
