@@ -407,7 +407,6 @@
     .cta-body { font-size: 17px; font-weight: 300; color: rgba(250,250,250,.78); line-height: 1.75; margin-bottom: 40px; }
 
     /* ════ FORMULÁRIO ════ */
-    #triagem { background: var(--areia); }
     .form-header { text-align: center; margin-bottom: 44px; }
     .form-header .section-title { margin-bottom: 14px; }
     .form-header p { font-size: 16px; color: var(--text-mid); max-width: 480px; margin: 0 auto; }
@@ -460,6 +459,84 @@
       .mayara-grid  { grid-template-columns: 1fr; gap: 32px; }
       .mayara-photo { aspect-ratio: 4/3; max-height: 300px; }
     }
+    /* ════ QUIZ ════ */
+    #quiz { background: var(--areia); }
+    .quiz-header { text-align: center; margin-bottom: 40px; }
+    .quiz-sub { font-size: 16px; color: var(--text-muted); margin-top: 8px; }
+
+    .quiz-card {
+      background: white; border-radius: 20px;
+      padding: 40px 44px; max-width: 600px; margin: 0 auto;
+      box-shadow: 0 4px 32px rgba(0,0,0,.07);
+    }
+
+    .quiz-progress {
+      height: 4px; background: var(--areia-dark);
+      border-radius: 2px; margin-bottom: 10px;
+    }
+    .quiz-progress-bar {
+      height: 4px; background: var(--verde);
+      border-radius: 2px; width: 20%;
+      transition: width .35s ease;
+    }
+    .quiz-step-label {
+      font-size: 12px; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .quiz-pergunta { display: none; }
+    .quiz-pergunta.active { display: block; }
+
+    .quiz-enunciado {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(17px, 2.2vw, 21px); font-weight: 700;
+      color: var(--verde-dark); line-height: 1.35; margin-bottom: 24px;
+    }
+    .quiz-multi-hint {
+      font-size: 13px; color: var(--text-muted); margin: -16px 0 20px;
+    }
+
+    .quiz-opcoes { display: flex; flex-direction: column; gap: 12px; }
+    .quiz-opcao {
+      text-align: left; background: var(--areia);
+      border: 2px solid transparent; border-radius: 12px;
+      padding: 16px 20px; font-size: 15px; line-height: 1.5;
+      color: var(--text); cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .quiz-opcao:hover { border-color: var(--verde-light); background: #f0f7f5; }
+    .quiz-opcao.selecionada { border-color: var(--verde); background: #e8f4f1; }
+
+    .quiz-avancar {
+      margin-top: 20px; background: var(--terra); color: white;
+      border: none; border-radius: 100px; padding: 14px 36px;
+      font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .04em; cursor: pointer;
+      transition: background .2s;
+    }
+    .quiz-avancar:hover { background: var(--terra-dark); }
+
+    .quiz-resultado-icon {
+      font-size: 32px; color: var(--terra); margin-bottom: 16px;
+    }
+    .quiz-resultado-titulo {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(22px, 3vw, 30px); font-weight: 800;
+      color: var(--verde-dark); margin-bottom: 16px;
+    }
+    .quiz-resultado-corpo {
+      font-size: 17px; color: var(--text-mid); line-height: 1.7;
+      margin-bottom: 32px; max-width: 420px; margin-left: auto; margin-right: auto;
+    }
+    .quiz-resultado-nota {
+      font-size: 13px; color: var(--text-muted); margin-top: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .quiz-card { padding: 28px 20px; }
+    }
+
   </style>
 </head>
 <body>
