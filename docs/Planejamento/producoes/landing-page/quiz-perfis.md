@@ -18,7 +18,7 @@ Cada perfil é definido pela resposta da **Pergunta 1** do quiz (a dor principal
 
 **Corpo:** Você não é o problema — cada dieta te pediu pra ser outra pessoa. Por isso funcionam por um tempo e depois param. O que falta não é mais uma tentativa nova. É um método que funcione com a sua vida, não contra ela.
 
-**Ponte:** Na sessão diagnóstica, a Mayara vai entender por que os outros métodos pararam de funcionar pra você, mapear seu perfil comportamental e te mostrar como o Essência desenha um caminho que cabe na sua vida real.
+**Ponte:** Na sessão diagnóstica, a Mayara vai entender por que os outros métodos pararam de funcionar pra você, mapear seu perfil comportamental e desenhar com você um caminho que cabe na sua vida real.
 
 ---
 
@@ -30,7 +30,7 @@ Cada perfil é definido pela resposta da **Pergunta 1** do quiz (a dor principal
 
 **Corpo:** Você não precisa de mais informação. Conhecimento não te falta — o que falta é alguém que te ajude a atravessar o espaço entre o que você sabe e o que você faz. Essa é a parte que Google e conteúdo grátis não resolvem.
 
-**Ponte:** Na sessão diagnóstica, a Mayara vai mapear o que está entre você e a mudança — e te mostrar como o Essência constrói a estrutura de apoio que transforma o que você já sabe em prática.
+**Ponte:** Na sessão diagnóstica, a Mayara vai mapear o que está entre você e a mudança — e construir com você a estrutura de apoio que transforma o que você já sabe em prática.
 
 ---
 
@@ -42,7 +42,7 @@ Cada perfil é definido pela resposta da **Pergunta 1** do quiz (a dor principal
 
 **Corpo:** Culpa depois de comer, ansiedade antes, compulsão no meio. Você já entendeu: não é sobre força de vontade. É sobre uma relação que precisa ser reconstruída — e dieta não faz isso. Acompanhamento comportamental faz.
 
-**Ponte:** Na sessão diagnóstica, a Mayara vai te escutar antes de falar de comida — entender como você chegou até aqui e te mostrar como o Essência reconstrói sua relação com a alimentação de dentro pra fora.
+**Ponte:** Na sessão diagnóstica, a Mayara vai te escutar antes de falar de comida — entender como você chegou até aqui e começar com você a reconstrução da sua relação com a alimentação de dentro pra fora.
 
 ---
 
@@ -54,7 +54,7 @@ Cada perfil é definido pela resposta da **Pergunta 1** do quiz (a dor principal
 
 **Corpo:** Emagrecer não precisa significar recusar jantar com amigos, vetar a sobremesa ou pesar comida no restaurante. Resultado que dura é o que cabe na sua vida real — não na versão dela sem festa, sem pizza, sem final de semana.
 
-**Ponte:** Na sessão diagnóstica, a Mayara vai entender sua rotina de verdade e te mostrar como o Essência encaixa nela — sem te pedir pra abrir mão do que faz sua vida valer a pena.
+**Ponte:** Na sessão diagnóstica, a Mayara vai entender sua rotina de verdade e construir com você um caminho que encaixa nela — sem te pedir pra abrir mão do que faz sua vida valer a pena.
 
 ---
 

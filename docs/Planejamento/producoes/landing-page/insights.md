@@ -26,6 +26,14 @@
 - **R$97 vira crédito no Essência** se a pessoa fechar. Na landing aparece **uma única vez**, na seção Preço. Não repetir no hero nem no resultado do quiz (quebra o encantamento emocional).
 - **Prazo do crédito (15 dias)** fica fora da landing. Mayara menciona verbalmente na sessão diagnóstica — cria urgência de fechamento no momento certo.
 
+### Formato do funil (decidido 12/abr, caminho D)
+
+- **Essência é flagship visível, consulta pontual é menu escondido.** A landing se apresenta 100% como Essência (hero, offer stack, preço, prova social), mas deixa válvulas sutis pra quem não está pronto pro pacote de 4 meses.
+- **Copy do quiz não cita "Essência" nas pontes** — usa "caminho", "estrutura", "reconstrução". Subtle: aponta pro programa sem trancar a porta.
+- **FAQ tem item "e se eu só precisar de uma consulta pontual?"** que abre a porta sem canibalizar (resposta fala em "formato que faz mais sentido", não em preços ou produto alternativo).
+- **A decisão final acontece na sessão diagnóstica** — Mayara avalia se é Essência, consulta pontual ou "não é o momento" e pivota na conversa. Isso exige 3 scripts mentais (um por cenário).
+- **Razão estratégica:** funil "Essência ou nada" estava filtrando fora 4 perfis de compra (cautelosa, pontual, orçamento curto, ex-paciente) que podem virar Essência depois. Abrir o funil mantendo o flagship = captura mais leads sem canibalizar ticket médio.
+
 ---
 
 ## Referência competitiva
