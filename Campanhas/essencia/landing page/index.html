@@ -834,43 +834,96 @@
 </section>
 
 
-<!-- ══════════════ 12. FORMULÁRIO DE TRIAGEM ══════════════ -->
-<section id="triagem">
-  <div class="container">
-    <div class="form-header">
-      <span class="section-tag">Formulário de triagem</span>
-      <h2 class="section-title">Conta um pouco sobre você</h2>
-      <p>Levo cada formulário a sério. Responderei em até 24 horas úteis pelo WhatsApp.</p>
+<!-- ══════════════ 12. QUIZ ══════════════ -->
+<section id="quiz">
+  <div class="container-narrow">
+    <div class="quiz-header">
+      <span class="section-tag">Seu perfil</span>
+      <h2 class="section-title">Algumas perguntas rápidas</h2>
+      <p class="quiz-sub">Clique na opção que mais combina com você. Leva menos de 2 minutos.</p>
     </div>
-    <div class="form-card">
-      <form id="form-triagem" onsubmit="enviarTriagem(event)" novalidate>
-        <div class="form-row">
-          <label class="form-label" for="f-nome">Nome completo</label>
-          <input class="form-input" type="text" id="f-nome" placeholder="Seu nome" required>
+
+    <div class="quiz-card" id="quiz-card">
+
+      <!-- PROGRESS -->
+      <div class="quiz-progress" id="quiz-progress">
+        <div class="quiz-progress-bar" id="quiz-progress-bar"></div>
+      </div>
+      <div class="quiz-step-label" id="quiz-step-label">Pergunta 1 de 5</div>
+
+      <!-- PERGUNTAS -->
+      <div id="quiz-perguntas">
+
+        <!-- P1 -->
+        <div class="quiz-pergunta active" data-p="1">
+          <p class="quiz-enunciado">Qual dessas frases mais descreve você hoje?</p>
+          <div class="quiz-opcoes">
+            <button class="quiz-opcao" data-p="1" data-v="Ja tentei varias dietas e sempre volto para onde estava">Já tentei várias dietas e sempre volto para onde estava</button>
+            <button class="quiz-opcao" data-p="1" data-v="Sei o que devo comer mas nao consigo colocar em pratica">Sei o que devo comer, mas não consigo colocar em prática</button>
+            <button class="quiz-opcao" data-p="1" data-v="Tenho uma relacao dificil com a comida - ansiedade culpa compulsao">Tenho uma relação difícil com a comida — ansiedade, culpa ou compulsão</button>
+            <button class="quiz-opcao" data-p="1" data-v="Quero emagrecer sem abrir mao de ter uma vida normal">Quero emagrecer sem abrir mão de ter uma vida normal</button>
+          </div>
         </div>
-        <div class="form-row">
-          <label class="form-label" for="f-wpp">WhatsApp</label>
-          <input class="form-input" type="tel" id="f-wpp" placeholder="(11) 99999-9999" required>
+
+        <!-- P2 -->
+        <div class="quiz-pergunta" data-p="2">
+          <p class="quiz-enunciado">Há quanto tempo você está tentando resolver isso?</p>
+          <div class="quiz-opcoes">
+            <button class="quiz-opcao" data-p="2" data-v="Menos de 6 meses">Menos de 6 meses</button>
+            <button class="quiz-opcao" data-p="2" data-v="Entre 6 meses e 2 anos">Entre 6 meses e 2 anos</button>
+            <button class="quiz-opcao" data-p="2" data-v="Mais de 2 anos">Mais de 2 anos</button>
+            <button class="quiz-opcao" data-p="2" data-v="A vida toda">A vida toda</button>
+          </div>
         </div>
-        <div class="form-row">
-          <label class="form-label" for="f-obj">Qual é o seu principal objetivo?</label>
-          <select class="form-select" id="f-obj" required>
-            <option value="">Selecione...</option>
-            <option>Emagrecimento</option>
-            <option>Saúde geral e bem-estar</option>
-            <option>Acompanhamento gestacional</option>
-            <option>Saúde intestinal</option>
-            <option>Outro</option>
-          </select>
+
+        <!-- P3 -->
+        <div class="quiz-pergunta" data-p="3">
+          <p class="quiz-enunciado">O que você já tentou antes?</p>
+          <p class="quiz-multi-hint">Pode selecionar mais de uma opção.</p>
+          <div class="quiz-opcoes">
+            <button class="quiz-opcao quiz-multi" data-p="3" data-v="Dieta restritiva / low carb / jejum">Dieta restritiva / low carb / jejum</button>
+            <button class="quiz-opcao quiz-multi" data-p="3" data-v="Acompanhamento nutricional">Acompanhamento nutricional</button>
+            <button class="quiz-opcao quiz-multi" data-p="3" data-v="Reeducacao alimentar por conta propria">Reeducação alimentar por conta própria</button>
+            <button class="quiz-opcao quiz-multi" data-p="3" data-v="Apps de contagem de calorias">Apps de contagem de calorias</button>
+            <button class="quiz-opcao quiz-multi" data-p="3" data-v="Nada ainda, esse seria meu primeiro passo">Nada ainda, esse seria meu primeiro passo</button>
+          </div>
+          <button class="quiz-avancar" id="quiz-avancar-p3" onclick="avancarP3()">Continuar →</button>
         </div>
-        <div class="form-row">
-          <label class="form-label" for="f-hist">Conta um pouco sobre você e o que te trouxe até aqui</label>
-          <textarea class="form-textarea" id="f-hist" placeholder="Pode ser breve — o que você já tentou, como está se sentindo, o que espera de um acompanhamento..." required></textarea>
+
+        <!-- P4 -->
+        <div class="quiz-pergunta" data-p="4">
+          <p class="quiz-enunciado">Como você se descreveria em relação a compromissos?</p>
+          <div class="quiz-opcoes">
+            <button class="quiz-opcao" data-p="4" data-v="Sou consistente quando acredito no que estou fazendo">Sou consistente quando acredito no que estou fazendo</button>
+            <button class="quiz-opcao" data-p="4" data-v="Comeco bem mas perco o fio com o tempo">Começo bem mas perco o fio com o tempo</button>
+            <button class="quiz-opcao" data-p="4" data-v="Preciso de acompanhamento para me manter no caminho">Preciso de acompanhamento para me manter no caminho</button>
+            <button class="quiz-opcao" data-p="4" data-v="Depende muito do meu estado emocional">Depende muito do meu estado emocional</button>
+          </div>
         </div>
-        <button type="submit" class="form-submit">Enviar e aguardar contato da Mayara</button>
-        <p class="form-note">Suas informações são confidenciais e usadas apenas para triagem e contato.</p>
-      </form>
-    </div>
+
+        <!-- P5 -->
+        <div class="quiz-pergunta" data-p="5">
+          <p class="quiz-enunciado">O que você mais quer ao final de 4 meses?</p>
+          <div class="quiz-opcoes">
+            <button class="quiz-opcao" data-p="5" data-v="Emagrecer de forma definitiva">Emagrecer de forma definitiva</button>
+            <button class="quiz-opcao" data-p="5" data-v="Parar de ter uma relacao de culpa com a comida">Parar de ter uma relação de culpa com a comida</button>
+            <button class="quiz-opcao" data-p="5" data-v="Entender meu corpo e minhas escolhas">Entender meu corpo e minhas escolhas</button>
+            <button class="quiz-opcao" data-p="5" data-v="Ter mais energia e disposicao no dia a dia">Ter mais energia e disposição no dia a dia</button>
+          </div>
+        </div>
+
+      </div><!-- /quiz-perguntas -->
+
+      <!-- RESULTADO -->
+      <div id="quiz-resultado" style="display:none; text-align:center; padding: 16px 0;">
+        <div class="quiz-resultado-icon">✦</div>
+        <h3 class="quiz-resultado-titulo">Seu perfil está pronto.</h3>
+        <p class="quiz-resultado-corpo">Para receber sua análise personalizada com a Mayara, agende sua sessão diagnóstica.</p>
+        <a id="quiz-btn-wa" href="#" class="btn-primary" target="_blank">Agendar minha sessão</a>
+        <p class="quiz-resultado-nota">Você será atendida pelo WhatsApp.</p>
+      </div>
+
+    </div><!-- /quiz-card -->
   </div>
 </section>
 
