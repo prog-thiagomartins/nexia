@@ -69,7 +69,7 @@ def criar_producao(id_: str, nome: str, descricao: str = "") -> dict:
     # Criar pasta e arquivos .md vazios
     pasta = _base_dir() / "producoes" / id_
     pasta.mkdir(parents=True, exist_ok=True)
-    for aba in ["visao-geral", "andamento", "futuro", "insights"]:
+    for aba in ["visao-geral", "andamento", "concluido", "futuro", "insights"]:
         md_path = pasta / f"{aba}.md"
         if not md_path.exists():
             md_path.write_text(f"# {nome}\n\n", encoding="utf-8")
@@ -84,6 +84,7 @@ def criar_producao(id_: str, nome: str, descricao: str = "") -> dict:
 ABA_PARA_ARQUIVO = {
     "visao-geral": "visao-geral.md",
     "andamento": "andamento.md",
+    "concluido": "concluido.md",
     "futuro": "futuro.md",
     "insights": "insights.md",
 }

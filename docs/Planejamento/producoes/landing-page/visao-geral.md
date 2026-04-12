@@ -1,7 +1,7 @@
 # Visão Geral — Landing Page
 
-**Campanha:** Essência  
-**Progresso:** 70%  
+**Campanha:** Essência
+**Progresso:** 85%
 **Status:** Em andamento
 
 ## Objetivo
@@ -14,9 +14,11 @@ Instagram → Landing Page → Quiz → WhatsApp → Sessão Diagnóstica → Pr
 
 ## Estrutura da página
 
-1. **Hero** — headline + sub + CTA para o quiz
+1. **Hero** — headline + sub + CTA para a ponte (`#cta-final`)
 2. **Crenças** — 3 objeções principais com depoimentos
 3. **Sobre Mayara** — credenciais e autoridade
-4. **Quiz** — 5 perguntas de qualificação
-5. **Resultado** — perfil + CTA WhatsApp com sessão R$97
-6. **Prova social** — mosaico de depoimentos
+4. **Prova social** — mosaico de 8 depoimentos (Google + WhatsApp)
+5. **Preço** — R$97 vira crédito no Essência se fechar
+6. **CTA Final (`#cta-final`)** — ponte obrigatória antes do quiz
+7. **Quiz** — 5 perguntas de qualificação
+8. **Resultado** — copy por perfil + mensagem WhatsApp personalizada

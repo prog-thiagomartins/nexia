@@ -40,7 +40,7 @@ def dashboard(request: Request):
 
 # ── Produção ──────────────────────────────────────────────────────────────────
 
-ABAS_VALIDAS = ["visao-geral", "andamento", "anotacoes", "futuro", "insights"]
+ABAS_VALIDAS = ["visao-geral", "andamento", "concluido", "futuro", "insights", "anotacoes"]
 
 
 @app.get("/producao/{prod_id}", response_class=HTMLResponse)

@@ -184,16 +184,32 @@ Objetivo: Banco de conteúdo Instagram + landing page do Programa Essência func
 
 ## O que foi feito (atualizado 2026-04-12)
 
-### Landing page Programa Essência (`Campanhas/essencia/landing page/index.html`)
+### Landing page Programa Essência — fundações (antes de 12/abr)
 - [x] Funil reformulado: sem preço visível → quiz de 5 perguntas → WhatsApp com perfil pré-preenchido
 - [x] Sessão diagnóstica: era gratuita (alto no-show) → agora R$97
 - [x] Hero reescrito: headline + sub + CTA com fio narrativo coerente
 - [x] CTA: "Quero entender meu perfil" → "Descobrir o que me trava"
 - [x] Seção Mayara movida: posição 4 → posição 6 (depois das Crenças)
 - [x] R$97 visível: na seção de preço e no resultado do quiz
-- [x] Resultado do quiz reescrito: copy honesta + próximo passo claro
 - [x] Credenciais adicionadas ao hero: CRN 64803 + Nutrição Comportamental + Atendimento online e presencial
 - [x] Análise CRO documentada: `Campanhas/essencia/analise-cro-landing.md`
+
+### Landing page — dia 12/abr
+- [x] Quiz personalizado por perfil: 4 perfis via P1, copy dinâmica (reconhecimento + diagnóstico + ponte), mensagem WhatsApp personalizada com todas as 5 respostas, CTA suave ("me fala mais sobre a sessão")
+- [x] Ponte `#cta-final`: todos os botões passam por ela antes do quiz (aquecimento obrigatório)
+- [x] Pontes do quiz reescritas com entregáveis concretos, sempre centrando o Essência
+- [x] R$97 vira crédito no Essência se fechar — adicionado na seção Preço
+- [x] Removida toda linguagem de saída ("sem compromisso", "independente de fechar")
+- [x] Mosaico de prova social refeito: 8 depoimentos (3 Google + 5 WhatsApp) em grid 3 colunas balanceado por altura
+- [x] Imagens reorganizadas em `imagens/{hero, sobre, depoimentos, arquivo}/` com nomes descritivos
+- [x] Arquivos órfãos deletados (css/, js/, preview-whatsapp-depo.html)
+- [x] Removido "em 4 meses" do hero
+
+### App de Planejamento (novo — 12/abr)
+- [x] FastAPI local, porta 8765, atalho "Meu Planejamento" na área de trabalho
+- [x] Dashboard + sidebar de produções + 6 abas por produção (Visão Geral, Em Andamento, Concluído, Futuro, Insights, Anotações)
+- [x] Zero hardcode: nome, cores e porta em `config.json`
+- [x] Estrutura de dados migrada pra `docs/Planejamento/producoes/`
 
 ### Carrosséis Instagram
 - [x] Dia 1, C1: "Você não é o problema" (manhã)
@@ -206,11 +222,10 @@ Objetivo: Banco de conteúdo Instagram + landing page do Programa Essência func
 
 ### Landing page
 - [ ] Depoimentos seções 5 e 6: trocar por versões com nome + resultado concreto
-- [ ] Mosaico de prova social (seção 8): adicionar contexto/transcrição ou substituir por texto
 - [ ] Lista de dor: substituir "Quer emagrecer para ser mais feliz" por padrão comportamental
 - [ ] Revisar fechamento da seção de dor (box de dúvida pode reforçar hesitação)
-- [ ] Personalizar resultado do quiz por perfil (hoje é genérico)
-- [ ] Deletar arquivos órfãos: css/styles.css + js/animations.js + js/magnetic.js + js/scroll.js
+- [ ] Testar o quiz manualmente (responder 4 vezes, 1 por perfil)
+- [ ] Verificar com Marcia (N1) se pode usar o nome dela
 - [ ] Atualizar CTA do carrossel C2: "Me chama no DM" → "Link na bio" / "Faz o quiz na bio"
 
 ### Conteúdo Instagram
@@ -223,4 +238,4 @@ Objetivo: Banco de conteúdo Instagram + landing page do Programa Essência func
 
 ## Status
 
-🔄 Em andamento
+🔄 Em andamento — landing ~85%, carrosséis ~20%, reels/stories 0%
