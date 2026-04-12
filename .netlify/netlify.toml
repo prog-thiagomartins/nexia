@@ -1,5 +1,5 @@
+headersOrigin = "config"
 plugins = []
-headers = []
 redirects = []
 
 [functions]
@@ -7,8 +7,8 @@ redirects = []
 [functions."*"]
 
 [build]
-publish = "C:\\Users\\mayar\\Desktop\\claude-workspace"
-publishOrigin = "default"
+publish = "C:\\Users\\mayar\\Desktop\\claude-workspace\\Campanhas\\essencia\\landing page"
+publishOrigin = "config"
 
 [build.environment]
 
@@ -23,3 +23,11 @@ publishOrigin = "default"
 [build.processing.js]
 
 [build.services]
+
+[[headers]]
+for = "/*"
+
+[headers.values]
+X-Frame-Options = "SAMEORIGIN"
+X-Content-Type-Options = "nosniff"
+Referrer-Policy = "strict-origin-when-cross-origin"

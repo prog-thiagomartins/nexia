@@ -1,8 +1,9 @@
 # Visão Geral — Landing Page
 
 **Campanha:** Essência
-**Progresso:** 85%
-**Status:** Em andamento
+**Progresso:** 95%
+**Status:** No ar — https://essencia.mayarafarias.com.br
+**Deploy:** Netlify (12/abr/2026)
 
 ## Objetivo
 

@@ -28,6 +28,7 @@
 - [x] Removida linha "Você será atendida pelo WhatsApp" no resultado do quiz (redundante com o botão "Continuar pelo WhatsApp")
 - [x] Seção Preço: tirado "Sem compromisso com o programa" do resultado do quiz (era linguagem de saída que tinha escapado)
 - [x] Botão do resultado do quiz: "Agendar minha sessão" → "Continuar pelo WhatsApp" (alinha com o tom da mensagem "me fala mais sobre")
+- [x] **Deploy Netlify em produção (12/abr, commit 0104f10)** — substituiu a V1 em https://essencia.mayarafarias.com.br. Publicado só a pasta da landing (9 arquivos), resto do workspace segue privado.
 
 ## Antes de hoje
 
