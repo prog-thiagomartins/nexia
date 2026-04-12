@@ -20,6 +20,14 @@
 - [x] Imagens reorganizadas em `imagens/{hero, sobre, depoimentos, arquivo}/` com nomes descritivos
 - [x] Arquivos órfãos removidos (`css/`, `js/`, `preview-whatsapp-depo.html`)
 - [x] Hero refeito pra não grudar imagem/texto em desktop intermediário (1025-1200px): grid 50/50 + `cover` na foto + padding adequado + breakpoint extra pra larguras apertadas
+- [x] Caixinha R$97 da seção Preço: traço virou quebra de linha (leitura mais limpa)
+- [x] `netlify.toml` criado na raiz com `publish = "Campanhas/essencia/landing page"` (antes o deploy publicava a raiz inteira do workspace — expunha coisas)
+- [x] Pasta `imagens/arquivo/` movida pra fora da pasta de deploy (depoimentos antigos não vão mais pro ar)
+- [x] Teste do quiz validado nos 4 perfis (A, B, C, D) — título, corpo, ponte, mensagem WhatsApp todos corretos
+- [x] Edge case P3: "Nada ainda" marcado junto com outros itens agora filtra o "Nada ainda" (só dispara a frase "primeira vez buscando" quando é a única opção)
+- [x] Removida linha "Você será atendida pelo WhatsApp" no resultado do quiz (redundante com o botão "Continuar pelo WhatsApp")
+- [x] Seção Preço: tirado "Sem compromisso com o programa" do resultado do quiz (era linguagem de saída que tinha escapado)
+- [x] Botão do resultado do quiz: "Agendar minha sessão" → "Continuar pelo WhatsApp" (alinha com o tom da mensagem "me fala mais sobre")
 
 ## Antes de hoje
 

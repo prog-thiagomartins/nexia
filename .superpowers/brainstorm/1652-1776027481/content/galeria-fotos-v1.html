@@ -1,0 +1,102 @@
+<h2>Galeria — fotos disponíveis</h2>
+<p class="subtitle">As 5 que selecionei da sessão 2025, + as 2 que já estão na landing hoje. Me diz quais gostou.</p>
+
+<style>
+  .galeria { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px; }
+  .foto-card {
+    background: white; border-radius: 14px; overflow: hidden;
+    box-shadow: 0 2px 14px rgba(0,0,0,.08);
+    cursor: pointer; transition: transform .15s, box-shadow .2s;
+    border: 3px solid transparent;
+  }
+  .foto-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,.14); }
+  .foto-card.selected { border-color: #2d4a47; }
+  .foto-card img { width: 100%; height: 360px; object-fit: cover; display: block; }
+  .foto-info { padding: 14px 16px; }
+  .foto-tag {
+    font-size: 10px; font-weight: 800; letter-spacing: .08em;
+    text-transform: uppercase; color: #c17f5b; margin-bottom: 6px;
+  }
+  .foto-tag.atual { color: #888; }
+  .foto-nome { font-size: 13px; font-weight: 700; color: #1c1c1c; margin-bottom: 4px; }
+  .foto-desc { font-size: 12px; color: #666; line-height: 1.5; }
+  .foto-usar { font-size: 11px; color: #2d4a47; font-weight: 600; margin-top: 8px; }
+</style>
+
+<div class="galeria">
+
+  <!-- Já na landing -->
+  <div class="foto-card" data-choice="hero-atual" onclick="toggleSelect(this)">
+    <img src="hero-atual.jpg">
+    <div class="foto-info">
+      <div class="foto-tag atual">Já na landing · Hero</div>
+      <div class="foto-nome">Cortando laranjas</div>
+      <div class="foto-desc">Lifestyle, movimento, cozinha. Fundo do hero atual.</div>
+    </div>
+  </div>
+
+  <div class="foto-card" data-choice="sobre-atual" onclick="toggleSelect(this)">
+    <img src="foto-mayara-atual.jpg">
+    <div class="foto-info">
+      <div class="foto-tag atual">Já na landing · Sobre</div>
+      <div class="foto-nome">Foto principal sobre</div>
+      <div class="foto-desc">Usada hoje na seção "Quem é a Mayara".</div>
+    </div>
+  </div>
+
+  <!-- Novas - sessão 2025 -->
+  <div class="foto-card" data-choice="close" onclick="toggleSelect(this)">
+    <img src="close-sorriso.jpg">
+    <div class="foto-info">
+      <div class="foto-tag">Novo</div>
+      <div class="foto-nome">Close sorriso · jaleco</div>
+      <div class="foto-desc">Sorriso aberto, fundo neutro, vibe profissional + calor humano.</div>
+      <div class="foto-usar">💡 Bom pra: CTA Final (redondo), autoridade, sobre (close)</div>
+    </div>
+  </div>
+
+  <div class="foto-card" data-choice="casual" onclick="toggleSelect(this)">
+    <img src="casual-prato.jpg">
+    <div class="foto-info">
+      <div class="foto-tag">Novo</div>
+      <div class="foto-nome">Sentada · prato com doces</div>
+      <div class="foto-desc">Olhando pra comida com carinho. Cena afetiva, humaniza.</div>
+      <div class="foto-usar">💡 Bom pra: sobre (casual), transição crenças</div>
+    </div>
+  </div>
+
+  <div class="foto-card" data-choice="maca" onclick="toggleSelect(this)">
+    <img src="maca-em-pe.jpg">
+    <div class="foto-info">
+      <div class="foto-tag">Novo</div>
+      <div class="foto-nome">Em pé · segurando maçã</div>
+      <div class="foto-desc">Postura limpa, sorriso aberto, fundo claro. Versátil.</div>
+      <div class="foto-usar">💡 Bom pra: sobre (auxiliar), oferta, qualquer sessão clean</div>
+    </div>
+  </div>
+
+  <div class="foto-card" data-choice="granola" onclick="toggleSelect(this)">
+    <img src="em-acao-granola.jpg">
+    <div class="foto-info">
+      <div class="foto-tag">Novo</div>
+      <div class="foto-nome">Mostrando produto</div>
+      <div class="foto-desc">Em ação, segurando algo. Vibe profissional-prática.</div>
+      <div class="foto-usar">💡 Bom pra: seção Oferta (header)</div>
+    </div>
+  </div>
+
+  <div class="foto-card" data-choice="janela" onclick="toggleSelect(this)">
+    <img src="contemplativa-janela.jpg">
+    <div class="foto-info">
+      <div class="foto-tag">Novo</div>
+      <div class="foto-nome">Perfil · olhando pela janela</div>
+      <div class="foto-desc">Contemplativa, silhueta com luz. Simbólica, emotional.</div>
+      <div class="foto-usar">💡 Bom pra: transição Dor → Inimigo (fundo), momentos de reflexão</div>
+    </div>
+  </div>
+
+</div>
+
+<p style="margin-top:24px;font-size:13px;color:#666;line-height:1.6;">
+  <strong>Tem +80 fotos nas pastas Sessão 2023/2024/2025</strong> que não trouxe. Se nenhuma dessas servir, te mostro mais. Ou me diz que categoria falta (tipo "consultório", "escrevendo", "com paciente") que busco específico.
+</p>

@@ -1,0 +1,229 @@
+<h2>Reestruturação com imagens — mockup das 4 seções</h2>
+<p class="subtitle">Antes × Depois em cada seção proposta. Escolha ✓ pra cada uma que aprovar.</p>
+
+<style>
+  .comp {
+    background: white; border-radius: 14px; padding: 24px;
+    margin-bottom: 32px; box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  }
+  .comp-label {
+    font-size: 11px; font-weight: 800; letter-spacing: .08em;
+    text-transform: uppercase; color: #c17f5b; margin-bottom: 6px;
+  }
+  .comp-titulo { font-size: 18px; font-weight: 800; color: #1c1c1c; margin-bottom: 14px; }
+  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+  .comp-col { }
+  .comp-col h4 {
+    font-size: 11px; font-weight: 700; color: #888; margin-bottom: 10px;
+    text-transform: uppercase; letter-spacing: .06em;
+  }
+  .comp-col h4.after { color: #2d4a47; }
+  .box { background: #f4f1ed; border-radius: 10px; padding: 18px; min-height: 260px; }
+  .box.dark { background: #2d4a47; color: white; }
+  .box.green-overlay {
+    background: #2d4a47; color: white; position: relative; overflow: hidden;
+  }
+  .box.green-overlay .bg-img {
+    position: absolute; inset: 0; object-fit: cover; width: 100%; height: 100%;
+    opacity: 0.2;
+  }
+  .box.green-overlay .content-over { position: relative; z-index: 2; }
+
+  .mini-titulo { font-size: 13px; font-weight: 700; color: #2d4a47; margin-bottom: 8px; }
+  .dark .mini-titulo { color: white; }
+  .mini-body { font-size: 11px; color: #666; line-height: 1.5; }
+  .dark .mini-body { color: rgba(255,255,255,.7); }
+
+  .foto-fullwidth {
+    width: 100%; height: 140px; background: #ddd; border-radius: 8px;
+    object-fit: cover; margin-bottom: 10px;
+  }
+  .foto-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px;
+  }
+  .foto-row img {
+    width: 100%; height: 120px; object-fit: cover; border-radius: 6px;
+  }
+  .foto-principal { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
+
+  .placeholder-texto {
+    background: #e8e2da; border-radius: 6px; height: 12px; margin-bottom: 8px;
+  }
+  .placeholder-texto.short { width: 70%; }
+  .placeholder-texto.mid { width: 90%; }
+
+  .nota {
+    font-size: 12px; color: #888; line-height: 1.6; margin-top: 12px;
+    background: #fafaf8; padding: 10px 14px; border-radius: 8px;
+    border-left: 3px solid #c17f5b;
+  }
+
+  .card {
+    cursor: pointer; border: 3px solid transparent; transition: border-color .15s;
+    background: white; border-radius: 14px; padding: 14px; margin-bottom: 18px;
+  }
+  .card:hover { border-color: #c17f5b; }
+  .card.selected { border-color: #2d4a47; background: #fdf8f3; }
+</style>
+
+<!-- ═════ SEÇÃO 1: SOBRE A MAYARA ═════ -->
+<div class="card" data-choice="mayara" onclick="toggleSelect(this)">
+  <div class="comp-label">1 · Prioridade alta</div>
+  <div class="comp-titulo">Seção "Quem é a Mayara" — 1 foto → 3 fotos em composição</div>
+  <div class="comp-grid">
+
+    <div class="comp-col">
+      <h4>Antes (atual)</h4>
+      <div class="box">
+        <img src="foto-mayara-atual.jpg" class="foto-principal">
+        <div class="placeholder-texto mid"></div>
+        <div class="placeholder-texto"></div>
+        <div class="placeholder-texto short"></div>
+        <div class="placeholder-texto mid"></div>
+        <div class="placeholder-texto"></div>
+      </div>
+    </div>
+
+    <div class="comp-col">
+      <h4 class="after">Depois (proposto)</h4>
+      <div class="box">
+        <img src="foto-mayara-atual.jpg" class="foto-principal">
+        <div class="foto-row">
+          <img src="close-sorriso.jpg">
+          <img src="casual-prato.jpg">
+          <img src="maca-em-pe.jpg">
+        </div>
+        <div class="placeholder-texto mid"></div>
+        <div class="placeholder-texto"></div>
+        <div class="placeholder-texto short"></div>
+      </div>
+    </div>
+  </div>
+  <div class="nota">
+    <strong>Lógica:</strong> foto principal (profissional) + mini-galeria abaixo: (a) close autoridade, (b) casual/humana, (c) versátil. Quebra verticalidade do texto longo, dá movimento visual e mostra facetas da Mayara (profissional + humana + aproximável).
+  </div>
+</div>
+
+<!-- ═════ SEÇÃO 2: OFERTA ═════ -->
+<div class="card" data-choice="oferta" onclick="toggleSelect(this)">
+  <div class="comp-label">2 · Prioridade alta</div>
+  <div class="comp-titulo">Seção Oferta — só ícones → adicionar foto de cabeçalho</div>
+  <div class="comp-grid">
+
+    <div class="comp-col">
+      <h4>Antes (atual)</h4>
+      <div class="box">
+        <div class="placeholder-texto short"></div>
+        <div class="mini-titulo">Programa Essência — 4 meses</div>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+          <div style="width:24px;height:24px;background:#e8e2da;border-radius:6px;"></div>
+          <div style="flex:1;"><div class="placeholder-texto short" style="margin-bottom:4px;"></div><div class="placeholder-texto"></div></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+          <div style="width:24px;height:24px;background:#e8e2da;border-radius:6px;"></div>
+          <div style="flex:1;"><div class="placeholder-texto short" style="margin-bottom:4px;"></div><div class="placeholder-texto"></div></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <div style="width:24px;height:24px;background:#e8e2da;border-radius:6px;"></div>
+          <div style="flex:1;"><div class="placeholder-texto short" style="margin-bottom:4px;"></div><div class="placeholder-texto"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comp-col">
+      <h4 class="after">Depois (proposto)</h4>
+      <div class="box">
+        <img src="em-acao-granola.jpg" class="foto-fullwidth" style="height:160px;">
+        <div class="mini-titulo">Programa Essência — 4 meses</div>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+          <div style="width:24px;height:24px;background:#e8e2da;border-radius:6px;"></div>
+          <div style="flex:1;"><div class="placeholder-texto short" style="margin-bottom:4px;"></div><div class="placeholder-texto"></div></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+          <div style="width:24px;height:24px;background:#e8e2da;border-radius:6px;"></div>
+          <div style="flex:1;"><div class="placeholder-texto short" style="margin-bottom:4px;"></div><div class="placeholder-texto"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nota">
+    <strong>Lógica:</strong> hoje só tem lista de ícones SVG — frio. Uma foto de cabeçalho ("Mayara em ação") tangibiliza o "4 meses de acompanhamento real". Não é lista de features, é um LUGAR onde acontece algo. (Foto placeholder é exemplo — pode ser consultório, materiais, ou bastidor.)
+  </div>
+</div>
+
+<!-- ═════ SEÇÃO 3: TRANSIÇÃO DOR → INIMIGO ═════ -->
+<div class="card" data-choice="inimigo" onclick="toggleSelect(this)">
+  <div class="comp-label">3 · Prioridade média</div>
+  <div class="comp-titulo">Transição Dor → Inimigo — fundo verde simples → foto simbólica com overlay</div>
+  <div class="comp-grid">
+
+    <div class="comp-col">
+      <h4>Antes (atual)</h4>
+      <div class="box dark">
+        <div class="placeholder-texto short" style="background:rgba(255,255,255,.2);"></div>
+        <div style="font-size:16px;font-weight:700;color:white;margin:14px 0 10px;line-height:1.3;">
+          O problema nunca foi você.<br>Foi o <em style="color:#c17f5b;font-style:normal;">método.</em>
+        </div>
+        <div class="placeholder-texto" style="background:rgba(255,255,255,.2);"></div>
+        <div class="placeholder-texto mid" style="background:rgba(255,255,255,.2);"></div>
+      </div>
+    </div>
+
+    <div class="comp-col">
+      <h4 class="after">Depois (proposto)</h4>
+      <div class="box green-overlay">
+        <img src="contemplativa-janela.jpg" class="bg-img">
+        <div class="content-over">
+          <div class="placeholder-texto short" style="background:rgba(255,255,255,.3);"></div>
+          <div style="font-size:16px;font-weight:700;color:white;margin:14px 0 10px;line-height:1.3;">
+            O problema nunca foi você.<br>Foi o <em style="color:#c17f5b;font-style:normal;">método.</em>
+          </div>
+          <div class="placeholder-texto" style="background:rgba(255,255,255,.3);"></div>
+          <div class="placeholder-texto mid" style="background:rgba(255,255,255,.3);"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nota">
+    <strong>Lógica:</strong> turning point emocional ("você não é o problema, o método é") ganha peso com imagem contemplativa ao fundo. A foto da janela é simbólica — mulher em momento de reflexão — amplifica sem distrair. Overlay verde mantém a legibilidade do texto.
+  </div>
+</div>
+
+<!-- ═════ SEÇÃO 4: CTA FINAL ═════ -->
+<div class="card" data-choice="cta" onclick="toggleSelect(this)">
+  <div class="comp-label">4 · Prioridade média</div>
+  <div class="comp-titulo">CTA Final (ponte) — texto em verde → adicionar foto humana da Mayara</div>
+  <div class="comp-grid">
+
+    <div class="comp-col">
+      <h4>Antes (atual)</h4>
+      <div class="box dark">
+        <div class="placeholder-texto short" style="background:rgba(255,255,255,.2);"></div>
+        <div style="font-size:15px;font-weight:700;color:white;margin:10px 0;line-height:1.3;">
+          A sua relação com a comida pode ser diferente.<br>Isso começa com uma conversa.
+        </div>
+        <div class="placeholder-texto" style="background:rgba(255,255,255,.2);"></div>
+        <div class="placeholder-texto mid" style="background:rgba(255,255,255,.2);"></div>
+        <button style="background:white;color:#2d4a47;border:none;padding:10px 18px;border-radius:50px;font-size:11px;font-weight:700;margin-top:10px;">Quero entender meu perfil</button>
+      </div>
+    </div>
+
+    <div class="comp-col">
+      <h4 class="after">Depois (proposto)</h4>
+      <div class="box dark" style="display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:center;">
+        <img src="close-sorriso.jpg" style="width:90px;height:90px;object-fit:cover;border-radius:50%;border:3px solid white;">
+        <div>
+          <div class="placeholder-texto short" style="background:rgba(255,255,255,.2);"></div>
+          <div style="font-size:13px;font-weight:700;color:white;margin:8px 0;line-height:1.3;">
+            A sua relação com a comida pode ser diferente.
+          </div>
+          <div class="placeholder-texto mid" style="background:rgba(255,255,255,.2);"></div>
+          <button style="background:white;color:#2d4a47;border:none;padding:8px 14px;border-radius:50px;font-size:10px;font-weight:700;margin-top:8px;">Quero entender meu perfil</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nota">
+    <strong>Lógica:</strong> antes do quiz, lembrar que é uma pessoa do outro lado — não um formulário. Foto redonda (close da Mayara) humaniza o momento do clique. A pessoa sente "vou conversar com ela", não "vou responder um teste".
+  </div>
+</div>
