@@ -9,7 +9,8 @@
       "Bash(export PATH=\"/c/Program Files/nodejs:/c/Users/mayar/AppData/Roaming/npm:$PATH\")",
       "Bash(netlify login:*)",
       "Bash(netlify deploy:*)",
-      "Bash(scripts/start-server.sh --project-dir \"c:/Users/mayar/Desktop/claude-workspace\")"
+      "Bash(scripts/start-server.sh --project-dir \"c:/Users/mayar/Desktop/claude-workspace\")",
+      "Bash(powershell -NoProfile -ExecutionPolicy Bypass -File \"c:/Users/mayar/Desktop/claude-workspace/planejamento-app/criar-atalho.ps1\")"
     ]
   }
 }

@@ -171,4 +171,56 @@ Documento atualizado: `frontend/definições/definicoes.md`
 
 ## Status
 
-[x] Pronta para execução
+[x] Concluída — 2026-04-06
+
+---
+
+# Sprint 2 — Produção de Conteúdo + Campanha Essência
+
+Período: 2026-04-11 a 2026-04-24
+Objetivo: Banco de conteúdo Instagram + landing page do Programa Essência funcional e convertendo
+
+---
+
+## O que foi feito (atualizado 2026-04-12)
+
+### Landing page Programa Essência (`Campanhas/essencia/landing page/index.html`)
+- [x] Funil reformulado: sem preço visível → quiz de 5 perguntas → WhatsApp com perfil pré-preenchido
+- [x] Sessão diagnóstica: era gratuita (alto no-show) → agora R$97
+- [x] Hero reescrito: headline + sub + CTA com fio narrativo coerente
+- [x] CTA: "Quero entender meu perfil" → "Descobrir o que me trava"
+- [x] Seção Mayara movida: posição 4 → posição 6 (depois das Crenças)
+- [x] R$97 visível: na seção de preço e no resultado do quiz
+- [x] Resultado do quiz reescrito: copy honesta + próximo passo claro
+- [x] Credenciais adicionadas ao hero: CRN 64803 + Nutrição Comportamental + Atendimento online e presencial
+- [x] Análise CRO documentada: `Campanhas/essencia/analise-cro-landing.md`
+
+### Carrosséis Instagram
+- [x] Dia 1, C1: "Você não é o problema" (manhã)
+- [x] Dia 1, C2: Apresentação do Essência (tarde)
+- [x] Visualizador HTML: `Campanhas/essencia/carrosseis/dia1_slides.html`
+
+---
+
+## O que falta
+
+### Landing page
+- [ ] Depoimentos seções 5 e 6: trocar por versões com nome + resultado concreto
+- [ ] Mosaico de prova social (seção 8): adicionar contexto/transcrição ou substituir por texto
+- [ ] Lista de dor: substituir "Quer emagrecer para ser mais feliz" por padrão comportamental
+- [ ] Revisar fechamento da seção de dor (box de dúvida pode reforçar hesitação)
+- [ ] Personalizar resultado do quiz por perfil (hoje é genérico)
+- [ ] Deletar arquivos órfãos: css/styles.css + js/animations.js + js/magnetic.js + js/scroll.js
+- [ ] Atualizar CTA do carrossel C2: "Me chama no DM" → "Link na bio" / "Faz o quiz na bio"
+
+### Conteúdo Instagram
+- [ ] Carrosséis Dias 2–5 (8 carrosséis restantes)
+- [ ] 8 roteiros de reels (5 gestacional + 3 emagrecimento)
+- [ ] Rotina de stories definida e documentada
+- [ ] Legendas + hashtags para todos os posts
+
+---
+
+## Status
+
+🔄 Em andamento

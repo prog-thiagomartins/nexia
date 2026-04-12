@@ -1,0 +1,22 @@
+{
+  "app": {
+    "titulo": "Meu Planejamento",
+    "usuario_nome": "Mayara Farias",
+    "usuario_subtitulo": "Nutricionista",
+    "porta": 8765
+  },
+  "cores": {
+    "sidebar_bg": "#1e3532",
+    "sidebar_texto": "rgba(255,255,255,0.55)",
+    "sidebar_ativo": "#ffffff",
+    "primaria": "#2d4a47",
+    "destaque": "#c17f5b",
+    "fundo_pagina": "#f4f1ed",
+    "card_bg": "#ffffff"
+  },
+  "dados": {
+    "base_dir": "../docs/Planejamento",
+    "producoes_json": "../docs/Planejamento/producoes.json",
+    "sprint_md": "../docs/Planejamento/sprint.md"
+  }
+}

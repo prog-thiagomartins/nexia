@@ -1,0 +1,88 @@
+<h2>Seção "Quem é a Mayara" — opções de layout</h2>
+<p class="subtitle">Escolha como as duas fotos aparecem juntas. Clique para selecionar.</p>
+
+<div class="cards" style="grid-template-columns: repeat(3, 1fr); gap: 24px;">
+
+  <!-- OPÇÃO A: Só a foto profissional (atual) -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f5efe6; padding: 20px; min-height: 320px; display:flex; align-items:center; justify-content:center;">
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; width:100%; align-items:center;">
+        <div style="border-radius:16px; overflow:hidden; aspect-ratio:3/4;">
+          <img src="foto-mayara.jpg" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="height:10px;background:#3a6460;border-radius:4px;width:60%;opacity:.4;"></div>
+          <div style="height:32px;background:#1c1c1c;border-radius:4px;width:90%;opacity:.15;"></div>
+          <div style="height:8px;background:#4a4a4a;border-radius:3px;width:100%;opacity:.2;margin-top:4px;"></div>
+          <div style="height:8px;background:#4a4a4a;border-radius:3px;width:85%;opacity:.2;"></div>
+          <div style="height:8px;background:#4a4a4a;border-radius:3px;width:95%;opacity:.2;"></div>
+          <div style="height:8px;background:#4a4a4a;border-radius:3px;width:70%;opacity:.2;"></div>
+          <div style="margin-top:8px;background:#C17F5B;border-radius:100px;height:28px;width:80%;opacity:.7;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Atual (só profissional)</h3>
+      <p>Uma foto, grid simples. Credibilidade, mas sem personalidade.</p>
+    </div>
+  </div>
+
+  <!-- OPÇÃO B: Foto profissional grande + foto lúdica menor embaixo -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f5efe6; padding: 20px; min-height: 320px; display:flex; align-items:center; justify-content:center;">
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; width:100%; align-items:start;">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="border-radius:16px; overflow:hidden; aspect-ratio:3/4;">
+            <img src="foto-mayara.jpg" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+          </div>
+          <div style="border-radius:12px; overflow:hidden; aspect-ratio:4/3;">
+            <img src="IMG_1128.jpg" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;padding-top:4px;">
+          <div style="height:10px;background:#3a6460;border-radius:4px;width:60%;opacity:.4;"></div>
+          <div style="height:32px;background:#1c1c1c;border-radius:4px;width:90%;opacity:.15;"></div>
+          <div style="height:8px;background:#4a4a4a;border-radius:3px;width:100%;opacity:.2;margin-top:4px;"></div>
+          <div style="height:8px;background:#4a4a4a;border-radius:3px;width:85%;opacity:.2;"></div>
+          <div style="height:8px;background:#4a4a4a;border-radius:3px;width:95%;opacity:.2;"></div>
+          <div style="height:8px;background:#4a4a4a;border-radius:3px;width:70%;opacity:.2;"></div>
+          <div style="margin-top:8px;background:#C17F5B;border-radius:100px;height:28px;width:80%;opacity:.7;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Empilhadas (profissional + lúdica)</h3>
+      <p>Foto principal grande, foto de personalidade menor logo abaixo. Conta dois lados.</p>
+    </div>
+  </div>
+
+  <!-- OPÇÃO C: Foto lúdica sobreposta no canto da profissional -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f5efe6; padding: 20px; min-height: 320px; display:flex; align-items:center; justify-content:center;">
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; width:100%; align-items:center;">
+        <div style="position:relative; padding-bottom: 20px; padding-right: 20px;">
+          <div style="border-radius:16px; overflow:hidden; aspect-ratio:3/4;">
+            <img src="foto-mayara.jpg" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+          </div>
+          <div style="position:absolute;bottom:0px;right:0px;width:50%;border-radius:12px;overflow:hidden;border:3px solid #f5efe6;box-shadow:0 4px 16px rgba(0,0,0,.2);aspect-ratio:3/4;">
+            <img src="IMG_1128.jpg" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="height:10px;background:#3a6460;border-radius:4px;width:60%;opacity:.4;"></div>
+          <div style="height:32px;background:#1c1c1c;border-radius:4px;width:90%;opacity:.15;"></div>
+          <div style="height:8px;background:#4a4a4a;border-radius:3px;width:100%;opacity:.2;margin-top:4px;"></div>
+          <div style="height:8px;background:#4a4a4a;border-radius:3px;width:85%;opacity:.2;"></div>
+          <div style="height:8px;background:#4a4a4a;border-radius:3px;width:95%;opacity:.2;"></div>
+          <div style="height:8px;background:#4a4a4a;border-radius:3px;width:70%;opacity:.2;"></div>
+          <div style="margin-top:8px;background:#C17F5B;border-radius:100px;height:28px;width:80%;opacity:.7;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Sobreposta (lúdica no canto)</h3>
+      <p>A foto com as mangas aparece como detalhe sobre a profissional. Dinâmico, editorial.</p>
+    </div>
+  </div>
+
+</div>

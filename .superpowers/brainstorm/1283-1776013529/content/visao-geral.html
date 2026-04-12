@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App — Estrutura final</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,'Segoe UI',sans-serif; background:#1a1a2e; display:flex; align-items:center; justify-content:center; min-height:100vh; padding:24px; }
+
+  .app { background:#f4f1ed; border-radius:16px; overflow:hidden; width:100%; max-width:820px; box-shadow:0 8px 40px rgba(0,0,0,.4); }
+
+  .topbar { background:#2d4a47; padding:10px 24px; display:flex; align-items:center; justify-content:space-between; }
+  .topbar-title { color:white; font-weight:800; font-size:13px; }
+  .topbar-sub { color:rgba(255,255,255,.4); font-size:11px; }
+
+  .tabs { background:white; border-bottom:1px solid #e8e2da; padding:0 20px; display:flex; overflow-x:auto; }
+  .tab { padding:12px 16px; font-size:11px; font-weight:600; color:#aaa; white-space:nowrap; cursor:pointer; letter-spacing:.04em; transition:color .15s; }
+  .tab:hover { color:#666; }
+  .tab.active { font-weight:800; color:#2d4a47; border-bottom:3px solid #2d4a47; margin-bottom:-1px; }
+
+  .content { padding:28px 24px; }
+
+  /* ── VISÃO GERAL ── */
+  .vg-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .vg-card { background:white; border-radius:12px; padding:18px 20px; box-shadow:0 1px 4px rgba(0,0,0,.06); }
+  .vg-card-label { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:#bbb; margin-bottom:10px; }
+  .vg-card-title { font-size:14px; font-weight:700; color:#1c1c1c; margin-bottom:6px; }
+  .vg-card-sub { font-size:12px; color:#888; line-height:1.6; }
+
+  .vg-sprints { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .sprint-pill { padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700; }
+  .sprint-pill.done { background:#e8f0ec; color:#2d4a47; }
+  .sprint-pill.now { background:#2d4a47; color:white; }
+  .sprint-pill.next { background:#f0ece6; color:#aaa; }
+
+  .progress-bar { height:8px; background:#eee; border-radius:4px; overflow:hidden; margin-top:10px; }
+  .progress-fill { height:100%; background:#2d4a47; border-radius:4px; }
+
+  .vg-full { background:white; border-radius:12px; padding:18px 20px; box-shadow:0 1px 4px rgba(0,0,0,.06); }
+  .vg-row { display:flex; align-items:center; gap:12px; padding:8px 0; border-bottom:1px solid #f4f1ed; font-size:13px; color:#333; }
+  .vg-row:last-child { border-bottom:none; }
+  .vg-row-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+  .vg-row-meta { font-size:11px; color:#bbb; margin-left:auto; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="topbar">
+    <span class="topbar-title">🌿 MEU PLANEJAMENTO</span>
+    <span class="topbar-sub">Mayara Farias · Nutricionista</span>
+  </div>
+
+  <!-- Abas na ordem final -->
+  <div class="tabs">
+    <div class="tab active">VISÃO GERAL</div>
+    <div class="tab">PLANO</div>
+    <div class="tab">EM ANDAMENTO</div>
+    <div class="tab">EM ANÁLISE</div>
+    <div class="tab">FUTURO</div>
+    <div class="tab">IDEIAS</div>
+  </div>
+
+  <!-- VISÃO GERAL -->
+  <div class="content">
+
+    <div class="vg-grid">
+
+      <!-- Sprint atual -->
+      <div class="vg-card">
+        <div class="vg-card-label">Sprint atual</div>
+        <div class="vg-card-title">Sprint 2 — Produção de Conteúdo</div>
+        <div class="vg-card-sub">24 de abril · 12 dias restantes</div>
+        <div class="progress-bar" style="margin-top:12px;">
+          <div class="progress-fill" style="width:42%"></div>
+        </div>
+        <div style="font-size:11px; color:#aaa; margin-top:5px;">42% concluído</div>
+      </div>
+
+      <!-- Roadmap -->
+      <div class="vg-card">
+        <div class="vg-card-label">Jornada do projeto</div>
+        <div class="vg-sprints">
+          <div class="sprint-pill done">Sprint 1 ✓</div>
+          <div class="sprint-pill now">Sprint 2 ←</div>
+          <div class="sprint-pill next">Sprint 3</div>
+          <div class="sprint-pill next">Sprint 4</div>
+          <div class="sprint-pill next">Sprint 5</div>
+        </div>
+        <div class="vg-card-sub" style="margin-top:12px;">Meta: 1ª campanha no ar em ~6 semanas</div>
+      </div>
+
+    </div>
+
+    <!-- Foco agora -->
+    <div class="vg-full" style="margin-bottom:14px;">
+      <div class="vg-card-label" style="margin-bottom:12px;">O que está em foco agora</div>
+      <div class="vg-row">
+        <div class="vg-row-icon" style="background:#e8f0ec;">✅</div>
+        <span>Landing page com quiz e sessão diagnóstica R$97</span>
+        <div class="vg-row-meta">concluído</div>
+      </div>
+      <div class="vg-row">
+        <div class="vg-row-icon" style="background:#e8f0ec;">✅</div>
+        <span>Carrosséis Dia 1 — C1 e C2</span>
+        <div class="vg-row-meta">concluído</div>
+      </div>
+      <div class="vg-row">
+        <div class="vg-row-icon" style="background:#fdf3ec;">⏳</div>
+        <span>Carrosséis Dias 2–5</span>
+        <div class="vg-row-meta">pendente</div>
+      </div>
+      <div class="vg-row">
+        <div class="vg-row-icon" style="background:#fdf3ec;">⏳</div>
+        <span>8 roteiros de reels</span>
+        <div class="vg-row-meta">pendente</div>
+      </div>
+    </div>
+
+    <!-- Próximas fases -->
+    <div class="vg-full">
+      <div class="vg-card-label" style="margin-bottom:12px;">Próximas fases</div>
+      <div class="vg-row">
+        <div class="vg-row-icon" style="background:#f4f1ed;">3️⃣</div>
+        <span>Funil e scripts de conversão — WhatsApp + follow-up</span>
+        <div class="vg-row-meta">Sprint 3</div>
+      </div>
+      <div class="vg-row">
+        <div class="vg-row-icon" style="background:#f4f1ed;">4️⃣</div>
+        <span>Lançamento e monitoramento da campanha</span>
+        <div class="vg-row-meta">Sprint 4</div>
+      </div>
+      <div class="vg-row">
+        <div class="vg-row-icon" style="background:#f4f1ed;">5️⃣</div>
+        <span>Escala e produto digital</span>
+        <div class="vg-row-meta">Sprint 5</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ config.app.titulo }}</title>
+
+<!-- CSS Variables injetadas do config.json — zero hardcode no CSS estático -->
+<style>
+:root {
+  --sidebar-bg:    {{ config.cores.sidebar_bg }};
+  --sidebar-texto: {{ config.cores.sidebar_texto }};
+  --sidebar-ativo: {{ config.cores.sidebar_ativo }};
+  --primaria:      {{ config.cores.primaria }};
+  --destaque:      {{ config.cores.destaque }};
+  --fundo-pagina:  {{ config.cores.fundo_pagina }};
+  --card-bg:       {{ config.cores.card_bg }};
+  --borda:         #e8e2da;
+  --texto:         #1c1c1c;
+  --texto-fraco:   #888;
+  --texto-muito-fraco: #bbb;
+  --primaria-leve: color-mix(in srgb, {{ config.cores.primaria }} 12%, white);
+  --destaque-leve: color-mix(in srgb, {{ config.cores.destaque }} 12%, white);
+}
+</style>
+
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">🌿</div>
+      <div class="sidebar-logo-nome">{{ config.app.usuario_nome }}</div>
+      <div class="sidebar-logo-sub">{{ config.app.usuario_subtitulo }}</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="/" class="sidebar-link {% if pagina == 'dashboard' %}ativo{% endif %}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a>
+
+      <div class="sidebar-nav-label">Produções</div>
+
+      {% for p in producoes %}
+      <a href="/producao/{{ p.id }}"
+         class="sidebar-link {% if pagina == 'producao' and prod is defined and prod.id == p.id %}ativo{% endif %}">
+        <span class="dot {% if p.status == 'em andamento' %}dot-ativo{% else %}dot-parado{% endif %}"></span>
+        {{ p.nome }}
+      </a>
+      {% endfor %}
+
+      <button class="sidebar-btn-nova" onclick="abrirNovaProducao()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Nova produção
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Conteúdo principal -->
+  <main class="main">
+    {% block content %}{% endblock %}
+  </main>
+
+</div>
+
+<!-- Modal: Nova Produção -->
+<div class="modal-overlay" id="modal-nova-prod">
+  <div class="modal">
+    <div class="modal-titulo">Nova produção</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <input id="np-id" type="text" placeholder="ID (ex: email-marketing)" style="padding:10px 12px;border:1px solid var(--borda);border-radius:8px;font-size:13px;outline:none;font-family:inherit;">
+      <input id="np-nome" type="text" placeholder="Nome (ex: Email Marketing)" style="padding:10px 12px;border:1px solid var(--borda);border-radius:8px;font-size:13px;outline:none;font-family:inherit;">
+      <input id="np-desc" type="text" placeholder="Descrição (opcional)" style="padding:10px 12px;border:1px solid var(--borda);border-radius:8px;font-size:13px;outline:none;font-family:inherit;">
+    </div>
+    <div class="modal-acoes">
+      <button class="btn btn-cancelar" onclick="fecharModal('modal-nova-prod')">Cancelar</button>
+      <button class="btn btn-salvar" onclick="criarProducao()">Criar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function abrirNovaProducao() {
+  document.getElementById('modal-nova-prod').classList.add('aberto');
+}
+function fecharModal(id) {
+  document.getElementById(id).classList.remove('aberto');
+}
+async function criarProducao() {
+  const id = document.getElementById('np-id').value.trim();
+  const nome = document.getElementById('np-nome').value.trim();
+  const desc = document.getElementById('np-desc').value.trim();
+  if (!id || !nome) return alert('ID e nome são obrigatórios.');
+  const r = await fetch('/api/producoes', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({id, nome, descricao: desc})
+  });
+  if (r.ok) location.href = '/producao/' + id;
+  else alert('Erro ao criar produção.');
+}
+// Fechar ao clicar fora
+document.addEventListener('click', e => {
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    if (e.target === overlay) overlay.classList.remove('aberto');
+  });
+});
+</script>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

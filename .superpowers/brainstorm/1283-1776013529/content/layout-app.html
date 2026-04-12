@@ -1,0 +1,116 @@
+<h2>Como o app vai parecer?</h2>
+<p class="subtitle">3 opções de layout — clique para selecionar</p>
+
+<div class="cards">
+
+  <!-- OPÇÃO A: Sidebar -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f8f5f0; padding:16px; min-height:260px;">
+      <div style="display:flex; gap:10px; height:100%;">
+        <!-- sidebar -->
+        <div style="width:90px; background:#2d4a47; border-radius:8px; padding:10px 8px; display:flex; flex-direction:column; gap:6px;">
+          <div style="font-size:9px; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px;">Menu</div>
+          <div style="background:rgba(255,255,255,.15); border-radius:5px; padding:5px 7px; font-size:9px; color:#fff;">📋 Agora</div>
+          <div style="border-radius:5px; padding:5px 7px; font-size:9px; color:rgba(255,255,255,.65);">🗺️ Plano</div>
+          <div style="border-radius:5px; padding:5px 7px; font-size:9px; color:rgba(255,255,255,.65);">💡 Ideias</div>
+          <div style="border-radius:5px; padding:5px 7px; font-size:9px; color:rgba(255,255,255,.65);">🔍 Análise</div>
+          <div style="border-radius:5px; padding:5px 7px; font-size:9px; color:rgba(255,255,255,.65);">📦 Depois</div>
+        </div>
+        <!-- content -->
+        <div style="flex:1; background:white; border-radius:8px; padding:12px;">
+          <div style="font-size:11px; font-weight:700; color:#2d4a47; margin-bottom:8px;">O que estou fazendo agora</div>
+          <div style="height:8px; background:#e8e8e8; border-radius:4px; margin-bottom:6px; width:90%;"></div>
+          <div style="height:8px; background:#e8e8e8; border-radius:4px; margin-bottom:6px; width:75%;"></div>
+          <div style="height:8px; background:#e8e8e8; border-radius:4px; margin-bottom:12px; width:85%;"></div>
+          <div style="display:flex; gap:6px;">
+            <div style="height:24px; background:#f0f0f0; border-radius:4px; flex:1;"></div>
+            <div style="height:24px; background:#2d4a47; border-radius:4px; width:60px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Sidebar fixa</h3>
+      <p>Menu sempre visível à esquerda. Cada seção abre no painel principal. Igual Notion ou Google Docs.</p>
+    </div>
+  </div>
+
+  <!-- OPÇÃO B: Dashboard de cards -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f8f5f0; padding:16px; min-height:260px;">
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <!-- header -->
+        <div style="background:#2d4a47; border-radius:8px; padding:8px 12px; display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-size:10px; font-weight:700; color:#fff;">Meu Planejamento</span>
+          <span style="font-size:9px; color:rgba(255,255,255,.5);">Sprint 2 em andamento</span>
+        </div>
+        <!-- cards grid -->
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
+          <div style="background:white; border-radius:8px; padding:8px; border-left:3px solid #2d4a47;">
+            <div style="font-size:8px; font-weight:700; color:#2d4a47; margin-bottom:3px;">📋 Agora</div>
+            <div style="height:5px; background:#eee; border-radius:2px; margin-bottom:3px;"></div>
+            <div style="height:5px; background:#eee; border-radius:2px; width:70%;"></div>
+          </div>
+          <div style="background:white; border-radius:8px; padding:8px; border-left:3px solid #c17f5b;">
+            <div style="font-size:8px; font-weight:700; color:#c17f5b; margin-bottom:3px;">💡 Ideias</div>
+            <div style="height:5px; background:#eee; border-radius:2px; margin-bottom:3px;"></div>
+            <div style="height:5px; background:#eee; border-radius:2px; width:80%;"></div>
+          </div>
+          <div style="background:white; border-radius:8px; padding:8px; border-left:3px solid #888;">
+            <div style="font-size:8px; font-weight:700; color:#888; margin-bottom:3px;">📦 Depois</div>
+            <div style="height:5px; background:#eee; border-radius:2px; margin-bottom:3px;"></div>
+            <div style="height:5px; background:#eee; border-radius:2px; width:60%;"></div>
+          </div>
+          <div style="background:white; border-radius:8px; padding:8px; border-left:3px solid #5b8dc1;">
+            <div style="font-size:8px; font-weight:700; color:#5b8dc1; margin-bottom:3px;">🗺️ Plano Geral</div>
+            <div style="height:5px; background:#eee; border-radius:2px; margin-bottom:3px;"></div>
+            <div style="height:5px; background:#eee; border-radius:2px; width:75%;"></div>
+          </div>
+          <div style="background:white; border-radius:8px; padding:8px; border-left:3px solid #a855a8;">
+            <div style="font-size:8px; font-weight:700; color:#a855a8; margin-bottom:3px;">🔍 Análise</div>
+            <div style="height:5px; background:#eee; border-radius:2px; margin-bottom:3px;"></div>
+            <div style="height:5px; background:#eee; border-radius:2px; width:55%;"></div>
+          </div>
+          <div style="background:white; border-radius:8px; padding:8px; border-left:3px solid #e0a020;">
+            <div style="font-size:8px; font-weight:700; color:#e0a020; margin-bottom:3px;">📊 Resultados</div>
+            <div style="height:5px; background:#eee; border-radius:2px; margin-bottom:3px;"></div>
+            <div style="height:5px; background:#eee; border-radius:2px; width:65%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Dashboard de cards ⭐ recomendo</h3>
+      <p>Home mostra tudo de uma vez como cards. Clica em um card para abrir e editar. Visão geral + detalhe.</p>
+    </div>
+  </div>
+
+  <!-- OPÇÃO C: Abas -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f8f5f0; padding:16px; min-height:260px;">
+      <div style="display:flex; flex-direction:column; gap:0;">
+        <!-- tabs -->
+        <div style="display:flex; gap:2px; padding:0 0 0 0;">
+          <div style="background:#2d4a47; border-radius:6px 6px 0 0; padding:5px 8px; font-size:9px; color:white; font-weight:700;">Agora</div>
+          <div style="background:#ddd; border-radius:6px 6px 0 0; padding:5px 8px; font-size:9px; color:#666;">Plano</div>
+          <div style="background:#ddd; border-radius:6px 6px 0 0; padding:5px 8px; font-size:9px; color:#666;">Ideias</div>
+          <div style="background:#ddd; border-radius:6px 6px 0 0; padding:5px 8px; font-size:9px; color:#666;">Análise</div>
+          <div style="background:#ddd; border-radius:6px 6px 0 0; padding:5px 8px; font-size:9px; color:#666;">Depois</div>
+        </div>
+        <!-- content -->
+        <div style="background:white; border-radius:0 8px 8px 8px; padding:12px; min-height:180px;">
+          <div style="font-size:11px; font-weight:700; color:#2d4a47; margin-bottom:8px;">O que estou fazendo agora</div>
+          <div style="height:8px; background:#e8e8e8; border-radius:4px; margin-bottom:6px; width:90%;"></div>
+          <div style="height:8px; background:#e8e8e8; border-radius:4px; margin-bottom:6px; width:70%;"></div>
+          <div style="height:8px; background:#e8e8e8; border-radius:4px; margin-bottom:6px; width:85%;"></div>
+          <div style="height:8px; background:#e8e8e8; border-radius:4px; margin-bottom:6px; width:60%;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Abas horizontais</h3>
+      <p>Uma aba para cada seção na parte de cima. Simples, mas você só vê uma coisa de cada vez.</p>
+    </div>
+  </div>
+
+</div>

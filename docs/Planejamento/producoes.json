@@ -1,0 +1,30 @@
+[
+  {
+    "id": "landing-page",
+    "nome": "Landing Page",
+    "descricao": "Programa Essência — quiz, copy, prova social",
+    "progresso": 70,
+    "status": "em andamento"
+  },
+  {
+    "id": "carrosseis",
+    "nome": "Carrosséis",
+    "descricao": "5 dias × 2 carrosséis — campanha Essência",
+    "progresso": 20,
+    "status": "em andamento"
+  },
+  {
+    "id": "reels",
+    "nome": "Reels",
+    "descricao": "8 roteiros — 5 gestacional + 3 emagrecimento",
+    "progresso": 0,
+    "status": "não iniciado"
+  },
+  {
+    "id": "stories",
+    "nome": "Stories",
+    "descricao": "Rotina semanal de stories para campanha",
+    "progresso": 0,
+    "status": "não iniciado"
+  }
+]

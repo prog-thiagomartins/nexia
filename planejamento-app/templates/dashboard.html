@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+  <div class="page-saudacao">Olá, {{ config.app.usuario_nome.split()[0] }} 👋</div>
+  <div class="page-sub">{{ config.app.titulo }}</div>
+</div>
+
+<div class="page-content">
+
+  <!-- Sprint + Roadmap -->
+  <div class="sprint-grid">
+    <div class="card">
+      <div class="card-label">Sprint atual</div>
+      <div class="md-content sprint-md">{{ sprint_html | safe }}</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Produções em andamento</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
+        {% for p in producoes %}
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="dot {% if p.status == 'em andamento' %}dot-ativo{% else %}dot-parado{% endif %}" style="display:inline-block;"></span>
+          <span style="font-size:13px;color:var(--texto);flex:1;">{{ p.nome }}</span>
+          <span style="font-size:11px;font-weight:700;color:var(--texto-muito-fraco);">{{ p.progresso }}%</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid produções -->
+  <div class="section-label">Produções — clique para ver detalhes</div>
+  <div class="producoes-grid">
+    {% for p in producoes %}
+    {% if p.status == 'em andamento' %}
+      {% set card_class = 'prod-card-ativo' %}
+      {% set badge_class = 'badge-ativo' %}
+      {% set fill_color = 'var(--destaque)' %}
+    {% elif p.status == 'concluído' %}
+      {% set card_class = 'prod-card-ok' %}
+      {% set badge_class = 'badge-ok' %}
+      {% set fill_color = 'var(--primaria)' %}
+    {% else %}
+      {% set card_class = 'prod-card-parado' %}
+      {% set badge_class = 'badge-parado' %}
+      {% set fill_color = '#bbb' %}
+    {% endif %}
+
+    <a href="/producao/{{ p.id }}" class="prod-card {{ card_class }}">
+      <div class="prod-header">
+        <div class="prod-nome">{{ p.nome }}</div>
+        <div class="prod-badge {{ badge_class }}">{{ p.status }}</div>
+      </div>
+      <div class="prod-desc">{{ p.descricao }}</div>
+      <div class="prod-progress">
+        <div class="prod-progress-fill" style="width:{{ p.progresso }}%;background:{{ fill_color }};"></div>
+      </div>
+      <div class="prod-meta">
+        <span class="prod-pct">{{ p.progresso }}%</span>
+        <span class="prod-arrow">→</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

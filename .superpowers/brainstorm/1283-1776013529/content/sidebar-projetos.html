@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App — Sidebar + Projetos</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,'Segoe UI',sans-serif; background:#1a1a2e; display:flex; align-items:center; justify-content:center; min-height:100vh; padding:24px; }
+
+  .app { display:flex; background:#f4f1ed; border-radius:16px; overflow:hidden; width:100%; max-width:960px; height:600px; box-shadow:0 8px 40px rgba(0,0,0,.4); }
+
+  /* ── SIDEBAR ── */
+  .sidebar { width:200px; background:#1e3532; flex-shrink:0; display:flex; flex-direction:column; }
+
+  .sidebar-logo { padding:18px 16px 14px; border-bottom:1px solid rgba(255,255,255,.07); }
+  .sidebar-logo-title { color:white; font-weight:800; font-size:12px; letter-spacing:.06em; }
+  .sidebar-logo-sub { color:rgba(255,255,255,.35); font-size:10px; margin-top:2px; }
+
+  .sidebar-section { padding:14px 12px 6px; font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.12em; color:rgba(255,255,255,.25); }
+
+  .sidebar-item {
+    margin:2px 8px; padding:8px 10px; border-radius:8px;
+    font-size:12px; color:rgba(255,255,255,.55); cursor:pointer;
+    display:flex; align-items:center; gap:8px; transition:all .15s;
+  }
+  .sidebar-item:hover { background:rgba(255,255,255,.07); color:rgba(255,255,255,.8); }
+  .sidebar-item.active { background:rgba(255,255,255,.12); color:white; font-weight:600; }
+  .sidebar-item .dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+
+  .sidebar-add { margin:8px 8px 0; padding:8px 10px; border-radius:8px; font-size:11px; color:rgba(255,255,255,.3); cursor:pointer; display:flex; align-items:center; gap:8px; border:1px dashed rgba(255,255,255,.1); transition:all .15s; }
+  .sidebar-add:hover { border-color:rgba(255,255,255,.25); color:rgba(255,255,255,.5); }
+
+  .sidebar-bottom { margin-top:auto; padding:12px 8px; border-top:1px solid rgba(255,255,255,.07); }
+
+  /* ── MAIN ── */
+  .main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+
+  /* Abas dentro do projeto */
+  .tabs { background:white; border-bottom:1px solid #e8e2da; padding:0 20px; display:flex; flex-shrink:0; }
+  .tab { padding:11px 14px; font-size:11px; font-weight:600; color:#aaa; white-space:nowrap; cursor:pointer; letter-spacing:.04em; }
+  .tab.active { font-weight:800; color:#2d4a47; border-bottom:3px solid #2d4a47; margin-bottom:-1px; }
+
+  .main-content { flex:1; overflow-y:auto; padding:24px; }
+
+  /* ── DASHBOARD (home) ── */
+  .dash-header { margin-bottom:20px; }
+  .dash-title { font-size:20px; font-weight:800; color:#1c1c1c; }
+  .dash-sub { font-size:13px; color:#aaa; margin-top:3px; }
+
+  .dash-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+  .proj-card {
+    background:white; border-radius:12px; padding:16px 18px;
+    box-shadow:0 1px 4px rgba(0,0,0,.06); cursor:pointer;
+    transition:box-shadow .15s, transform .1s;
+    border-left:4px solid transparent;
+  }
+  .proj-card:hover { box-shadow:0 4px 16px rgba(0,0,0,.1); transform:translateY(-1px); }
+
+  .proj-card-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+  .proj-card-name { font-size:13px; font-weight:800; color:#1c1c1c; }
+  .badge { font-size:9px; font-weight:700; padding:3px 8px; border-radius:20px; text-transform:uppercase; letter-spacing:.06em; }
+  .badge-active { background:#fdf0e6; color:#c17f5b; }
+  .badge-idle   { background:#f4f1ed; color:#bbb; }
+  .badge-done   { background:#e8f0ec; color:#2d4a47; }
+
+  .proj-card-desc { font-size:12px; color:#999; margin-bottom:10px; line-height:1.4; }
+  .prog { height:5px; background:#eee; border-radius:3px; overflow:hidden; }
+  .prog-fill { height:100%; border-radius:3px; }
+  .proj-card-pct { font-size:10px; color:#bbb; margin-top:4px; }
+
+  /* Resumo sprint */
+  .sprint-banner { background:white; border-radius:12px; padding:14px 18px; box-shadow:0 1px 4px rgba(0,0,0,.06); margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; }
+  .sprint-info strong { font-size:13px; color:#1c1c1c; display:block; }
+  .sprint-info span { font-size:11px; color:#aaa; }
+  .sprint-pills { display:flex; gap:6px; }
+  .pill { padding:3px 10px; border-radius:20px; font-size:10px; font-weight:700; }
+  .pill.done { background:#e8f0ec; color:#2d4a47; }
+  .pill.now  { background:#2d4a47; color:white; }
+  .pill.next { background:#f4f1ed; color:#ccc; }
+
+  /* Projeto aberto */
+  .proj-view { display:none; }
+  .proj-page-header { margin-bottom:20px; }
+  .proj-page-tag { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:#c17f5b; margin-bottom:4px; }
+  .proj-page-title { font-size:18px; font-weight:800; color:#1c1c1c; }
+  .proj-vg-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .mini-card { background:white; border-radius:10px; padding:14px 16px; box-shadow:0 1px 4px rgba(0,0,0,.05); }
+  .mini-label { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:#bbb; margin-bottom:6px; }
+  .mini-val { font-size:22px; font-weight:900; color:#2d4a47; }
+  .mini-sub { font-size:11px; color:#aaa; margin-top:2px; }
+  .divider { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:#bbb; padding:14px 0 8px; }
+  .task { display:flex; align-items:center; gap:10px; padding:8px 0; font-size:12px; color:#333; border-bottom:1px solid #f9f7f5; }
+  .task:last-child { border:none; }
+  .chk { width:17px; height:17px; border-radius:4px; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .chk.done { background:#2d4a47; }
+  .chk.todo { border:2px solid #ddd; }
+  .task-txt.done-t { color:#bbb; text-decoration:line-through; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-title">🌿 Planejamento</div>
+      <div class="sidebar-logo-sub">Mayara Farias</div>
+    </div>
+
+    <div class="sidebar-section">Geral</div>
+    <div class="sidebar-item active" onclick="showDash()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </div>
+
+    <div class="sidebar-section">Projetos</div>
+    <div class="sidebar-item" onclick="showProj('landing')">
+      <div class="dot" style="background:#c17f5b;"></div>
+      Landing Page
+    </div>
+    <div class="sidebar-item" onclick="showProj('carrosseis')">
+      <div class="dot" style="background:#c17f5b;"></div>
+      Carrosséis
+    </div>
+    <div class="sidebar-item" onclick="showProj('reels')">
+      <div class="dot" style="background:#888;"></div>
+      Reels
+    </div>
+    <div class="sidebar-item" onclick="showProj('stories')">
+      <div class="dot" style="background:#888;"></div>
+      Stories
+    </div>
+
+    <div class="sidebar-add">
+      <span style="font-size:14px;">+</span> Novo projeto
+    </div>
+
+    <div class="sidebar-bottom">
+      <div class="sidebar-item" style="font-size:11px;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        Configurações
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div id="view-dash" class="main-content">
+      <div class="dash-header">
+        <div class="dash-title">Olá, Mayara 👋</div>
+        <div class="dash-sub">Aqui está o resumo do seu projeto hoje.</div>
+      </div>
+
+      <div class="sprint-banner">
+        <div class="sprint-info">
+          <strong>Sprint 2 — Produção de Conteúdo</strong>
+          <span>42% concluído · 12 dias restantes</span>
+        </div>
+        <div class="sprint-pills">
+          <div class="pill done">Sprint 1 ✓</div>
+          <div class="pill now">Sprint 2</div>
+          <div class="pill next">Sprint 3</div>
+          <div class="pill next">Sprint 4</div>
+          <div class="pill next">Sprint 5</div>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <div class="proj-card" style="border-left-color:#c17f5b;" onclick="showProj('landing')">
+          <div class="proj-card-header">
+            <div class="proj-card-name">Landing Page</div>
+            <div class="badge badge-active">em andamento</div>
+          </div>
+          <div class="proj-card-desc">Programa Essência — quiz, copy, prova social</div>
+          <div class="prog"><div class="prog-fill" style="width:70%;background:#c17f5b;"></div></div>
+          <div class="proj-card-pct">70%</div>
+        </div>
+
+        <div class="proj-card" style="border-left-color:#c17f5b;" onclick="showProj('carrosseis')">
+          <div class="proj-card-header">
+            <div class="proj-card-name">Carrosséis</div>
+            <div class="badge badge-active">em andamento</div>
+          </div>
+          <div class="proj-card-desc">5 dias × 2 carrosséis</div>
+          <div class="prog"><div class="prog-fill" style="width:20%;background:#c17f5b;"></div></div>
+          <div class="proj-card-pct">20%</div>
+        </div>
+
+        <div class="proj-card" style="border-left-color:#ddd;" onclick="showProj('reels')">
+          <div class="proj-card-header">
+            <div class="proj-card-name">Reels</div>
+            <div class="badge badge-idle">não iniciado</div>
+          </div>
+          <div class="proj-card-desc">8 roteiros — gestacional + emagrecimento</div>
+          <div class="prog"><div class="prog-fill" style="width:0%;background:#bbb;"></div></div>
+          <div class="proj-card-pct">0%</div>
+        </div>
+
+        <div class="proj-card" style="border-left-color:#ddd;" onclick="showProj('stories')">
+          <div class="proj-card-header">
+            <div class="proj-card-name">Stories</div>
+            <div class="badge badge-idle">não iniciado</div>
+          </div>
+          <div class="proj-card-desc">Rotina semanal da campanha</div>
+          <div class="prog"><div class="prog-fill" style="width:0%;background:#bbb;"></div></div>
+          <div class="proj-card-pct">0%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJETO ABERTO -->
+    <div id="view-proj" style="display:none; flex-direction:column; height:100%;">
+      <div class="tabs">
+        <div class="tab active">VISÃO GERAL</div>
+        <div class="tab">EM ANDAMENTO</div>
+        <div class="tab">IDEIAS</div>
+        <div class="tab">FUTURO</div>
+      </div>
+      <div class="main-content" id="proj-content">
+        <!-- preenchido por JS -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const projetos = {
+    landing: {
+      tag: 'Campanha Essência',
+      nome: 'Landing Page',
+      pct: 70,
+      concluido: ['Hero reescrito com fio narrativo', 'Quiz de 5 perguntas + WhatsApp', 'R$97 visível na página', 'Credenciais no hero'],
+      falta: ['Depoimentos com nome + resultado concreto', 'Mosaico de prova social — novos prints', 'Resultado do quiz personalizado por perfil']
+    },
+    carrosseis: {
+      tag: 'Campanha Essência',
+      nome: 'Carrosséis',
+      pct: 20,
+      concluido: ['Dia 1 — C1 "Você não é o problema"', 'Dia 1 — C2 Apresentação Essência'],
+      falta: ['Dias 2–5 (8 carrosséis)', 'Corrigir CTA do C2']
+    },
+    reels: {
+      tag: 'Campanha Essência',
+      nome: 'Reels',
+      pct: 0,
+      concluido: [],
+      falta: ['5 roteiros — Diabetes Gestacional', '3 roteiros — Emagrecimento Comportamental']
+    },
+    stories: {
+      tag: 'Campanha Essência',
+      nome: 'Stories',
+      pct: 0,
+      concluido: [],
+      falta: ['Definir rotina por dia da semana', 'Documentar formato e frequência']
+    }
+  };
+
+  function showDash() {
+    document.getElementById('view-dash').style.display = 'block';
+    document.getElementById('view-proj').style.display = 'none';
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.sidebar-item')[0].classList.add('active');
+  }
+
+  function showProj(id) {
+    const p = projetos[id];
+    document.getElementById('view-dash').style.display = 'none';
+    document.getElementById('view-proj').style.display = 'flex';
+
+    const chk = `<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+    const concluido = p.concluido.map(t => `<div class="task"><div class="chk done">${chk}</div><span class="task-txt done-t">${t}</span></div>`).join('');
+    const falta = p.falta.map(t => `<div class="task"><div class="chk todo"></div><span class="task-txt">${t}</span></div>`).join('');
+    const semConcluido = p.concluido.length === 0 ? '<div style="font-size:12px;color:#bbb;padding:6px 0;">Nenhuma tarefa concluída ainda.</div>' : concluido;
+
+    document.getElementById('proj-content').innerHTML = `
+      <div class="proj-page-header">
+        <div class="proj-page-tag">${p.tag}</div>
+        <div class="proj-page-title">${p.nome}</div>
+      </div>
+      <div class="proj-vg-grid" style="margin-bottom:14px;">
+        <div class="mini-card">
+          <div class="mini-label">Progresso</div>
+          <div class="mini-val">${p.pct}%</div>
+          <div style="height:6px;background:#eee;border-radius:3px;overflow:hidden;margin-top:8px;"><div style="height:100%;width:${p.pct}%;background:#2d4a47;border-radius:3px;"></div></div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-label">Tarefas</div>
+          <div class="mini-val">${p.concluido.length}/${p.concluido.length + p.falta.length}</div>
+          <div class="mini-sub">concluídas</div>
+        </div>
+      </div>
+      <div style="background:white;border-radius:12px;padding:16px 18px;box-shadow:0 1px 4px rgba(0,0,0,.05);">
+        <div class="divider" style="padding-top:0;">Concluído</div>
+        ${semConcluido}
+        <div class="divider">Falta</div>
+        ${falta}
+      </div>`;
+
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    const items = document.querySelectorAll('.sidebar-item');
+    const map = {landing:1, carrosseis:2, reels:3, stories:4};
+    items[map[id]].classList.add('active');
+  }
+</script>
+</body>
+</html>

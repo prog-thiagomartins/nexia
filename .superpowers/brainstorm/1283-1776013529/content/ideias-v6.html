@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App — Ícones</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,'Segoe UI',sans-serif; background:#1a1a2e; display:flex; align-items:flex-start; justify-content:center; min-height:100vh; padding:24px; gap:24px; flex-wrap:wrap; }
+
+  /* ── Nota explicativa ── */
+  .nota { background:rgba(255,255,255,.08); border-radius:12px; padding:16px 20px; color:rgba(255,255,255,.6); font-size:12px; line-height:1.6; max-width:220px; align-self:flex-start; margin-top:40px; }
+  .nota strong { color:white; display:block; margin-bottom:6px; }
+
+  .app { background:#f4f1ed; border-radius:16px; overflow:hidden; width:100%; max-width:760px; box-shadow:0 8px 40px rgba(0,0,0,.4); }
+
+  .topbar { background:#2d4a47; padding:10px 24px; display:flex; align-items:center; justify-content:space-between; }
+  .topbar-title { color:white; font-weight:800; font-size:13px; }
+  .topbar-sub { color:rgba(255,255,255,.4); font-size:11px; }
+
+  .tabs { background:white; border-bottom:1px solid #e8e2da; padding:0 24px; display:flex; overflow-x:auto; }
+  .tab { padding:12px 18px; font-size:12px; font-weight:600; color:#aaa; white-space:nowrap; cursor:pointer; }
+  .tab.active { font-weight:800; color:#c17f5b; border-bottom:3px solid #c17f5b; margin-bottom:-1px; }
+
+  .content { padding:28px 24px; }
+
+  .page-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
+  .page-title { font-size:15px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:#1c1c1c; }
+
+  /* Botão ícone com tooltip */
+  [data-tip] { position:relative; }
+  [data-tip]::after {
+    content: attr(data-tip);
+    position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%);
+    background:#1c1c1c; color:white; font-size:10px; font-weight:600;
+    padding:4px 8px; border-radius:5px; white-space:nowrap; pointer-events:none;
+    opacity:0; transition:opacity .15s; letter-spacing:.02em;
+  }
+  [data-tip]:hover::after { opacity:1; }
+
+  .icon-btn {
+    background:transparent; border:none; cursor:pointer; padding:8px;
+    color:#ccc; border-radius:8px; transition:all .15s; line-height:0;
+  }
+  .icon-btn:hover { background:#f0ece6; color:#c17f5b; }
+  .icon-btn.primary {
+    background:#c17f5b; color:white; border-radius:8px; padding:8px 10px;
+  }
+  .icon-btn.primary:hover { background:#a86a4a; }
+
+  .icon { width:18px; height:18px; }
+  .icon-sm { width:15px; height:15px; }
+
+  /* Blocos IDEIAS */
+  .blocos { display:flex; flex-direction:column; gap:10px; }
+  .bloco { background:white; border-radius:12px; padding:18px 20px; box-shadow:0 1px 4px rgba(0,0,0,.06); display:flex; align-items:flex-start; gap:16px; }
+  .bloco-num { width:28px; height:28px; border-radius:50%; background:#f4f1ed; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; color:#c17f5b; flex-shrink:0; margin-top:1px; }
+  .bloco-corpo { flex:1; }
+  .bloco-data { font-size:10px; color:#ccc; letter-spacing:.04em; margin-bottom:6px; }
+  .bloco-texto { font-size:14px; color:#333; line-height:1.75; }
+  .bloco-acoes { display:flex; flex-direction:column; gap:2px; flex-shrink:0; opacity:0; transition:opacity .15s; }
+  .bloco:hover .bloco-acoes { opacity:1; }
+
+  /* Divider */
+  .divider { display:flex; align-items:center; gap:12px; margin:20px 0 14px; }
+  .divider-label { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:#bbb; white-space:nowrap; }
+  .divider-line { flex:1; height:1px; background:#eee; }
+
+  /* Itens EM ANDAMENTO */
+  .item { background:white; border-radius:12px; padding:14px 18px; box-shadow:0 1px 4px rgba(0,0,0,.06); display:flex; align-items:center; gap:14px; margin-bottom:8px; }
+  .item-check { width:20px; height:20px; border-radius:5px; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .item-check.done { background:#2d4a47; }
+  .item-check.todo { border:2px solid #ddd; }
+  .item-texto { flex:1; font-size:13px; color:#333; line-height:1.5; }
+  .item-texto.done-text { color:#aaa; text-decoration:line-through; }
+
+  /* Modal */
+  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:100; align-items:center; justify-content:center; }
+  .overlay.open { display:flex; }
+  .modal { background:white; border-radius:16px; padding:28px; width:100%; max-width:480px; box-shadow:0 16px 56px rgba(0,0,0,.2); }
+  .modal-title { font-size:13px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:#1c1c1c; margin-bottom:16px; }
+  .modal textarea { width:100%; border:1.5px solid #e8e2da; border-radius:10px; padding:14px 16px; font-size:14px; line-height:1.75; color:#333; resize:none; height:160px; font-family:inherit; outline:none; transition:border-color .15s; }
+  .modal textarea:focus { border-color:#c17f5b; }
+  .modal-footer { display:flex; justify-content:flex-end; gap:10px; margin-top:16px; }
+  .btn-cancel { background:transparent; border:1.5px solid #e8e2da; border-radius:8px; padding:9px 18px; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#aaa; cursor:pointer; }
+  .btn-save { background:#c17f5b; border:none; border-radius:8px; padding:9px 20px; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:white; cursor:pointer; }
+
+  /* Tab switcher demo */
+  .tabs-demo { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+  .tab-demo { padding:6px 14px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; border:1.5px solid transparent; }
+  .tab-demo.on { background:#2d4a47; color:white; }
+  .tab-demo.off { border-color:#ddd; color:#aaa; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="topbar">
+    <span class="topbar-title">🌿 MEU PLANEJAMENTO</span>
+    <span class="topbar-sub">Mayara Farias</span>
+  </div>
+
+  <div class="tabs">
+    <div class="tab" onclick="showTab('andamento')">EM ANDAMENTO</div>
+    <div class="tab">PLANO</div>
+    <div class="tab active" id="tab-ideias" onclick="showTab('ideias')">IDEIAS</div>
+    <div class="tab">EM ANÁLISE</div>
+    <div class="tab">DECISÕES</div>
+    <div class="tab">FUTURO</div>
+  </div>
+
+  <!-- ABA IDEIAS -->
+  <div class="content" id="pg-ideias">
+    <div class="page-header">
+      <div class="page-title">Ideias</div>
+      <button class="icon-btn primary" data-tip="Adicionar ideia" onclick="abrirModal()">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="blocos">
+      <div class="bloco">
+        <div class="bloco-num">1</div>
+        <div class="bloco-corpo">
+          <div class="bloco-data">12/04 · 14:32</div>
+          <div class="bloco-texto">Botões da página devem levar para a sessão do quiz — "A sua relação com a comida pode ser diferente. Isso começa com uma conversa."</div>
+        </div>
+        <div class="bloco-acoes">
+          <button class="icon-btn" data-tip="Editar" onclick="editarModal(this)">
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+          <button class="icon-btn" data-tip="Apagar" onclick="this.closest('.bloco').remove()">
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="bloco">
+        <div class="bloco-num">2</div>
+        <div class="bloco-corpo">
+          <div class="bloco-data">12/04 · 10:15</div>
+          <div class="bloco-texto">Mosaico de depoimentos — usar os novos prints do Google que já estão legíveis.</div>
+        </div>
+        <div class="bloco-acoes">
+          <button class="icon-btn" data-tip="Editar" onclick="editarModal(this)"><svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+          <button class="icon-btn" data-tip="Apagar" onclick="this.closest('.bloco').remove()"><svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABA EM ANDAMENTO -->
+  <div class="content" id="pg-andamento" style="display:none;">
+    <div class="page-header">
+      <div class="page-title">Em Andamento</div>
+      <button class="icon-btn" data-tip="Atualizado por Claude" style="cursor:default;">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </button>
+    </div>
+
+    <div class="divider"><div class="divider-label">Concluído</div><div class="divider-line"></div></div>
+    <div class="item"><div class="item-check done"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="item-texto">Landing page com quiz e sessão diagnóstica R$97</div></div>
+    <div class="item"><div class="item-check done"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="item-texto">Carrosséis Dia 1 — C1 e C2</div></div>
+
+    <div class="divider"><div class="divider-label">Falta</div><div class="divider-line"></div></div>
+    <div class="item"><div class="item-check todo"></div><div class="item-texto done-text" style="text-decoration:none; color:#555;">Carrosséis Dias 2–5</div></div>
+    <div class="item"><div class="item-check todo"></div><div class="item-texto" style="color:#555;">8 roteiros de reels</div></div>
+    <div class="item"><div class="item-check todo"></div><div class="item-texto" style="color:#555;">Rotina de stories</div></div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-title" id="modal-title">Nova ideia</div>
+    <textarea id="modal-textarea" placeholder="Escreva sua ideia aqui..."></textarea>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="fecharModal()">Cancelar</button>
+      <button class="btn-save" onclick="salvarModal()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let blocoEditando = null;
+  let contador = 2;
+
+  function showTab(t) {
+    document.getElementById('pg-ideias').style.display = t==='ideias'?'block':'none';
+    document.getElementById('pg-andamento').style.display = t==='andamento'?'block':'none';
+  }
+
+  function abrirModal() {
+    blocoEditando = null;
+    document.getElementById('modal-title').textContent = 'Nova ideia';
+    document.getElementById('modal-textarea').value = '';
+    document.getElementById('overlay').classList.add('open');
+    setTimeout(()=>document.getElementById('modal-textarea').focus(),100);
+  }
+
+  function editarModal(btn) {
+    blocoEditando = btn.closest('.bloco');
+    document.getElementById('modal-title').textContent = 'Editar ideia';
+    document.getElementById('modal-textarea').value = blocoEditando.querySelector('.bloco-texto').textContent;
+    document.getElementById('overlay').classList.add('open');
+    setTimeout(()=>document.getElementById('modal-textarea').focus(),100);
+  }
+
+  function fecharModal() { document.getElementById('overlay').classList.remove('open'); blocoEditando=null; }
+
+  function salvarModal() {
+    const texto = document.getElementById('modal-textarea').value.trim();
+    if (!texto) return;
+    if (blocoEditando) {
+      blocoEditando.querySelector('.bloco-texto').textContent = texto;
+    } else {
+      contador++;
+      const agora = new Date();
+      const data = agora.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' · '+agora.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+      const svg1=`<svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
+      const svg2=`<svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>`;
+      const b=document.createElement('div'); b.className='bloco';
+      b.innerHTML=`<div class="bloco-num">${contador}</div><div class="bloco-corpo"><div class="bloco-data">${data}</div><div class="bloco-texto">${texto}</div></div><div class="bloco-acoes"><button class="icon-btn" data-tip="Editar" onclick="editarModal(this)">${svg1}</button><button class="icon-btn" data-tip="Apagar" onclick="this.closest('.bloco').remove()">${svg2}</button></div>`;
+      document.querySelector('.blocos').appendChild(b);
+    }
+    fecharModal();
+  }
+
+  document.getElementById('overlay').addEventListener('click',e=>{if(e.target===document.getElementById('overlay'))fecharModal();});
+</script>
+</body>
+</html>
