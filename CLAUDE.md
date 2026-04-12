@@ -1,124 +1,106 @@
-# Agent Instructions
+# CLAUDE.md
 
-You're working inside the **WAT framework** (Workflows, Agents, Tools). This architecture separates concerns so that probabilistic AI handles reasoning while deterministic code handles execution. That separation is what makes this system reliable.
-
-## The WAT Architecture
-
-**Layer 1: Workflows (The Instructions)**
-
-- Markdown SOPs stored in `workflows/`
-- Each workflow defines the objective, required inputs, which tools to use, expected outputs, and how to handle edge cases
-- Written in plain language, the same way you'd brief someone on your team
-
-**Layer 2: Agents (The Decision-Maker)**
-
-- This is your role. You're responsible for intelligent coordination.
-- Read the relevant workflow, run tools in the correct sequence, handle failures gracefully, and ask clarifying questions when needed
-- You connect intent to execution without trying to do everything yourself
-- Example: If you need to pull data from a website, don't attempt it directly. Read `workflows/scrape_website.md`, figure out the required inputs, then execute `tools/scrape_single_site.py`
-
-**Layer 3: Tools (The Execution)**
-
-- Python scripts in `tools/` that do the actual work
-- API calls, data transformations, file operations, database queries
-- Credentials and API keys are stored in `.env`
-- These scripts are consistent, testable, and fast
-
-**Why this matters:** When AI tries to handle every step directly, accuracy drops fast. If each step is 90% accurate, you're down to 59% success after just five steps. By offloading execution to deterministic scripts, you stay focused on orchestration and decision-making where you excel.
-
-## How to Operate
-
-**1. Look for existing tools first**
-Before building anything new, check `tools/` based on what your workflow requires. Only create new scripts when nothing exists for that task.
-
-**2. Learn and adapt when things fail**
-When you hit an error:
-
-- Read the full error message and trace
-- Fix the script and retest (if it uses paid API calls or credits, check with me before running again)
-- Document what you learned in the workflow (rate limits, timing quirks, unexpected behavior)
-- Example: You get rate-limited on an API, so you dig into the docs, discover a batch endpoint, refactor the tool to use it, verify it works, then update the workflow so this never happens again
-
-**3. Keep workflows current**
-Workflows should evolve as you learn. When you find better methods, discover constraints, or encounter recurring issues, update the workflow. That said, don't create or overwrite workflows without asking unless I explicitly tell you to. These are your instructions and need to be preserved and refined, not tossed after one use.
-
-## The Self-Improvement Loop
-
-Every failure is a chance to make the system stronger:
-
-1. Identify what broke
-2. Fix the tool
-3. Verify the fix works
-4. Update the workflow with the new approach
-5. Move on with a more robust system
-
-This loop is how the framework improves over time.
-
-## File Structure
-
-**What goes where:**
-
-- **Deliverables**: Final outputs go to cloud services (Google Sheets, Slides, etc.) where I can access them directly
-- **Intermediates**: Temporary processing files that can be regenerated
-
-**Directory layout:**
-
-```
-.tmp/                        # Temporary files (scraped data, intermediate exports). Regenerated as needed.
-tools/                       # Python scripts for deterministic execution
-workflows/                   # Markdown SOPs defining what to do and how
-frontend/                    # Web interface (FastAPI + HTML/JS)
-  server.py                  # FastAPI backend
-  static/                    # index.html, style.css, app.js
-clients/                     # One folder per client — isolated context and projects
-  <slug>/
-    context/                 # Knowledge and business rules for this client
-      negocio/               # Business context
-      conteudo/              # Content style and tone
-      pesquisas/             # Research notes
-      memoria/               # Persistent memory across sessions (preferencias, historico, voz_marca)
-    projects/                # Client deliverables and active projects
-    client.json              # Client metadata: name, slug, active workflows, paths
-    .env                     # Client-specific API keys (NEVER store secrets anywhere else)
-docs/                        # Design specs and documentation (flat — no subfolders by tool or plugin)
-gemini/                      # Gemini sandbox — read/write only by call_gemini_api.py
-credentials.json, token.json # Google OAuth (gitignored)
-```
-
-**Folder hygiene rules (non-negotiable):**
-- NEVER create folders named after tools, plugins, or frameworks inside this project (`superpowers/`, `gsd/`, `claude/`, etc.)
-- `docs/` is flat — specs and references go directly in `docs/`, no nested tool folders
-- Plugin and skill infrastructure lives in `~/.claude/` — never bleeds into project directories
-- If a skill or workflow tries to create a tool-specific subfolder, override it and use the correct project path instead
-
-**Active client:** When operating via the WAT Studio frontend, read `client.json` from the active client folder to know which context to load, which workflows are available, and where to persist memory.
-
-**Core principle:** Local files are just for processing. Anything the client needs to see or use lives in cloud services. Everything in `.tmp/` is disposable.
-
-## Session Protocol
-
-**At the start of any client session:**
-1. Read `workflows/session_router.md` — always first, before anything else
-2. Read `clients/<slug>/client.json` to identify context paths, active workflows, and metadata
-3. Check `gemini/briefs/` for a recent brief (same day) before reading raw context files
-4. Read all files in `clients/<slug>/context/memoria/` only if no current Gemini brief exists
-
-**At the end of any client session:**
-1. Update the relevant memory files with new learnings, preferences, or decisions
-2. Document any tool/environment gotchas in the relevant workflow's Edge Cases — not here
-
-**Environment and tool gotchas belong in workflow Edge Cases sections, not in this file.**
-
-## Bottom Line
-
-You sit between what I want (workflows) and what actually gets done (tools). Your job is to read instructions, make smart decisions, call the right tools, recover from errors, and keep improving the system as you go.
-
-Stay pragmatic. Stay reliable. Keep learning.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ---
 
-## Agente Planejador
+## Quem é a usuária
 
-Quando a usuária mencionar "planejamento", "planejar", "sprint", "próximo passo", "o que falta", "backlog", "roadmap", "atividades" ou "o que temos para fazer": leia e siga o workflow em `workflows/planejamento.md`. Durante a conversa de planejamento, acesse **apenas** os arquivos da pasta `Planejamento/`.
+**Mayara Farias** — nutricionista, dona deste projeto. Não é desenvolvedora. Não digita comandos no terminal. Claude executa tudo que envolve código, scripts e ferramentas. Mayara pede resultados em linguagem natural.
+
+Sempre responda em **português brasileiro**. Tom direto, sem jargão técnico desnecessário.
 
 ---
+
+## O que Mayara pode pedir e como Claude responde
+
+### Conteúdo para Instagram
+Mayara pode pedir roteiros de reels, carrosséis, legendas, hooks, copies, ideias de campanha.
+
+Antes de gerar qualquer conteúdo, leia:
+- `docs/memoria/voz_marca.md` — voz, tom, posicionamento (arquivo autoritativo)
+- `docs/memoria/preferencias.md` — o que funciona, o que não funciona, regras de pipeline
+- `docs/memoria/palavras_chave_nicho.md` — hashtags e palavras para usar
+
+Nicho principal: **Diabetes Gestacional**. Nicho secundário: **Emagrecimento Comportamental Feminino**.
+
+### Reels a partir de vídeo
+Quando Mayara trouxer um vídeo (local ou link do YouTube) e pedir para transformar em reel, siga `workflows/reels_com_ia.md`. Claude monta o config e executa `tools/create_reel.py`. Mayara só abre o resultado no CapCut para aparar e publicar.
+
+### Pesquisa de mercado, tendências, análise
+Use o Gemini para tarefas de leitura densa, pesquisa e volume. Execute:
+```bash
+python tools/call_gemini_api.py \
+  --task "descrição do que pesquisar" \
+  --files docs/memoria/ \
+  --output-dir gemini/research/ \
+  --model gemini-2.5-flash
+```
+Leia o output em `gemini/research/` e use para produzir o entregável final.
+
+### Planejamento (sprint, backlog, roadmap)
+Quando Mayara mencionar "planejamento", "sprint", "próximo passo", "o que falta", "backlog" ou "roadmap": leia e siga `workflows/planejamento.md`. Durante planejamento, acesse **só** os arquivos de `docs/Planejamento/`.
+
+### Protótipos e landing pages
+Siga `workflows/landing_page_builder.md`. Entregáveis HTML vão em `projects/`.
+
+---
+
+## Como o sistema funciona (para Claude entender)
+
+Este projeto usa o padrão **WAT** — Workflows, Agente, Tools:
+
+- **Workflows** (`workflows/`) — instruções do que fazer e como. Sempre ler o workflow relevante antes de executar.
+- **Agente** (Claude) — orquestra, decide, produz os entregáveis finais.
+- **Tools** (`tools/`) — scripts Python que fazem o trabalho pesado (chamadas de API, processamento de vídeo, buscas). Claude chama esses scripts; nunca reimplementa o que eles fazem inline.
+
+**Roteamento multi-AI:**
+- Pesquisa, leitura de contexto denso, geração em volume → **Gemini** (`tools/call_gemini_api.py`)
+- Entregáveis finais, código, orquestração → **Claude**
+- Gemini escreve **apenas** em `gemini/`. Claude lê de lá e produz os finais em `projects/`.
+
+**Início de sessão:**
+1. Leia `workflows/session_router.md`
+2. Verifique `gemini/briefs/` por um brief do dia — se existir, use em vez de reler os arquivos originais
+3. Se não houver brief do dia: leia `docs/memoria/`
+
+---
+
+## Onde ficam as coisas
+
+```
+docs/memoria/      Contexto ativo — voz de marca, preferências, keywords (ler sempre antes de criar conteúdo)
+docs/negocio/      Contexto do negócio — serviços, posicionamento, funis
+docs/estudos/      Pesquisas e referências — análises, roteiros de estudo, competitivos
+docs/Planejamento/ Sprint, backlog, roadmap — só acessar em sessões de planejamento
+projects/          Entregáveis finais (HTML, roteiros aprovados, campanhas)
+gemini/            Sandbox do Gemini — só o script call_gemini_api.py escreve aqui
+.tmp/              Arquivos temporários de processamento — descartável
+tools/             Scripts Python de execução
+workflows/         SOPs em markdown — um por capacidade
+```
+
+---
+
+## Regras do pipeline de reels
+
+- Sempre adicionar **5s de padding** no início e fim — Mayara apara no CapCut, nunca tentar acertar o corte exato
+- Texto sempre no **bottom third** (`y > 1480px`) — nunca cobrir o rosto
+- Sem box de fundo no texto — usar outline (`borderw`) + sombra (`shadowcolor`)
+- Fontes: **Bebas Neue** (keywords) + **Montserrat** (contexto) — baixadas automaticamente pelo script
+- Evitar `:`, `ç`, `ã`, `é` nos textos do ffmpeg — quebra no Windows; usar versão sem acento
+
+---
+
+## Higiene de pastas
+
+- **Nunca** criar pastas com nomes de ferramentas ou plugins (`superpowers/`, `claude/`, `gsd/`, etc.)
+- `docs/` tem quatro categorias fixas: `memoria/`, `negocio/`, `estudos/`, `Planejamento/`
+- `.tmp/` nunca vai para o git
+
+---
+
+## Fim de sessão
+
+1. Atualizar os arquivos relevantes de `docs/memoria/` com aprendizados, preferências novas ou decisões tomadas
+2. Documentar problemas com ferramentas na seção Edge Cases do workflow correspondente

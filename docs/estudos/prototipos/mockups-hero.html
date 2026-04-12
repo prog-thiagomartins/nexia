@@ -1,0 +1,238 @@
+!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mockups Hero — Programa Essência</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f0ede8;
+      padding: 40px 24px;
+    }
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 22px; font-weight: 800;
+      color: #1c1c1c; text-align: center;
+      margin-bottom: 8px;
+    }
+    .intro {
+      text-align: center; color: #666; font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: #C17F5B; margin-bottom: 12px;
+    }
+
+    /* ── MOCKUP WRAPPER ── */
+    .mockup-block {
+      max-width: 900px; margin: 0 auto 64px;
+    }
+    .mockup-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px; font-weight: 800;
+      color: #1c1c1c; margin-bottom: 4px;
+    }
+    .mockup-desc {
+      font-size: 14px; color: #666; margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .mockup-frame {
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.18);
+    }
+
+    /* ════ OPÇÃO A — SPLIT ════ */
+    .hero-a {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+      background: #3a6460;
+    }
+    .hero-a-text {
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 64px 56px;
+      background: linear-gradient(135deg, #2d5248 0%, #3a6460 100%);
+    }
+    .badge {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #C17F5B; background: rgba(193,127,91,.15);
+      border: 1px solid rgba(193,127,91,.35);
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 28px; width: fit-content;
+    }
+    .hero-a-text h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 36px; font-weight: 800;
+      line-height: 1.1; letter-spacing: -0.03em;
+      color: #fff; margin-bottom: 20px;
+    }
+    .hero-a-text h2 em { font-style: normal; color: #C17F5B; }
+    .hero-a-text p {
+      font-size: 15px; font-weight: 300;
+      line-height: 1.75; color: rgba(255,255,255,.82);
+      margin-bottom: 32px; max-width: 340px;
+    }
+    .cta {
+      display: inline-block; font-family: 'Poppins', sans-serif;
+      font-size: 13px; font-weight: 700;
+      color: #fff; background: #C17F5B;
+      padding: 14px 32px; border-radius: 100px;
+      width: fit-content;
+      box-shadow: 0 4px 20px rgba(193,127,91,.45);
+    }
+    .hero-a-photo {
+      background: url('./IMG_1226.jpg') center top / cover no-repeat;
+      min-height: 520px;
+    }
+
+    /* ════ OPÇÃO B — TEXTO CIMA, FOTO BAIXO ════ */
+    .hero-b {
+      min-height: 620px;
+      background: linear-gradient(135deg, #2d5248 0%, #3a6460 100%);
+      display: flex; flex-direction: column;
+      align-items: center;
+      padding: 64px 32px 0;
+      overflow: hidden;
+    }
+    .hero-b-text {
+      text-align: center; max-width: 600px;
+      margin-bottom: 48px;
+    }
+    .hero-b-text h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 36px; font-weight: 800;
+      line-height: 1.1; letter-spacing: -0.03em;
+      color: #fff; margin-bottom: 20px;
+    }
+    .hero-b-text h2 em { font-style: normal; color: #C17F5B; }
+    .hero-b-text p {
+      font-size: 15px; font-weight: 300;
+      line-height: 1.75; color: rgba(255,255,255,.82);
+      margin-bottom: 32px;
+    }
+    .hero-b-photo {
+      width: 320px;
+      height: 380px;
+      background: url('./IMG_1226.jpg') center top / cover no-repeat;
+      border-radius: 16px 16px 0 0;
+      box-shadow: 0 -8px 40px rgba(0,0,0,0.3);
+      flex-shrink: 0;
+    }
+
+    /* ════ OPÇÃO C — FOTO ESQUERDA, TEXTO DIREITA ════ */
+    .hero-c {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+      background: #3a6460;
+    }
+    .hero-c-photo {
+      background: url('./IMG_1226.jpg') center top / cover no-repeat;
+      min-height: 520px;
+    }
+    .hero-c-text {
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 64px 56px;
+      background: linear-gradient(225deg, #2d5248 0%, #3a6460 100%);
+    }
+    .hero-c-text h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 36px; font-weight: 800;
+      line-height: 1.1; letter-spacing: -0.03em;
+      color: #fff; margin-bottom: 20px;
+    }
+    .hero-c-text h2 em { font-style: normal; color: #C17F5B; }
+    .hero-c-text p {
+      font-size: 15px; font-weight: 300;
+      line-height: 1.75; color: rgba(255,255,255,.82);
+      margin-bottom: 32px;
+    }
+
+    /* ── LABELS ── */
+    .tag {
+      display: inline-block;
+      background: #C17F5B; color: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .nota {
+      font-size: 13px; color: #888;
+      margin-top: 12px; font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Mockups — Hero Section</h1>
+  <p class="intro">Três opções de layout para mostrar a Mayara de cara na hero.</p>
+
+  <!-- OPÇÃO A -->
+  <div class="mockup-block">
+    <span class="tag">Opção A</span>
+    <div class="mockup-title">Split — Texto esquerda · Foto direita</div>
+    <p class="mockup-desc">Foto ocupa metade da hero inteira, sem corte. Texto à esquerda com boa respiração. Layout editorial, muito usado por profissionais de saúde premium.</p>
+    <div class="mockup-frame">
+      <div class="hero-a">
+        <div class="hero-a-text">
+          <span class="badge">Programa Essência · Mayara Farias · Nutricionista</span>
+          <h2>Você não precisa de mais <em>força de vontade.</em></h2>
+          <p>Precisa de alguém que entenda por que você não consegue seguir — e crie com você um caminho que respeite o seu corpo.</p>
+          <span class="cta">Quero saber se é pra mim</span>
+        </div>
+        <div class="hero-a-photo"></div>
+      </div>
+    </div>
+    <p class="nota">* A foto vai aparecer melhor quando estiver cortada do jeito certo. O conteúdo completo da imagem aparece na seção.</p>
+  </div>
+
+  <!-- OPÇÃO B -->
+  <div class="mockup-block">
+    <span class="tag">Opção B</span>
+    <div class="mockup-title">Texto em cima · Foto emergindo de baixo</div>
+    <p class="mockup-desc">Tudo centralizado — consistente com o resto da página. A foto da Mayara aparece abaixo do CTA, como se estivesse "surgindo" da hero. Menos impacto, mas 100% coeso.</p>
+    <div class="mockup-frame">
+      <div class="hero-b">
+        <div class="hero-b-text">
+          <span class="badge">Programa Essência · Mayara Farias · Nutricionista</span>
+          <h2>Você não precisa de mais <em>força de vontade.</em></h2>
+          <p>Precisa de alguém que entenda por que você não consegue seguir — e crie com você um caminho que respeite o seu corpo.</p>
+          <span class="cta">Quero saber se é pra mim</span>
+        </div>
+        <div class="hero-b-photo"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPÇÃO C -->
+  <div class="mockup-block">
+    <span class="tag">Opção C</span>
+    <div class="mockup-title">Foto esquerda · Texto direita</div>
+    <p class="mockup-desc">Inversão do A. A foto lidera visualmente, o texto completa à direita. Funciona bem quando a foto tem elementos visuais interessantes no lado esquerdo.</p>
+    <div class="mockup-frame">
+      <div class="hero-c">
+        <div class="hero-c-photo"></div>
+        <div class="hero-c-text">
+          <span class="badge">Programa Essência · Mayara Farias · Nutricionista</span>
+          <h2>Você não precisa de mais <em>força de vontade.</em></h2>
+          <p>Precisa de alguém que entenda por que você não consegue seguir — e crie com você um caminho que respeite o seu corpo.</p>
+          <span class="cta">Quero saber se é pra mim</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

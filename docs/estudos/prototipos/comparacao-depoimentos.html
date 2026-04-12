@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparação — Galeria de Depoimentos</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #f0ebe3; color: #1c1c1c; }
+
+  .topbar { background: #4A7C6F; color: white; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; }
+  .topbar h1 { font-size: 17px; font-weight: 700; }
+  .topbar p { font-size: 12px; opacity: 0.7; margin-top: 2px; }
+
+  .tabs { display: flex; gap: 0; background: white; border-bottom: 2px solid #e0d8cf; }
+  .tab { padding: 14px 32px; font-size: 13px; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; color: #888; transition: all .2s; margin-bottom: -2px; }
+  .tab.active { color: #4A7C6F; border-bottom-color: #4A7C6F; }
+
+  .panel { display: none; padding: 40px; }
+  .panel.active { display: block; }
+
+  /* Simula o container real da landing page */
+  .page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #FAFAFA;
+    border-radius: 16px;
+    padding: 48px 40px;
+    box-shadow: 0 4px 32px rgba(0,0,0,.08);
+  }
+
+  .section-tag { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C17F5B; margin-bottom: 10px; }
+  .section-title { font-family: Georgia, serif; font-size: 32px; font-weight: 800; margin-bottom: 36px; letter-spacing: -0.02em; text-align: center; }
+
+  /* OPÇÃO A — Card clean */
+  .grid-a {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    align-items: start;
+  }
+  .card-a {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 14px rgba(0,0,0,.10);
+    background: white;
+  }
+  .card-a img { width: 100%; height: auto; display: block; }
+
+  /* OPÇÃO B — Moldura escura */
+  .grid-b {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    align-items: start;
+  }
+  .phone-b {
+    background: #1c1c1c;
+    border-radius: 18px;
+    padding: 10px 10px 12px;
+    box-shadow: 0 6px 24px rgba(0,0,0,.3);
+  }
+  .phone-notch { height: 5px; background: #333; border-radius: 3px; width: 35%; margin: 0 auto 8px; }
+  .phone-screen { border-radius: 8px; overflow: hidden; }
+  .phone-b img { width: 100%; height: auto; display: block; }
+
+  /* OPÇÃO C — Card com borda verde (nova) */
+  .grid-c {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    align-items: start;
+  }
+  .card-c {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 14px rgba(0,0,0,.08);
+    background: white;
+    border-top: 3px solid #4A7C6F;
+  }
+  .card-c-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: #f5f5f5;
+    font-size: 11px; font-weight: 600; color: #4A7C6F;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .wa-dot { width: 8px; height: 8px; border-radius: 50%; background: #25D366; }
+  .card-c img { width: 100%; height: auto; display: block; }
+
+  .rec-badge {
+    display: inline-block;
+    background: #C17F5B;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-left: 12px;
+    vertical-align: middle;
+  }
+
+  .desc {
+    margin-top: 24px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+    padding: 16px 20px;
+    background: #f5f0e8;
+    border-radius: 8px;
+    border-left: 3px solid #C17F5B;
+  }
+
+  .nota-chrome {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: #856404;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <h1>Galeria de Depoimentos — 3 opções</h1>
+    <p>Container em tamanho real (1000px · 3 colunas de ~320px)</p>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="show('a',this)">A — Card limpo</div>
+  <div class="tab" onclick="show('b',this)">B — Moldura escura</div>
+  <div class="tab" onclick="show('c',this)">C — Borda verde <span class="rec-badge">Minha indicação</span></div>
+</div>
+
+<!-- ══ A ══ -->
+<div class="panel active" id="panel-a">
+  <div class="nota-chrome">⚠️ Se as imagens não aparecerem, abra no <strong>Firefox</strong> — Chrome bloqueia imagens locais.</div>
+  <div class="page-container">
+    <span class="section-tag">Resultados reais</span>
+    <h2 class="section-title">O que dizem as pacientes</h2>
+    <div class="grid-a">
+      <div class="card-a"><img src="../imagens/depoimentos/image.png" alt="Depo 1"></div>
+      <div class="card-a"><img src="../imagens/depoimentos/image2.png" alt="Depo 2"></div>
+      <div class="card-a"><img src="../imagens/depoimentos/image3.png" alt="Depo 3"></div>
+      <div class="card-a"><img src="../imagens/depoimentos/image4.jpeg" alt="Depo 4"></div>
+      <div class="card-a"><img src="../imagens/depoimentos/image5.jpeg" alt="Depo 5"></div>
+    </div>
+    <div class="desc">Card branco simples com sombra leve. Limpo, mas sem nenhuma indicação visual de que é WhatsApp — a pessoa precisa ler o print para entender o contexto.</div>
+  </div>
+</div>
+
+<!-- ══ B ══ -->
+<div class="panel" id="panel-b">
+  <div class="nota-chrome">⚠️ Se as imagens não aparecerem, abra no <strong>Firefox</strong>.</div>
+  <div class="page-container">
+    <span class="section-tag">Resultados reais</span>
+    <h2 class="section-title">O que dizem as pacientes</h2>
+    <div class="grid-b">
+      <div class="phone-b"><div class="phone-notch"></div><div class="phone-screen"><img src="../imagens/depoimentos/image.png" alt="Depo 1"></div></div>
+      <div class="phone-b"><div class="phone-notch"></div><div class="phone-screen"><img src="../imagens/depoimentos/image2.png" alt="Depo 2"></div></div>
+      <div class="phone-b"><div class="phone-notch"></div><div class="phone-screen"><img src="../imagens/depoimentos/image3.png" alt="Depo 3"></div></div>
+      <div class="phone-b"><div class="phone-notch"></div><div class="phone-screen"><img src="../imagens/depoimentos/image4.jpeg" alt="Depo 4"></div></div>
+      <div class="phone-b"><div class="phone-notch"></div><div class="phone-screen"><img src="../imagens/depoimentos/image5.jpeg" alt="Depo 5"></div></div>
+    </div>
+    <div class="desc">Moldura escura premium. Fica elegante mas o fundo preto quebra o tom quente/claro da landing page — vai destoar do areia e verde que você usa em todo o resto.</div>
+  </div>
+</div>
+
+<!-- ══ C ══ -->
+<div class="panel" id="panel-c">
+  <div class="nota-chrome">⚠️ Se as imagens não aparecerem, abra no <strong>Firefox</strong>.</div>
+  <div class="page-container">
+    <span class="section-tag">Resultados reais</span>
+    <h2 class="section-title">O que dizem as pacientes</h2>
+    <div class="grid-c">
+      <div class="card-c">
+        <div class="card-c-header"><div class="wa-dot"></div></div>
+        <img src="../imagens/depoimentos/image.png" alt="Depo 1">
+      </div>
+      <div class="card-c">
+        <div class="card-c-header"><div class="wa-dot"></div></div>
+        <img src="../imagens/depoimentos/image2.png" alt="Depo 2">
+      </div>
+      <div class="card-c">
+        <div class="card-c-header"><div class="wa-dot"></div></div>
+        <img src="../imagens/depoimentos/image3.png" alt="Depo 3">
+      </div>
+      <div class="card-c">
+        <div class="card-c-header"><div class="wa-dot"></div></div>
+        <img src="../imagens/depoimentos/image4.jpeg" alt="Depo 4">
+      </div>
+      <div class="card-c">
+        <div class="card-c-header"><div class="wa-dot"></div></div>
+        <img src="../imagens/depoimentos/image5.jpeg" alt="Depo 5">
+      </div>
+    </div>
+    <div class="desc">Card branco com faixa cinza clara no topo + bolinha verde WhatsApp. Mantém o tom claro da página, contextualiza que é mensagem real sem usar fundo escuro. É minha indicação porque encaixa na paleta da página e ainda comunica "isso veio do WhatsApp".</div>
+  </div>
+</div>
+
+<script>
+  function show(id, el) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    el.classList.add('active');
+  }
+</script>
+</body>
+</html>

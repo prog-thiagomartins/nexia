@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(winget install:*)",
+      "Bash(export PATH=\"/c/Program Files/nodejs:$PATH\")",
+      "Bash(npm install:*)",
+      "Bash(export PATH=\"/c/Users/mayar/AppData/Roaming/npm:$PATH\")",
+      "Bash(netlify --version)",
+      "Bash(export PATH=\"/c/Program Files/nodejs:/c/Users/mayar/AppData/Roaming/npm:$PATH\")",
+      "Bash(netlify login:*)"
+    ]
+  }
+}
