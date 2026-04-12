@@ -27,20 +27,42 @@ CTA: "Quero entender meu perfil"
      ↓
 [Quiz — 5 perguntas, ~2 min]
      ↓
-        ┌── Perfil Essência ──→ "Seu perfil está pronto. Agende sua sessão diagnóstica."
-        │                              ↓
-        │                    [WhatsApp com contexto do quiz]
-        │                    [Automação manda horários disponíveis]
-        │                    [Pessoa escolhe horário + paga R$97]
-        │                    [Sequência anti-no-show ativa]
-        │                              ↓
-        │                    [Sessão Diagnóstica — Mayara revela o perfil]
-        │                              ↓
-        │                    [Fechamento Essência — R$97 abatido]
-        │
-        └── Perfil Consulta ──→ "Um bom ponto de partida pra você é uma consulta."
-                                [WhatsApp → agendamento → R$350]
+"Seu perfil está pronto. Agende sua sessão diagnóstica."
+     ↓
+[WhatsApp com contexto do quiz — visível só para a Mayara]
+[Automação manda horários disponíveis]
+[Pessoa escolhe horário + paga R$97]
+[Sequência anti-no-show ativa]
+     ↓
+[Sessão Diagnóstica — Mayara já conhece o perfil, decide o caminho junto com a cliente]
+     ↓
+        ┌── Essência R$1.497 (R$97 abatido)
+        └── Consulta avulsa R$350 (R$97 abatido) — ou outro caminho que fizer sentido
 ```
+
+---
+
+## O funil como processo de vendas
+
+| Etapa | O que acontece | Onde |
+|---|---|---|
+| **Quebra gelo** | Conteúdo do Instagram cria familiaridade — a pessoa chega já sabendo quem é a Mayara | Reels, stories, carrosséis |
+| **Apresentação** | A landing apresenta o programa, o método e a profissional | Landing page |
+| **Mapeamento de perfil** | Quiz coleta o contexto da pessoa — preenchido sem pressão, no próprio ritmo | Quiz (5 perguntas) |
+| **Apresentação contextualizada** | WhatsApp com perfil em mãos — a resposta parece feita pra aquela pessoa | WhatsApp pós-quiz |
+| **Sinal de intenção** | Pagamento de R$97 é o micro-comprometimento — quem paga já decidiu que quer resolver | Agendamento + pagamento |
+| **Apresentação do método** | Sessão diagnóstica — Mayara apresenta o caminho personalizado com base no que foi mapeado | Sessão 30 min |
+| **Indicações** | A cliente pode indicar até 5 pessoas — não obrigatório, mas gera desconto. Os contatos recebem uma abordagem ativa respeitosa mostrando como o trabalho funciona | Sessão — antes do bloco financeiro |
+| **Apresentação financeira** | Preço revelado após a entrega de clareza, no momento de maior valor percebido | Sessão — bloco 4 |
+| **Fechamento** | Pagamento acontece ainda na sessão | PIX ou link na sessão |
+
+---
+
+## Princípio central
+
+**A triagem é invisível para a cliente.** Toda pessoa que completa o quiz vai para a sessão diagnóstica — sem exceção. O quiz é inteligência interna: Mayara chega na sessão já sabendo o perfil provável, mas a sessão em si define o caminho real. Às vezes o que parecia consulta avulsa vira Essência. Às vezes o contrário. A decisão é tomada junto, na conversa.
+
+A cliente nunca sabe que foi "triada". Para ela, existe só um caminho: quiz → sessão diagnóstica.
 
 ---
 
@@ -51,7 +73,7 @@ CTA: "Quero entender meu perfil"
 **O que muda na landing atual:**
 - CTA principal passa de "ir pro WhatsApp" para "Quero entender meu perfil" (abre o quiz)
 - O botão flutuante do WhatsApp permanece para quem preferir contato direto
-- A sessão de preço mantém o valor R$1.497, mas o caminho de entrada é pelo quiz
+- **Preço removido da landing** — a pessoa não vê R$1.497 antes de estar aquecida. O valor é revelado apenas após a sessão diagnóstica, quando já entendeu o programa e confia na Mayara
 
 **O que não muda:**
 - Estrutura, copy e identidade visual da landing
@@ -100,15 +122,17 @@ CTA: "Quero entender meu perfil"
 
 ---
 
-### 3. Lógica de Triagem
+### 3. Lógica de Triagem (interna — invisível para a cliente)
 
-| Perfil | Critério | Destino |
-|---|---|---|
-| **Essência** | Dor recorrente + já tentou antes + busca mudança comportamental | Sessão diagnóstica R$97 → Essência R$1.497 |
-| **Essência (mediano)** | Interessada mas expectativa ainda se formando | Sessão diagnóstica R$97 → Essência R$1.497 |
-| **Consulta avulsa** | Primeira tentativa / quer solução pontual | Consulta avulsa R$350 |
+Toda pessoa vai para a sessão diagnóstica. O quiz apenas informa a Mayara sobre o perfil provável antes da sessão começar.
 
-Ninguém recebe um "não". Quem não é perfil Essência agora recebe um caminho real — a consulta avulsa é porta de entrada e pode converter para Essência no futuro.
+| Perfil identificado no quiz | O que a Mayara chega sabendo |
+|---|---|
+| Dor recorrente + já tentou + busca mudança comportamental | Provável Essência |
+| Primeira tentativa / busca solução pontual | Provável consulta avulsa — mas a sessão pode mudar isso |
+| Qualquer perfil | A decisão final é sempre tomada na sessão, junto com a cliente |
+
+A consulta avulsa não é descarte — é porta de entrada. Muita cliente que começa por ali evolui para o Essência.
 
 ---
 
@@ -120,13 +144,55 @@ Ninguém recebe um "não". Quem não é perfil Essência agora recebe um caminho
 > "Seu perfil está pronto. Para receber sua análise personalizada com a Mayara, agende sua sessão diagnóstica."
 > [botão: Agendar minha sessão]
 
-**Perfil Consulta:**
-> "Com base no que você compartilhou, um bom ponto de partida é uma consulta individual. Você sai com um plano alimentar personalizado e suporte por 30 dias."
-> [botão: Quero agendar]
+**Todos os perfis recebem a mesma tela de resultado:**
+> "Seu perfil está pronto. Para receber sua análise personalizada com a Mayara, agende sua sessão diagnóstica."
+> [botão: Agendar minha sessão]
 
 ---
 
-### 5. Fluxo WhatsApp — Sessão Diagnóstica
+### 5. Estrutura da Sessão Diagnóstica (30 min)
+
+**Princípio:** a cliente paga R$97 e sai com algo concreto — independente de fechar qualquer plano. O valor é real, não um argumento de venda. Isso é o que justifica o preço e elimina a percepção de "consulta de vendas disfarçada".
+
+**Meta da sessão:** cliente fecha um plano e paga ainda na chamada. Se não fechar, sai com clareza suficiente pra querer voltar.
+
+---
+
+**Bloco 1 — Espelho (5 min)**
+Mayara abre com o que viu no quiz. A cliente se sente vista antes de dizer uma palavra.
+> "Pelo que você compartilhou, você está tentando resolver isso há [X tempo], já tentou [Y abordagem] e o que mais trava é [Z]. Isso está certo?"
+
+Esse momento cria confiança imediata — Mayara chegou preparada.
+
+---
+
+**Bloco 2 — Diagnóstico real (15 min)**
+Mayara aprofunda com perguntas específicas pra identificar o bloqueio central: comportamental, emocional, de conhecimento ou de contexto de vida. Não é anamnese clínica — é entender *por que* as tentativas anteriores não funcionaram.
+
+---
+
+**Bloco 3 — Entrega de clareza (5 min)**
+Independente do que vier depois, a cliente sai com isso:
+- **Onde ela está:** o diagnóstico em uma frase clara
+- **O que está travando:** o bloqueio principal identificado
+- **O que moveria o ponteiro:** a direção concreta
+
+Exemplo real:
+> "O que está travando não é falta de informação — você já sabe muito. É que toda vez que o estresse aumenta, a comida vira regulação emocional. O trabalho aqui não é dieta, é construir outra ferramenta pra esses momentos."
+
+Isso tem valor por si só. A cliente pagou R$97 e recebeu uma percepção que ela não tinha.
+
+---
+
+**Bloco 4 — Proposta natural (5 min)**
+O fechamento flui do diagnóstico — não é uma virada de chave pra "venda".
+> "Dado o que a gente mapeou hoje, aqui está o que faz sentido pra você agora..."
+
+Mayara propõe o caminho (Essência ou consulta avulsa), explica o porquê, e **o pagamento acontece na sessão** — via PIX ou link enviado no WhatsApp. O R$97 já pago é abatido.
+
+Se a cliente precisar de um dia pra decidir, tudo bem — ela já recebeu valor real e tem clareza do próximo passo.
+
+---
 
 **Mensagem pré-preenchida (enviada pela pessoa):**
 > "Oi! Acabei de fazer o quiz do Essência. Quero agendar minha sessão diagnóstica."
@@ -139,7 +205,7 @@ Ninguém recebe um "não". Quem não é perfil Essência agora recebe um caminho
 > "Perfeito! Para confirmar sua sessão, o investimento é de R$97 — esse valor é abatido integralmente se você iniciar o Essência. [link de pagamento]"
 
 **Após pagamento confirmado:**
-> "Tudo certo! Sua sessão está confirmada para [data e hora]. Em 40 minutos você vai entender exatamente o que está travando sua relação com a comida — e sair com clareza do que faz sentido pra você agora. Qualquer dúvida, é só me chamar aqui."
+> "Tudo certo! Sua sessão está confirmada para [data e hora]. Em 30 minutos você vai entender exatamente o que está travando sua relação com a comida — e sair com clareza do que faz sentido pra você agora. Qualquer dúvida, é só me chamar aqui."
 
 ---
 

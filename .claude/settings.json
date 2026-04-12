@@ -7,7 +7,9 @@
       "Bash(export PATH=\"/c/Users/mayar/AppData/Roaming/npm:$PATH\")",
       "Bash(netlify --version)",
       "Bash(export PATH=\"/c/Program Files/nodejs:/c/Users/mayar/AppData/Roaming/npm:$PATH\")",
-      "Bash(netlify login:*)"
+      "Bash(netlify login:*)",
+      "Bash(netlify deploy:*)",
+      "Bash(scripts/start-server.sh --project-dir \"c:/Users/mayar/Desktop/claude-workspace\")"
     ]
   }
 }
