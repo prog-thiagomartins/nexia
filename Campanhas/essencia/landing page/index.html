@@ -1023,28 +1023,94 @@
     if (!isOpen) item.classList.add('open');
   }
 
-  function enviarTriagem(e) {
-    e.preventDefault();
-    const nome = document.getElementById('f-nome').value.trim();
-    const wpp  = document.getElementById('f-wpp').value.trim();
-    const obj  = document.getElementById('f-obj').value;
-    const hist = document.getElementById('f-hist').value.trim();
-    if (!nome || !wpp || !obj || !hist) { alert('Por favor, preencha todos os campos.'); return; }
-    /* SUBSTITUIR pelo número real da Mayara (somente números, com DDI) */
-    const numero = '5512991734388';
-    const msg = encodeURIComponent(
-      `Olá, Mayara! Preenchi o formulário de triagem 🌿\n\n` +
-      `*Nome:* ${nome}\n*WhatsApp:* ${wpp}\n*Objetivo:* ${obj}\n\n` +
-      `*Sobre mim:*\n${hist}`
-    );
-    window.open(`https://wa.me/${numero}?text=${msg}`, '_blank');
-  }
 
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
       if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
+  });
+
+  // ── QUIZ ──
+  const quizRespostas = {};
+  let quizPasso = 1;
+  const TOTAL_PASSOS = 5;
+  const WA_NUMERO = '5512991734388';
+
+  function quizAtualizarProgresso() {
+    const pct = (quizPasso / TOTAL_PASSOS) * 100;
+    document.getElementById('quiz-progress-bar').style.width = pct + '%';
+    document.getElementById('quiz-step-label').textContent =
+      'Pergunta ' + quizPasso + ' de ' + TOTAL_PASSOS;
+  }
+
+  function quizAvancar(p) {
+    const atual = document.querySelector('.quiz-pergunta.active');
+    const prox = document.querySelector('.quiz-pergunta[data-p="' + (p + 1) + '"]');
+    if (atual) atual.classList.remove('active');
+    if (prox) {
+      quizPasso = p + 1;
+      quizAtualizarProgresso();
+      prox.classList.add('active');
+    } else {
+      quizMostrarResultado();
+    }
+  }
+
+  function quizMostrarResultado() {
+    document.getElementById('quiz-perguntas').style.display = 'none';
+    document.getElementById('quiz-progress').style.display = 'none';
+    document.getElementById('quiz-step-label').style.display = 'none';
+    const resultado = document.getElementById('quiz-resultado');
+    resultado.style.display = 'block';
+
+    const r = quizRespostas;
+    const msg = encodeURIComponent(
+      'Oi Mayara! Acabei de fazer o quiz do Essencia.\n\n' +
+      'Meu perfil:\n' +
+      '- ' + (r[1] || '') + '\n' +
+      '- Ha quanto tempo: ' + (r[2] || '') + '\n' +
+      '- Ja tentei: ' + (r[3] || '') + '\n' +
+      '- Comprometimento: ' + (r[4] || '') + '\n' +
+      '- Objetivo: ' + (r[5] || '') + '\n\n' +
+      'Quero agendar minha sessao diagnostica.'
+    );
+    document.getElementById('quiz-btn-wa').href =
+      'https://wa.me/' + WA_NUMERO + '?text=' + msg;
+  }
+
+  // Cliques nas opções de resposta única (P1, P2, P4, P5)
+  document.querySelectorAll('.quiz-opcao:not(.quiz-multi)').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const p = parseInt(this.getAttribute('data-p'));
+      quizRespostas[p] = this.getAttribute('data-v');
+      quizAvancar(p);
+    });
+  });
+
+  // Cliques nas opções multi-seleção (P3)
+  document.querySelectorAll('.quiz-opcao.quiz-multi').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      this.classList.toggle('selecionada');
+      const selecionadas = document.querySelectorAll('.quiz-opcao.quiz-multi.selecionada');
+      document.getElementById('quiz-avancar-p3').style.display =
+        selecionadas.length > 0 ? 'inline-block' : 'none';
+    });
+  });
+
+  function avancarP3() {
+    const selecionadas = document.querySelectorAll('.quiz-opcao.quiz-multi.selecionada');
+    const valores = Array.from(selecionadas).map(function(b) {
+      return b.getAttribute('data-v');
+    });
+    quizRespostas[3] = valores.join(', ');
+    quizAvancar(3);
+  }
+
+  // Esconder botão "Continuar" da P3 inicialmente
+  document.addEventListener('DOMContentLoaded', function() {
+    var btn = document.getElementById('quiz-avancar-p3');
+    if (btn) btn.style.display = 'none';
   });
 </script>
 
