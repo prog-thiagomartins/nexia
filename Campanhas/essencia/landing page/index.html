@@ -340,8 +340,7 @@
       box-shadow: 0 4px 14px rgba(0,0,0,.08), 0 14px 32px rgba(0,0,0,.08);
     }
     .prova-img-card img { width: 100%; height: auto; display: block; }
-    @media (max-width: 960px) { .prova-mosaic { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px) { .prova-mosaic { grid-template-columns: 1fr; } }
+    @media (max-width: 960px) { .prova-mosaic { grid-template-columns: 1fr; max-width: 480px; } }
     .prova-card {
       padding: 28px 30px; border-radius: 18px;
       border: 1px solid var(--areia-dark); background: var(--areia);
@@ -618,13 +617,12 @@
     <span class="hero-badge">Essência · por Mayara Farias</span>
     <h1>Você não precisa de mais <em>força de vontade.</em></h1>
     <p class="hero-sub">
-      Você precisa de alguém que entenda por que você trava — e construa com você uma mudança que caiba na sua vida.
+      Porque não é falta de força, é falta de apoio, clareza e um caminho que funcione na sua vida real.
     </p>
     <a href="#cta-final" class="btn-primary">Descobrir o que me trava</a>
     <div class="hero-creds">
-      <span class="hero-cred-item">CRN 64803</span>
-      <span class="hero-cred-item">Nutrição Comportamental</span>
-      <span class="hero-cred-item">Atendimento online e presencial</span>
+      <span class="hero-cred-item">Nutrição funcional e comportamental</span>
+      <span class="hero-cred-item">Atendimentos on-line e presencial</span>
     </div>
     <div class="hero-scroll">↓</div>
   </div>
@@ -640,10 +638,10 @@
     </p>
     <ul class="dor-list">
       <li>Já cortou o carboidrato, fez jejum, dieta cetogênica, começou na segunda-feira</li>
-      <li>Luta constante com a balança, e nunca vence</li>
-      <li>Começa na segunda e desiste na quarta</li>
+      <li>Sente que vive na luta contra a balança e sempre perde</li>
+      <li>Diz que toda segunda-feira vai começar mas desiste na quarta</li>
       <li>Cansada de cada tentativa que não durou</li>
-      <li>Já foi ao nutri antes, mas ainda está na mesma posição</li>
+      <li>Já foi a nutricionista antes mas sente que ainda está na mesma posição</li>
     </ul>
     <div class="dor-close">
       <p>
@@ -664,8 +662,8 @@
     </p>
     <div class="inimigo-divider"></div>
     <p class="inimigo-body">
-      Dieta calculada qualquer nutricionista passa. O que muda resultado é entender
-      por que você age como age, e o que de verdade te impede de mudar.
+      Dieta calculada qualquer nutricionista passa.
+      O que muda o resultado, é entender o que de verdade te impede de mudar.
     </p>
   </div>
 </section>
@@ -850,7 +848,7 @@
           <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
         </div>
         <div class="offer-text">
-          <h3>2 entregáveis personalizados</h3>
+          <h3>2 entregáveis exclusivos da nutri</h3>
           <p>Materiais criados especificamente para você entre as consultas, para que o que foi construído na sessão tenha suporte real na sua rotina do dia a dia.</p>
         </div>
       </div>
@@ -859,7 +857,7 @@
           <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
         <div class="offer-text">
-          <h3>2 check-ins de acompanhamento</h3>
+          <h3>2 check-ins pós cada consulta</h3>
           <p>Contato direto entre consultas para ajustes, dúvidas e manutenção do progresso. O acompanhamento não para quando você sai do consultório.</p>
         </div>
       </div>
@@ -878,7 +876,7 @@
         </div>
         <div class="offer-text">
           <h3>Linha cronológica personalizada</h3>
-          <p>Começo, meio e fim definidos. Você vai ter um objetivo claro à frente, o que reduz desistências e mantém você engajada mesmo nos dias mais difíceis.</p>
+          <p>Com começo, meio e fim definidos juntas na primeira consulta. Você vai ter um objetivo claro à frente, o que aumenta o engajamento e a sua dedicação mesmo nos dias mais difíceis.</p>
         </div>
       </div>
     </div>
@@ -950,8 +948,8 @@
       <div class="preco-nome">Programa Essência · 4 meses</div>
       <ul class="preco-lista">
         <li>4 consultas de 60–90 minutos</li>
-        <li>2 entregáveis personalizados</li>
-        <li>2 check-ins de acompanhamento</li>
+        <li>2 entregáveis exclusivos da nutri</li>
+        <li>2 check-ins pós cada consulta</li>
         <li>Mapeamento de perfil comportamental</li>
         <li>Linha cronológica individualizada</li>
         <li>Alta ao final dos 4 meses</li>
@@ -1135,7 +1133,7 @@
         <h3 class="quiz-resultado-titulo">Seu perfil está pronto.</h3>
         <p class="quiz-resultado-corpo">Com base nas suas respostas, você tem o perfil de quem já tentou bastante, e precisa de uma abordagem que finalmente respeite como você funciona. A Mayara vai analisar isso com você na sessão diagnóstica.</p>
         <p style="font-size:15px; font-weight:600; color:var(--verde-dark); margin-bottom:24px;">Sessão diagnóstica de 30 min · <strong>R$97</strong></p>
-        <a id="quiz-btn-wa" href="#" class="btn-primary" target="_blank">Continuar pelo WhatsApp</a>
+        <a id="quiz-btn-wa" href="#" class="btn-primary" target="_blank">Marcar pelo WhatsApp</a>
       </div>
 
     </div><!-- /quiz-card -->
