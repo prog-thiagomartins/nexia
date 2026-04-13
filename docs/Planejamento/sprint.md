@@ -215,6 +215,10 @@ Objetivo: Banco de conteúdo Instagram + landing page do Programa Essência func
 - [x] Dia 1, C1: "Você não é o problema" (manhã)
 - [x] Dia 1, C2: Apresentação do Essência (tarde)
 - [x] Visualizador HTML: `Campanhas/essencia/carrosseis/dia1_slides.html`
+- [x] Dia 2, C1: "Copiando o cardápio dela" — 8 slides, v22 final (13/abr)
+- [x] Slide 3 atualizado com foto Mayara no mercado (13/abr)
+- [x] PNGs 1080x1350 exportados em `Campanhas/essencia/carrosseis/dia2-export/`
+- [x] Ferramenta nova: `tools/exportar_slides_carrossel.py` (HTML → 8 PNGs IG-ready via Playwright)
 
 ---
 
@@ -229,7 +233,7 @@ Objetivo: Banco de conteúdo Instagram + landing page do Programa Essência func
 - [ ] Atualizar CTA do carrossel C2: "Me chama no DM" → "Link na bio" / "Faz o quiz na bio"
 
 ### Conteúdo Instagram
-- [ ] Carrosséis Dias 2–5 (8 carrosséis restantes)
+- [ ] Carrosséis Dias 2–5 (7 carrosséis restantes — Dia 2 C1 pronto)
 - [ ] 8 roteiros de reels (5 gestacional + 3 emagrecimento)
 - [ ] Rotina de stories definida e documentada
 - [ ] Legendas + hashtags para todos os posts
@@ -238,6 +242,6 @@ Objetivo: Banco de conteúdo Instagram + landing page do Programa Essência func
 
 ## Status
 
-🔄 Em andamento — landing **97% (V3 NO AR em essencia.mayarafarias.com.br)**, carrosséis ~20%, reels/stories 0%
+🔄 Em andamento — landing **97% (V3 NO AR em essencia.mayarafarias.com.br)**, carrosséis ~30% (3 de 10 prontos), reels/stories 0%
 
 V3 do dia 12/abr acrescentou: seção Caminho (3 passos), copy humanizada sem em-dashes, vários refinamentos de copywriting, caminho D reforçado em Crença 1 e passo 3 do Caminho.
