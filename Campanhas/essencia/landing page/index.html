@@ -580,6 +580,37 @@
     }
     .quiz-avancar:hover { background: var(--terra-dark); }
 
+    .quiz-grupo { margin-bottom: 18px; }
+    .quiz-grupo-label {
+      display: block; font-size: 14px; font-weight: 600;
+      color: var(--text); margin-bottom: 10px;
+    }
+    .quiz-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .quiz-pill {
+      padding: 10px 18px; background: var(--areia);
+      border: 2px solid transparent; border-radius: 100px;
+      font-family: inherit; font-size: 14px; color: var(--text);
+      cursor: pointer; transition: border-color .15s, background .15s;
+    }
+    .quiz-pill:hover { border-color: var(--verde-light); background: #f0f7f5; }
+    .quiz-pill.selecionada {
+      border-color: var(--verde); background: #e8f4f1;
+      color: var(--verde-dark); font-weight: 600;
+    }
+    .quiz-inputs-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .quiz-input {
+      width: 100%; padding: 12px 14px; background: var(--areia);
+      border: 2px solid transparent; border-radius: 12px;
+      font-family: inherit; font-size: 15px; color: var(--text);
+      transition: border-color .15s;
+    }
+    .quiz-input:focus { outline: none; border-color: var(--verde); background: white; }
+    .quiz-privacy {
+      font-size: 12px; color: var(--text-muted);
+      margin-top: 16px; margin-bottom: 4px;
+    }
+    .quiz-erro { color: #b94a4a; font-size: 13px; margin-top: 10px; min-height: 18px; }
+
     .quiz-resultado-icon {
       font-size: 32px; color: var(--terra); margin-bottom: 16px;
     }
@@ -1125,6 +1156,33 @@
           </div>
         </div>
 
+        <!-- P6 — dados pessoais -->
+        <div class="quiz-pergunta" data-p="6">
+          <p class="quiz-enunciado">Últimos detalhes pra Mayara já chegar com seu contexto.</p>
+
+          <div class="quiz-grupo">
+            <label class="quiz-grupo-label">Idade</label>
+            <div class="quiz-pills" data-campo="idade">
+              <button type="button" class="quiz-pill" data-v="18-29 anos">18-29</button>
+              <button type="button" class="quiz-pill" data-v="30-39 anos">30-39</button>
+              <button type="button" class="quiz-pill" data-v="40-49 anos">40-49</button>
+              <button type="button" class="quiz-pill" data-v="50+ anos">50+</button>
+            </div>
+          </div>
+
+          <div class="quiz-grupo">
+            <label class="quiz-grupo-label">Peso e altura</label>
+            <div class="quiz-inputs-row">
+              <input type="text" class="quiz-input" id="quiz-peso" placeholder="Peso (kg)" inputmode="decimal" autocomplete="off">
+              <input type="text" class="quiz-input" id="quiz-altura" placeholder="Altura (cm)" inputmode="numeric" autocomplete="off">
+            </div>
+          </div>
+
+          <p class="quiz-privacy">🔒 Esses dados vão direto pro WhatsApp da Mayara.</p>
+          <div class="quiz-erro" id="quiz-erro-p6"></div>
+          <button class="quiz-avancar" id="quiz-avancar-p6" onclick="avancarP6()">Ver meu perfil →</button>
+        </div>
+
       </div><!-- /quiz-perguntas -->
 
       <!-- RESULTADO -->
@@ -1171,7 +1229,7 @@
   // Respostas: {1: {v, text}, 2: {...}, ...}
   const quizRespostas = {};
   let quizPasso = 1;
-  const TOTAL_PASSOS = 5;
+  const TOTAL_PASSOS = 6;
   const WA_NUMERO = '5512991734388';
 
   // ── PERFIS (fonte: docs/Planejamento/producoes/landing-page/quiz-perfis.md) ──
@@ -1281,8 +1339,12 @@
     if (funciona) linha2 += '. ' + funciona.charAt(0).toUpperCase() + funciona.slice(1);
     if (linha2) linha2 += '.';
 
+    // Dados da P6
+    const dadosP6 = (r[6] && r[6].text) || '';
+
     const partes = [
       'Oi Mayara! Fiz o quiz e o resultado é que meu perfil é o de ' + perfil.wa + '.',
+      dadosP6,
       linha2,
       desejo ? 'Meu desejo hoje é ' + desejo + '.' : '',
       'Você poderia me falar mais sobre a sessão diagnóstica?'
@@ -1321,6 +1383,44 @@
     const ts = Array.from(selecionadas).map(function(b) { return b.textContent.trim(); });
     quizRespostas[3] = { v: vs.join(', '), text: ts.join(', '), items: ts };
     quizAvancar(3);
+  }
+
+  // Pills da P6 (idade) — radio behavior por grupo
+  document.querySelectorAll('.quiz-pills').forEach(function(grupo) {
+    grupo.querySelectorAll('.quiz-pill').forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        grupo.querySelectorAll('.quiz-pill').forEach(function(p) { p.classList.remove('selecionada'); });
+        this.classList.add('selecionada');
+      });
+    });
+  });
+
+  function avancarP6() {
+    const idadeEl = document.querySelector('.quiz-pills[data-campo="idade"] .quiz-pill.selecionada');
+    const peso = document.getElementById('quiz-peso').value.trim().replace(',', '.');
+    const altura = document.getElementById('quiz-altura').value.trim();
+    const erro = document.getElementById('quiz-erro-p6');
+
+    const faltam = [];
+    if (!idadeEl) faltam.push('idade');
+    if (!peso) faltam.push('peso');
+    if (!altura) faltam.push('altura');
+    if (faltam.length) { erro.textContent = 'Faltou: ' + faltam.join(', ') + '.'; return; }
+
+    const pesoNum = parseFloat(peso);
+    const alturaNum = parseInt(altura, 10);
+    if (isNaN(pesoNum) || pesoNum < 30 || pesoNum > 250) { erro.textContent = 'Peso inválido (use kg, ex: 72).'; return; }
+    if (isNaN(alturaNum) || alturaNum < 120 || alturaNum > 220) { erro.textContent = 'Altura inválida (use cm, ex: 165).'; return; }
+    erro.textContent = '';
+
+    const idade = idadeEl.getAttribute('data-v');
+    const alturaFmt = (alturaNum / 100).toFixed(2).replace('.', ',') + ' m';
+    const pesoFmt = (Number.isInteger(pesoNum) ? pesoNum : pesoNum.toString().replace('.', ',')) + ' kg';
+    quizRespostas[6] = {
+      v: idade + '|' + pesoFmt + '|' + alturaFmt,
+      text: 'Tenho ' + idade + ', ' + pesoFmt + ' e ' + alturaFmt + '.'
+    };
+    quizAvancar(6);
   }
 
   // Esconder botão "Continuar" da P3 inicialmente
