@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Programa Essência — Mayara Farias Nutricionista</title>
-  <meta name="description" content="Programa de acompanhamento nutricional de 4 meses. Para mulheres que já tentaram de tudo — e querem uma abordagem diferente.">
+  <title>Programa Essência · Mayara Farias Nutricionista</title>
+  <meta name="description" content="Programa de acompanhamento nutricional de 4 meses. Para mulheres que já tentaram de tudo e querem uma abordagem diferente.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
@@ -413,6 +413,52 @@
       padding: 0 0 24px; font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--text-mid);
     }
 
+    /* ════ CAMINHO (funil) ════ */
+    .sec-caminho { background: var(--areia); }
+    .caminho-header { text-align: center; margin-bottom: 48px; }
+    .caminho-grid {
+      display: grid; grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 16px; align-items: stretch; max-width: 1000px; margin: 0 auto;
+    }
+    .caminho-card {
+      background: var(--branco); border-radius: 16px; padding: 32px 24px;
+      text-align: center; box-shadow: 0 2px 14px rgba(0,0,0,.05);
+      display: flex; flex-direction: column; align-items: center;
+      position: relative;
+    }
+    .caminho-numero {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--verde-dark); color: var(--branco);
+      font-weight: 800; font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .caminho-nome {
+      font-family: 'Poppins', sans-serif;
+      font-size: 17px; font-weight: 800; color: var(--verde-dark);
+      line-height: 1.25; margin-bottom: 8px;
+    }
+    .caminho-meta {
+      font-size: 12px; font-weight: 700; letter-spacing: .04em;
+      text-transform: uppercase; color: var(--terra); margin-bottom: 14px;
+    }
+    .caminho-desc {
+      font-size: 14px; line-height: 1.6; color: var(--text-mid);
+      margin-bottom: 14px;
+    }
+    .caminho-preco {
+      font-size: 13px; font-weight: 600; color: var(--text-muted);
+      margin-top: auto;
+    }
+    .caminho-seta {
+      display: flex; align-items: center; justify-content: center;
+      color: var(--verde); font-size: 28px; font-weight: 300;
+    }
+    @media (max-width: 820px) {
+      .caminho-grid { grid-template-columns: 1fr; gap: 20px; }
+      .caminho-seta { transform: rotate(90deg); padding: 4px 0; }
+    }
+
     /* ════ CTA FINAL ════ */
     .sec-cta-final { background: var(--terra); padding: 96px 24px; text-align: center; }
     .cta-content { max-width: 640px; margin: 0 auto; }
@@ -569,10 +615,10 @@
 <section class="hero" id="inicio">
   <div class="hero-photo"></div>
   <div class="hero-text">
-    <span class="hero-badge">Programa Essência · Mayara Farias · Nutricionista</span>
+    <span class="hero-badge">Essência · por Mayara Farias</span>
     <h1>Você não precisa de mais <em>força de vontade.</em></h1>
     <p class="hero-sub">
-      Você precisa de alguém que entenda por que você trava — e construa com você uma mudança que realmente caiba na sua vida.
+      Você precisa de alguém que entenda por que você trava — e construa com você uma mudança que caiba na sua vida.
     </p>
     <a href="#cta-final" class="btn-primary">Descobrir o que me trava</a>
     <div class="hero-creds">
@@ -594,14 +640,14 @@
     </p>
     <ul class="dor-list">
       <li>Já cortou o carboidrato, fez jejum, dieta cetogênica, começou na segunda-feira</li>
-      <li>Se sente em uma luta constante com a balança — e nunca vence</li>
+      <li>Luta constante com a balança, e nunca vence</li>
       <li>Começa na segunda e desiste na quarta</li>
-      <li>Se sente frustrada e cansada de todas as vezes que tentou e não conseguiu seguir a dieta</li>
-      <li>Já foi ao nutri antes — mas ainda está na mesma posição</li>
+      <li>Cansada de cada tentativa que não durou</li>
+      <li>Já foi ao nutri antes, mas ainda está na mesma posição</li>
     </ul>
     <div class="dor-close">
       <p>
-        A prova de que você não desistiu está aqui — no fato de você ainda estar tentando.
+        A prova de que você não desistiu está aqui: no fato de você ainda estar tentando.
       </p>
     </div>
   </div>
@@ -619,7 +665,7 @@
     <div class="inimigo-divider"></div>
     <p class="inimigo-body">
       Dieta calculada qualquer nutricionista passa. O que muda resultado é entender
-      por que você age como age — e o que de verdade te impede de mudar.
+      por que você age como age, e o que de verdade te impede de mudar.
     </p>
   </div>
 </section>
@@ -635,7 +681,7 @@
         <p class="crenca-frase">"Já tentei tanta coisa.<br>Comigo não funciona."</p>
         <p class="crenca-body">
           É o pensamento mais comum de quem chega até mim.
-          E é o mais compreensível — porque você realmente tentou.
+          E é o mais compreensível. Porque você realmente tentou.
         </p>
       </div>
       <div class="crenca-card after">
@@ -643,7 +689,7 @@
         <p class="crenca-frase">Você não falhou nas dietas. As dietas falharam em você.</p>
         <p class="crenca-body">
           Nenhuma delas foi criada para o seu corpo, seus hábitos, sua rotina real.
-          O Essência começa do zero — mapeando quem você é, de verdade. Juntas.
+          O trabalho começa do zero: mapeando quem você é, de verdade. Juntas.
         </p>
       </div>
     </div>
@@ -673,7 +719,7 @@
         <p class="crenca-frase">"Não tenho disciplina.<br>Não consigo seguir."</p>
         <p class="crenca-body">
           Você chegou a acreditar que o problema é seu caráter.
-          Quando na verdade é só falta do suporte certo. Você não é fraca — nunca foi.
+          Quando na verdade é só falta do suporte certo. Você não é fraca. Nunca foi.
         </p>
       </div>
       <div class="crenca-card after">
@@ -681,18 +727,18 @@
         <p class="crenca-frase">Não é sua obrigação saber o que eu sei.</p>
         <p class="crenca-body">
           Meu trabalho é entender por que você faz o que faz e construir com você,
-          juntas, um caminho que caiba na sua vida — não na vida ideal que não existe.
+          juntas, um caminho que caiba na sua vida. Não na vida ideal que não existe.
         </p>
       </div>
     </div>
     <div class="depo-card">
       <blockquote>
-        "Eu amei o atendimento — sua energia e alegria. A gente consegue ficar à vontade. Eu não preciso fazer maluquice pra alcançar o que eu quero. 1000 se todos tivessem uma nutri amiga assim."
+        "Eu amei o atendimento. Sua energia e alegria. A gente consegue ficar à vontade. Eu não preciso fazer maluquice pra alcançar o que eu quero. 1000 se todos tivessem uma nutri amiga assim."
       </blockquote>
       <div class="depo-autor">
         <div class="depo-avatar">A</div>
         <div class="depo-info">
-          <strong>Paciente · Consulta</strong>
+          <strong>Paciente</strong>
           <span>Ubatuba, SP</span>
         </div>
       </div>
@@ -716,8 +762,8 @@
         </h2>
         <p class="mayara-story">
           Durante a residência, atendendo gestantes, percebi que a alimentação podia
-          mudar o desfecho de uma gravidez inteira. Não era sobre restrição —
-          era sobre o suporte certo, no momento certo.
+          mudar o desfecho de uma gravidez inteira. Não era sobre restrição.
+          Era sobre o suporte certo, no momento certo.
         </p>
         <p class="mayara-story">
           Depois, no consultório, juntei meu próprio processo de emagrecimento com
@@ -726,14 +772,56 @@
           nenhuma dieta enxerga.
         </p>
         <p class="mayara-story">
-          Por isso não entrego dieta. Entrego entendimento — do seu corpo,
+          Por isso não entrego dieta. Entrego entendimento: do seu corpo,
           dos seus hábitos, da sua história.
         </p>
         <div class="mayara-epiphany">
-          <q>Não é obrigação sua saber o que eu sei como nutricionista. É minha entender o que te impede — e conduzir isso com você.</q>
-          <cite>— Mayara Farias · Nutricionista · CRN 64803 · Ubatuba, SP</cite>
+          <q>Não é obrigação sua saber o que eu sei como nutricionista. É minha, de entender o que te impede e conduzir isso com você.</q>
+          <cite>Mayara Farias · Nutricionista · CRN 64803 · Ubatuba, SP</cite>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 6.5. CAMINHO (funil em 3 passos) ══════════════ -->
+<section class="sec-caminho">
+  <div class="container">
+    <div class="caminho-header">
+      <span class="section-tag">O caminho</span>
+      <h2 class="section-title">Como a gente chega lá</h2>
+    </div>
+    <div class="caminho-grid">
+
+      <div class="caminho-card">
+        <div class="caminho-numero">1</div>
+        <div class="caminho-nome">Quiz</div>
+        <div class="caminho-meta">2 minutos</div>
+        <p class="caminho-desc">Você responde 5 perguntas e descobre qual é o seu perfil comportamental.</p>
+        <div class="caminho-preco">Gratuito</div>
+      </div>
+
+      <div class="caminho-seta">→</div>
+
+      <div class="caminho-card">
+        <div class="caminho-numero">2</div>
+        <div class="caminho-nome">Sessão diagnóstica</div>
+        <div class="caminho-meta">30 minutos</div>
+        <p class="caminho-desc">Você sai com: mapeamento do seu perfil comportamental, diagnóstico do que trava você, e direções concretas pra aplicar já.</p>
+        <div class="caminho-preco">R$97</div>
+      </div>
+
+      <div class="caminho-seta">→</div>
+
+      <div class="caminho-card">
+        <div class="caminho-numero">3</div>
+        <div class="caminho-nome">O processo</div>
+        <div class="caminho-meta">Duração sob medida</div>
+        <p class="caminho-desc">A Mayara define com você o formato ideal. O mais comum é o Programa Essência: 4 meses estruturados.</p>
+        <div class="caminho-preco">Valor definido na sessão</div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -745,7 +833,7 @@
     <div class="offer-header">
       <span class="section-tag">O que você recebe</span>
       <h2 class="section-title">Programa Essência<br>4 meses de acompanhamento real</h2>
-      <p>Não é uma dieta. É uma construção — com começo, meio e fim bem definidos.</p>
+      <p>Não é uma dieta. É uma construção, com começo, meio e fim bem definidos.</p>
     </div>
     <div class="offer-stack">
       <div class="offer-item">
@@ -754,7 +842,7 @@
         </div>
         <div class="offer-text">
           <h3>4 consultas de 60 a 90 minutos</h3>
-          <p>Individuais, presenciais ou online. Tempo real de escuta e análise do seu caso — não uma consulta rápida de 20 minutos. Cada sessão tem um objetivo dentro da sua linha cronológica.</p>
+          <p>Individuais, presenciais ou online. Tempo real de escuta e análise do seu caso. Não uma consulta rápida de 20 minutos. Cada sessão tem um objetivo dentro da sua linha cronológica.</p>
         </div>
       </div>
       <div class="offer-item">
@@ -763,7 +851,7 @@
         </div>
         <div class="offer-text">
           <h3>2 entregáveis personalizados</h3>
-          <p>Materiais criados especificamente para você entre as consultas — para que o que foi construído na sessão tenha suporte real na sua rotina do dia a dia.</p>
+          <p>Materiais criados especificamente para você entre as consultas, para que o que foi construído na sessão tenha suporte real na sua rotina do dia a dia.</p>
         </div>
       </div>
       <div class="offer-item">
@@ -781,7 +869,7 @@
         </div>
         <div class="offer-text">
           <h3>Mapeamento do seu perfil comportamental</h3>
-          <p>Na primeira consulta, identificamos juntas qual é a sua maior dificuldade e qual é o objetivo real. O programa inteiro é construído a partir disso — não de um template genérico.</p>
+          <p>Na primeira consulta, identificamos juntas qual é a sua maior dificuldade e qual é o objetivo real. O programa inteiro é construído a partir disso. Não de um template genérico.</p>
         </div>
       </div>
       <div class="offer-item">
@@ -790,13 +878,13 @@
         </div>
         <div class="offer-text">
           <h3>Linha cronológica personalizada</h3>
-          <p>Começo, meio e fim definidos. Seu cérebro vai ter um objetivo claro à frente — o que reduz desistências e mantém você engajada mesmo nos dias mais difíceis.</p>
+          <p>Começo, meio e fim definidos. Você vai ter um objetivo claro à frente, o que reduz desistências e mantém você engajada mesmo nos dias mais difíceis.</p>
         </div>
       </div>
     </div>
     <div class="offer-alta">
-      <p>No final dos 4 meses, você tem <em>alta.</em></p>
-      <span>Não dependência. Autonomia — uma relação diferente com a comida e com você mesma.</span>
+      <p>No final dos 4 meses, você <em>caminha sozinha.</em></p>
+      <span>Não dependência. Autonomia. Uma relação diferente com a comida, e com você mesma.</span>
     </div>
   </div>
 </section>
@@ -808,6 +896,7 @@
     <div class="prova-header">
       <span class="section-tag">Resultados reais</span>
       <h2 class="section-title">O que dizem as pacientes</h2>
+      <p style="font-size: 14px; color: var(--text-muted); margin-top: 10px;">Mensagens reais, sem edição.</p>
     </div>
     <div class="prova-mosaic">
 
@@ -869,7 +958,7 @@
       </ul>
       <div class="preco-cashback">
         <strong>Começa com uma sessão diagnóstica de 30 min por R$97</strong><br>
-        o valor entra como crédito no Essência se você decidir continuar. Mapeamento do seu perfil antes de qualquer coisa.
+        O valor entra como crédito no Essência se você decidir continuar.
       </div>
       <a href="#cta-final" class="btn-primary">Quero entender meu perfil</a>
     </div>
@@ -891,7 +980,7 @@
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-body">
-          <p class="faq-body-inner">Os dois. Se você é de Ubatuba ou região, pode escolher presencial no consultório. Para todo o Brasil, atendo online com a mesma qualidade — a plataforma é simples e o acompanhamento é idêntico.</p>
+          <p class="faq-body-inner">Os dois. Se você é de Ubatuba ou região, pode escolher presencial no consultório. Para todo o Brasil, atendo online com a mesma qualidade. O link da sessão chega por WhatsApp e abre direto no navegador, sem instalação.</p>
         </div>
       </div>
       <div class="faq-item">
@@ -900,7 +989,7 @@
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-body">
-          <p class="faq-body-inner">Não. O Essência é para qualquer mulher que quer mudar sua relação com a alimentação — seja emagrecimento, saúde intestinal, energia no dia a dia, ou qualquer outro objetivo. O foco é mapeado junto com você na primeira consulta.</p>
+          <p class="faq-body-inner">Não. O Essência é para qualquer mulher que quer mudar sua relação com a alimentação, seja emagrecimento, saúde intestinal, energia no dia a dia, ou qualquer outro objetivo. O foco é mapeado junto com você na primeira consulta.</p>
         </div>
       </div>
       <div class="faq-item">
@@ -909,7 +998,7 @@
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-body">
-          <p class="faq-body-inner">Viagem, gripe, trabalho — a vida acontece. Consultas podem ser reagendadas com aviso prévio. O Essência tem 4 meses e um fim definido — e é construído pra você atravessar imprevistos sem perder o fio do processo.</p>
+          <p class="faq-body-inner">Viagem, gripe, trabalho: a vida acontece. Consultas podem ser reagendadas com aviso prévio. O Essência tem 4 meses e um fim definido, construído pra você atravessar imprevistos sem perder o fio do processo.</p>
         </div>
       </div>
       <div class="faq-item">
@@ -918,7 +1007,7 @@
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-body">
-          <p class="faq-body-inner">Depende do seu caso — por isso começamos com uma sessão diagnóstica. O que posso garantir: em 4 meses você vai ter hábitos mais sólidos, uma relação diferente com a comida e, na grande maioria dos casos, resultados físicos reais e sustentáveis.</p>
+          <p class="faq-body-inner">Depende do seu caso. Por isso começamos com a sessão diagnóstica. A partir dela, construímos juntas um plano com prazo claro de resultado. No formato mais comum (Programa Essência, 4 meses), você sai com hábitos mais sólidos, uma relação diferente com a comida e, na grande maioria dos casos, resultados físicos reais e sustentáveis.</p>
         </div>
       </div>
       <div class="faq-item">
@@ -927,7 +1016,7 @@
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-body">
-          <p class="faq-body-inner">A sessão diagnóstica já é um ponto de partida. Se você precisa de orientação específica em um momento da vida — uma dúvida pontual, um ajuste em gestação, um momento de transição — conversamos sobre o formato que faz mais sentido pra você.</p>
+          <p class="faq-body-inner">A sessão diagnóstica já é um ponto de partida. Se você precisa de orientação específica em um momento da vida (uma dúvida pontual, um ajuste em gestação, um momento de transição), conversamos sobre o formato que faz mais sentido pra você.</p>
         </div>
       </div>
       <div class="faq-item">
@@ -936,7 +1025,7 @@
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-body">
-          <p class="faq-body-inner">Sim. Nutrição gestacional é uma das minhas especialidades — acompanho gestantes com foco em saúde da mãe e do bebê, incluindo casos de Diabetes Gestacional. Entre em contato para saber mais sobre o acompanhamento gestacional.</p>
+          <p class="faq-body-inner">Sim. Nutrição gestacional é uma das minhas especialidades. Acompanho gestantes com foco em saúde da mãe e do bebê, incluindo casos de Diabetes Gestacional. Entre em contato para saber mais sobre o acompanhamento gestacional.</p>
         </div>
       </div>
     </div>
@@ -966,7 +1055,7 @@
     <div class="quiz-header">
       <span class="section-tag">Seu perfil</span>
       <h2 class="section-title">Algumas perguntas rápidas</h2>
-      <p class="quiz-sub">Clique na opção que mais combina com você. Leva menos de 2 minutos.</p>
+      <p class="quiz-sub">Responda com honestidade. Não existe resposta certa. Leva menos de 2 minutos.</p>
     </div>
 
     <div class="quiz-card" id="quiz-card">
@@ -986,7 +1075,7 @@
           <div class="quiz-opcoes">
             <button class="quiz-opcao" data-p="1" data-v="Ja tentei varias dietas e sempre volto para onde estava">Já tentei várias dietas e sempre volto para onde estava</button>
             <button class="quiz-opcao" data-p="1" data-v="Sei o que devo comer mas nao consigo colocar em pratica">Sei o que devo comer, mas não consigo colocar em prática</button>
-            <button class="quiz-opcao" data-p="1" data-v="Tenho uma relacao dificil com a comida - ansiedade culpa compulsao">Tenho uma relação difícil com a comida — ansiedade, culpa ou compulsão</button>
+            <button class="quiz-opcao" data-p="1" data-v="Tenho uma relacao dificil com a comida - ansiedade culpa compulsao">Tenho uma relação difícil com a comida: ansiedade, culpa ou compulsão</button>
             <button class="quiz-opcao" data-p="1" data-v="Quero emagrecer sem abrir mao de ter uma vida normal">Quero emagrecer sem abrir mão de ter uma vida normal</button>
           </div>
         </div>
@@ -1044,7 +1133,7 @@
       <div id="quiz-resultado" style="display:none; text-align:center; padding: 16px 0;">
         <div class="quiz-resultado-icon">✦</div>
         <h3 class="quiz-resultado-titulo">Seu perfil está pronto.</h3>
-        <p class="quiz-resultado-corpo">Com base nas suas respostas, você tem o perfil de quem já tentou bastante — e precisa de uma abordagem que finalmente respeite como você funciona. A Mayara vai analisar isso com você na sessão diagnóstica.</p>
+        <p class="quiz-resultado-corpo">Com base nas suas respostas, você tem o perfil de quem já tentou bastante, e precisa de uma abordagem que finalmente respeite como você funciona. A Mayara vai analisar isso com você na sessão diagnóstica.</p>
         <p style="font-size:15px; font-weight:600; color:var(--verde-dark); margin-bottom:24px;">Sessão diagnóstica de 30 min · <strong>R$97</strong></p>
         <a id="quiz-btn-wa" href="#" class="btn-primary" target="_blank">Continuar pelo WhatsApp</a>
       </div>
@@ -1091,26 +1180,26 @@
   const PERFIS = {
     A: {
       titulo: 'a que já tentou de tudo',
-      corpo: 'Você não é o problema — cada dieta te pediu pra ser outra pessoa. Por isso funcionam por um tempo e depois param. O que falta não é mais uma tentativa nova. É um método que funcione com a sua vida, não contra ela.',
+      corpo: 'Você não é o problema. Cada dieta te pediu pra ser outra pessoa. Por isso funcionam por um tempo e depois param. O que falta não é mais uma tentativa nova. É um método que funcione com a sua vida, não contra ela.',
       ponte: 'Na sessão diagnóstica, a Mayara vai entender por que os outros métodos pararam de funcionar pra você, mapear seu perfil comportamental e desenhar com você um caminho que cabe na sua vida real.',
       wa: 'quem já tentou de tudo'
     },
     B: {
       titulo: 'a que sabe, mas não consegue sozinha',
-      corpo: 'Você não precisa de mais informação. Conhecimento não te falta — o que falta é alguém que te ajude a atravessar o espaço entre o que você sabe e o que você faz. Essa é a parte que Google e conteúdo grátis não resolvem.',
-      ponte: 'Na sessão diagnóstica, a Mayara vai mapear o que está entre você e a mudança — e construir com você a estrutura de apoio que transforma o que você já sabe em prática.',
+      corpo: 'Você não precisa de mais informação. Conhecimento não te falta. O que falta é alguém que te ajude a atravessar o espaço entre o que você sabe e o que você faz. Essa é a parte que Google e conteúdo grátis não resolvem.',
+      ponte: 'Na sessão diagnóstica, a Mayara vai mapear o que está entre você e a mudança, e construir com você a estrutura de apoio que transforma o que você já sabe em prática.',
       wa: 'quem sabe mas não consegue sozinha'
     },
     C: {
       titulo: 'a que briga com a comida',
-      corpo: 'Culpa depois de comer, ansiedade antes, compulsão no meio. Você já entendeu: não é sobre força de vontade. É sobre uma relação que precisa ser reconstruída — e dieta não faz isso. Acompanhamento comportamental faz.',
-      ponte: 'Na sessão diagnóstica, a Mayara vai te escutar antes de falar de comida — entender como você chegou até aqui e começar com você a reconstrução da sua relação com a alimentação de dentro pra fora.',
+      corpo: 'Culpa depois de comer, ansiedade antes, compulsão no meio. Você já entendeu: não é sobre força de vontade. É sobre uma relação que precisa ser reconstruída. Dieta não faz isso. Acompanhamento comportamental faz.',
+      ponte: 'Na sessão diagnóstica, a Mayara vai te escutar antes de falar de comida. Entender como você chegou até aqui e começar com você a reconstrução da sua relação com a alimentação, de dentro pra fora.',
       wa: 'quem briga com a comida'
     },
     D: {
       titulo: 'a que quer resultado sem abrir mão de viver',
-      corpo: 'Emagrecer não precisa significar recusar jantar com amigos, vetar a sobremesa ou pesar comida no restaurante. Resultado que dura é o que cabe na sua vida real — não na versão dela sem festa, sem pizza, sem final de semana.',
-      ponte: 'Na sessão diagnóstica, a Mayara vai entender sua rotina de verdade e construir com você um caminho que encaixa nela — sem te pedir pra abrir mão do que faz sua vida valer a pena.',
+      corpo: 'Emagrecer não precisa significar recusar jantar com amigos, vetar a sobremesa ou pesar comida no restaurante. Resultado que dura é o que cabe na sua vida real. Não na versão dela sem festa, sem pizza, sem final de semana.',
+      ponte: 'Na sessão diagnóstica, a Mayara vai entender sua rotina de verdade e construir com você um caminho que encaixa nela, sem te pedir pra abrir mão do que faz sua vida valer a pena.',
       wa: 'quem quer resultado sem abrir mão de viver'
     }
   };

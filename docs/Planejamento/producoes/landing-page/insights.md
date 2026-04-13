@@ -4,9 +4,10 @@
 
 ### Tom e linguagem
 
-- **Tom direto e observacional** — sem adjetivos vendedores. Rejeitados: "histórias que inspiram mudança", "transforme sua vida".
-- **Nunca sugerir saída** — remover toda linguagem tipo "independente de fechar", "sem compromisso", "mesmo que não continue". Foco é sempre o Essência como o caminho.
-- **Consulta avulsa existe mas não é mencionada** na landing — é fallback implícito, nunca explícito.
+- **Tom direto e observacional.** Sem adjetivos vendedores. Rejeitados: "histórias que inspiram mudança", "transforme sua vida".
+- **Nunca sugerir saída.** Remover toda linguagem tipo "independente de fechar", "sem compromisso", "mesmo que não continue". Foco é sempre o Essência como o caminho.
+- **Consulta avulsa existe mas não é mencionada** na landing. É fallback implícito, nunca explícito.
+- **Evitar em-dashes (travessões —)** em texto corrido. É sinal forte de copy gerada por IA. Usar ponto, vírgula, dois pontos ou parênteses caso a caso. Exceções permitidas em pontos de punchline dramática, e só se o em-dash realmente servir o ritmo melhor que os substitutos.
 
 ### Quiz e personalização
 
