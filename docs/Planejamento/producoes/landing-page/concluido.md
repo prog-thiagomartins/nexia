@@ -1,5 +1,38 @@
 # Concluído — Landing Page
 
+## Hoje (12/abr) — v0: P6 do quiz + ajustes finos
+
+### Quiz: P6 com dados pessoais
+- [x] Adicionada **P6 — Últimos detalhes pra Mayara já chegar com seu contexto** entre P5 e o resultado
+- [x] **Idade em pills** (faixas: 18-29 / 30-39 / 40-49 / 50+) — reduz fricção emocional vs input numérico
+- [x] **Peso e altura** em inputs lado a lado, validação inline (peso 30-250 kg, altura 120-220 cm), aceita vírgula
+- [x] **Microcopy de privacidade** ("🔒 Esses dados vão direto pro WhatsApp da Mayara") antes do botão
+- [x] Botão renomeado pra **"Ver meu perfil →"** (sinaliza que é o último passo)
+- [x] **Sexo NÃO incluído** — público é ~100% feminino, perguntar criava fricção sem ganho
+- [x] Mensagem do WhatsApp prefixada com os dados ("Tenho 30-39 anos, 72 kg e 1,65 m.")
+- [x] Decisão fundamentada na skill `marketing-skills/form-cro` — campos sensíveis sempre por último, depois da pessoa já ter investido nas perguntas comportamentais
+
+### Ajustes de copy
+- [x] Lista de dor: "Começa na segunda e desiste na quarta" → "Diz que toda segunda-feira vai começar mas desiste na quarta" (mais natural)
+- [x] Lista de dor: "Já foi ao nutri antes" → "Já foi a nutricionista antes" (palavra completa)
+- [x] Inimigo: copy quebrada em duas frases mais limpas ("Dieta calculada qualquer nutricionista passa. / O que muda o resultado, é entender o que de verdade te impede de mudar.")
+- [x] Oferta: "Linha cronológica personalizada" — descrição enfatiza "definidos juntas na primeira consulta" e "aumenta engajamento e dedicação"
+- [x] Oferta: "2 check-ins de acompanhamento" → **"2 check-ins pós cada consulta"** (atualizado em h3 e na lista do preço)
+- [x] Oferta: "2 entregáveis personalizados" → **"2 entregáveis exclusivos da nutri"** (atualizado em h3 e na lista do preço)
+- [x] Botão do resultado do quiz: "Continuar pelo WhatsApp" → **"Marcar pelo WhatsApp"** (CTA mais direto)
+
+### Fix de layout
+- [x] Mosaico de prova social: pula o estágio de 2 colunas (que ficava desbalanceado entre 600-960px) — vai direto de 3 colunas pra 1 coluna centralizada (max 480px)
+
+### Higiene
+- [x] Removida `imagens/sobre/mayara-macas.jpg` (não era referenciada no HTML)
+
+### Deploy
+- [x] **Tag `landing-v0` movida pro commit atual (`a7536f9`)** — versão única registrada
+- [x] Push para origin/mayara
+
+---
+
 ## Hoje (12/abr) — Quiz personalizado + fluxo + marketing
 
 - [x] Quiz personalizado por perfil (4 perfis via P1) — copy dinâmica + mensagem WhatsApp personalizada com todas as respostas + CTA suave "me fala mais sobre a sessão"

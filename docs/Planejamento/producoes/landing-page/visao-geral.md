@@ -1,10 +1,11 @@
 # Visão Geral — Landing Page
 
 **Campanha:** Essência
-**Progresso:** 97%
-**Status:** No ar em V3 · https://essencia.mayarafarias.com.br
+**Progresso:** 100%
+**Status:** No ar em **v0** · https://essencia.mayarafarias.com.br
 **Deploy:** Netlify (12/abr/2026)
-**Último refinamento:** V3 (12/abr) — copywriting humanizado, em-dashes removidos, seção Caminho nova, ajustes caminho D
+**Tag git:** `landing-v0` (commit `a7536f9`)
+**Último refinamento:** v0 (12/abr) — quiz ganhou P6 (idade/peso/altura), mosaico balanceado em viewport intermediário, ajustes finos de copy (dores, oferta, CTA)
 
 ## Objetivo
 
@@ -27,4 +28,4 @@ Instagram → Landing Page → Quiz → WhatsApp → Sessão Diagnóstica → Pr
 9. **Prova social**: mosaico de 8 depoimentos (3 Google + 5 WhatsApp)
 10. **Preço**: R$97 vira crédito no Essência se fechar
 11. **FAQ**: 6 perguntas (inclui "só consulta pontual?" como válvula caminho D)
-12. **CTA Final → Quiz**: ponte + 5 perguntas + resultado personalizado + WhatsApp
+12. **CTA Final → Quiz**: ponte + 6 perguntas (5 comportamentais + 1 de dados pessoais) + resultado personalizado + WhatsApp

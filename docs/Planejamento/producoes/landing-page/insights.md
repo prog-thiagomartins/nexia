@@ -14,8 +14,17 @@
 - **4 perfis baseados na P1** (dor principal). Outras respostas entram na mensagem WhatsApp pra contexto da sessão.
 - **Estrutura de cada copy:** 3 blocos — reconhecimento ("Seu perfil é: X"), diagnóstico (o que trava), ponte pra sessão (entregáveis concretos centrados no Essência).
 - **Fonte única das copies:** [`quiz-perfis.md`](./quiz-perfis.md) — Mayara edita, Claude sincroniza com a landing.
-- **Mensagem WhatsApp:** personalizada com todas as 5 respostas + CTA suave ("me fala mais sobre a sessão diagnóstica", não "quero agendar").
+- **Mensagem WhatsApp:** personalizada com todas as 6 respostas + CTA suave ("me fala mais sobre a sessão diagnóstica", não "quero agendar").
 - **Ponte `#cta-final` obrigatória** — todos os botões passam por ela antes do quiz, pra criar aquecimento emocional uniforme.
+
+### Quiz P6 (dados pessoais) — princípios CRO aplicados
+
+- **Posição no fim, nunca no início.** Peso é o dado mais sensível emocionalmente pro público da Essência (mulher cansada de dieta). Pedir antes da pessoa engajar derruba conversão; pedir no fim — depois das 5 perguntas comportamentais — vira consequência natural.
+- **Idade em faixa, não input numérico.** Reduz fricção emocional sem perder o que importa pra triagem.
+- **Sexo NÃO perguntado.** Público é ~100% feminino; perguntar adicionaria fricção sem ganho operacional.
+- **Sem nome nem e-mail.** Já vêm pelo contato do WhatsApp; pedir duplica fricção.
+- **Microcopy de privacidade ("🔒 vão direto pro WhatsApp da Mayara")** resolve a objeção mental antes dela virar abandono.
+- **Validação inline com erro suave** ("Faltou: idade, peso") em vez de bloquear o botão — não frustra antes de tentar.
 
 ### Prova social
 

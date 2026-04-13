@@ -58,6 +58,14 @@ Cada perfil é definido pela resposta da **Pergunta 1** do quiz (a dor principal
 
 ---
 
+## P6 — dados pessoais
+
+Após as 5 perguntas comportamentais, a P6 captura **idade (faixa), peso (kg) e altura (cm)**. Esses dados são prefixados na mensagem do WhatsApp como "Tenho [idade], [peso] e [altura]." pra Mayara já chegar na sessão com o contexto fisiológico básico.
+
+**Não perguntamos:** sexo (público ~100% feminino), nome ou e-mail (vêm do WhatsApp).
+
+---
+
 ## Como editar
 
 - **Mudar texto:** edite o título, corpo ou ponte do perfil correspondente. Salve o arquivo.
