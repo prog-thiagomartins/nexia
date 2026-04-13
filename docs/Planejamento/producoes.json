@@ -26,5 +26,12 @@
     "descricao": "Rotina semanal de stories para campanha",
     "progresso": 0,
     "status": "não iniciado"
+  },
+  {
+    "id": "site-principal",
+    "nome": "Site Principal",
+    "descricao": "Hub mayarafarias.com.br — no ar em v0",
+    "progresso": 90,
+    "status": "em andamento"
   }
 ]
