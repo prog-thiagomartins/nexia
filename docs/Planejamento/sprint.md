@@ -211,14 +211,15 @@ Objetivo: Banco de conteúdo Instagram + landing page do Programa Essência func
 - [x] Zero hardcode: nome, cores e porta em `config.json`
 - [x] Estrutura de dados migrada pra `docs/Planejamento/producoes/`
 
-### Carrosséis Instagram
-- [x] Dia 1, C1: "Você não é o problema" (manhã)
-- [x] Dia 1, C2: Apresentação do Essência (tarde)
+### Carrosséis Instagram — Campanha Essência
+- [x] **Dia 1 (13/abr)** — primeiro post publicado — PNGs em `Campanhas/essencia/carrosseis/dia1-export/`
+- [x] **Dia 2 (14/abr)** — "Copiando o cardápio dela", 8 slides, v22 final — PNGs em `Campanhas/essencia/carrosseis/dia2-export/` (Mayara não aparece na foto deste post)
+- [x] Ferramenta nova: `tools/exportar_slides_carrossel.py` (HTML → 8 PNGs 1080x1350 via Playwright)
+
+### Conteúdo de estudo/protótipo (pré-campanha)
+- [x] Carrossel teste "Você não é o problema"
+- [x] Carrossel teste "Apresentação do Essência"
 - [x] Visualizador HTML: `Campanhas/essencia/carrosseis/dia1_slides.html`
-- [x] Dia 2, C1: "Copiando o cardápio dela" — 8 slides, v22 final (13/abr)
-- [x] Slide 3 atualizado com foto Mayara no mercado (13/abr)
-- [x] PNGs 1080x1350 exportados em `Campanhas/essencia/carrosseis/dia2-export/`
-- [x] Ferramenta nova: `tools/exportar_slides_carrossel.py` (HTML → 8 PNGs IG-ready via Playwright)
 
 ---
 
@@ -233,7 +234,7 @@ Objetivo: Banco de conteúdo Instagram + landing page do Programa Essência func
 - [ ] Atualizar CTA do carrossel C2: "Me chama no DM" → "Link na bio" / "Faz o quiz na bio"
 
 ### Conteúdo Instagram
-- [ ] Carrosséis Dias 2–5 (7 carrosséis restantes — Dia 2 C1 pronto)
+- [ ] Carrosséis Dias 3+ restantes da campanha (Dias 1 e 2 prontos, 13+14/abr)
 - [ ] 8 roteiros de reels (5 gestacional + 3 emagrecimento)
 - [ ] Rotina de stories definida e documentada
 - [ ] Legendas + hashtags para todos os posts
