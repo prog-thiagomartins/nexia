@@ -238,4 +238,6 @@ Objetivo: Banco de conteúdo Instagram + landing page do Programa Essência func
 
 ## Status
 
-🔄 Em andamento — landing **95% (NO AR em essencia.mayarafarias.com.br desde 12/abr)**, carrosséis ~20%, reels/stories 0%
+🔄 Em andamento — landing **97% (V3 NO AR em essencia.mayarafarias.com.br)**, carrosséis ~20%, reels/stories 0%
+
+V3 do dia 12/abr acrescentou: seção Caminho (3 passos), copy humanizada sem em-dashes, vários refinamentos de copywriting, caminho D reforçado em Crença 1 e passo 3 do Caminho.
